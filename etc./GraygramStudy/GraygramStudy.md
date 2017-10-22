@@ -43,51 +43,101 @@
 					
 		- 🗂 `Service`
 			- ✔️ App에서 제공되는 서비스
-			- 📋 `APIServiceType.swift` 
+			- 📋 `APIServiceType.swift` : Alamofire를 이용해 서버에 요청할 url를 정의하는 함수를 요청한다.
 				- `APIServiceType` struct 정의, extention 생성.
 					- `static func url(_ path: String) -> String` : 사용되는 api의 기본 url에 path 입력시, 기본 url뒤에 붙어서 사용할 수 있는 형태로 return. 💡 `Networking` 폴더는 error, response를 신경쓰는 폴더이므로 역할이 다름.
 			- 📋 `AuthService.swift` 
 				- import : Alamofire
-				- `AuthService` struct 정의.
+				- `AuthService` struct 정의. * *APIService struct를 상속.*
 					- `static func login(username: String, password: String, completion: @escaping (DataResponse<Void>) -> Void)`
 					- `static func logout()`
-			- 📋 `UserService.swift` 
+			- 📋 `UserService.swift` : user 정보 가져온다. 
 				- import : Alamofire, ObjectMapper(JSON mapping에 사용)
-				- user info 가져오기.				
+				- `UserService` struct 정의. * *APIService struct를 상속.*
+					- `static func me(_ completion: @escaping (DataResponse<User>) -> Void)`
 			- 📋 `FeedService.swift` 
-				- import : Alamofire
-				- blahblah
+				- import : Alamofire, ObjectMapper
+				- `FeedService` struct * *APIService struct를 상속.*
+					- `static func feed(paging: Paging, completion: @escaping (DataResponse<Feed>) -> Void)`
 			- 📋 `PostService.swift` 
+				- import : Alamofire, ObjectMapper
+				- `PostService` struct 	* *APIService struct를 상속.*
+					- `static func create(image: UIImage, message: String?, progress: @escaping (Progress) -> Void, completion: @escaping (DataResponse<Post>) -> Void)` : PostEditorViewController에서 글 작성하는 networking에서 사용.	
+					- `static func post(id: Int, completion: @escaping (DataResponse<Post>) -> Void)` : POST view controller에서 networking에서 사용.
+					- `static func like(postID: Int, completion: ((DataResponse<Void>) -> Void)? = nil)`
+					- `static func unlike(postID: Int, completion: ((DataResponse<Void>) -> Void)? = nil)`
+
+		- 🗂 `types`
+			- ✔️ enum으로 선택할 수 있는 것들을 정리.
+			- 📋 `PhotoSize.swift` 
+				- enum `PhotoSize` : hd, large, medium, thumbnail, small, tiny
+				- var `point` : 개발에 사용되는 포인트 크기. ???????🐞
+				- var `pixel` : 렌더링에 사용되는 픽셀 크기.
+			- 📋 `Paging.swift` 
+				- enum `Paging` : refresh, next(string)
+			- 📋 `FeedViewMode.swift` 
+				- enum `FeedViewMode` : card, tile
+
+ 		- 🗂 `Models`
+			- ✔️ ObjectMapper를 사용하여 받아오는 모델을 정의해 줌.
+			- 폴더안에 모든 파일이 ObjectMapper 오픈소스를 사용한다. ObjectMapper를 이용하여 모델을 정의할 때에는 Mappable을 상속받는다.
+			- 📋 `User.swift` 
+				- import : ObjectMapper
+				- struct `User`
+					- `Mappable` 상속받았다.
+					- 💡 struct이므로 변수를 바꿀 method를 사용하기 위해서는 mutating을 func앞에 붙여줘야한다. (class와 struct의 가장 큰 차이)
+			- 📋 `Post.swift` 
+				- import : ObjectMapper
+				- struct `Post`
+			- 📋 `Feed.swift` 
+				- import : ObjectMapper
+				- struct `Feed`		
+
+		- 🗂 `ViewControllers`
+			- ✔️ !
+			- 📋 `SplashViewController.swift` 
+				- import : UIKit
+				- `final class SplashViewController: UIViewController` : 프로필 정보 받아오기.
+				- 💡 다른 곳에서 상속받지 못하게 할 때 class앞에 final!!!! - 접근제한자
+			- 📋 `MainTabBarController.swift` 
+				- import : UIKit
+				- `final class MainTabBarController: UITabBarController`	
+					- `FeedViewController`, `SettingViewController` 두 가지를 가져와서 상수로 set.
+					- 💡 `filePrivate`, `private` - 접근제한자
+			- 📋 `LoginViewController.swift` 
 				- import : Alamofire
 				- blahblah				
-								
+			- 📋 `FeedViewController.swift` 
+				- import : Alamofire
+				- blahblah				
+			- 📋 `PostViewController.swift` 
+				- import : Alamofire
+				- blahblah
+			- 📋 `ImageCropViewController.swift` 
+				- import : Alamofire
+				- blahblah				
+			- 📋 `PostEditorViewController.swift` 
+				- import : Alamofire
+				- blahblah				
+			- 📋 `SettingViewController.swift` 
+				- import : Alamofire
+				- blahblah								
+				
 
-		- 🗂 `folder`
+		- 🗂 `Views`
 			- ✔️ !
 			- 📋 `.swift` 
 				- import : Alamofire
 				- blahblah
 
- 		- 🗂 `folder`
+		- 🗂 `Utils`
 			- ✔️ !
-			- 📋 `.swift` 
-				- import : Alamofire
-				- blahblah
-
-		- 🗂 `folder`
-			- ✔️ !
-			- 📋 `.swift` 
-				- import : Alamofire
-				- blahblah
-
-		- 🗂 `folder`
-			- ✔️ !
-			- 📋 `.swift` 
-				- import : Alamofire
-				- blahblah
-
-		- 🗂 `folder`
-			- ✔️ !
-			- 📋 `.swift` 
-				- import : Alamofire
-				- blahblah
+			- 📋 `String+BoundingRect.swift` : string의 extension
+			- 📋 `UIImageView+Photo.swift` : UIimageView의 extension
+			- 📋 `UIImage+Grayscaled.swift` : UIImage의 extension
+				
+				
+				
+				
+				
+				
