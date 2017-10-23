@@ -104,25 +104,27 @@
 				- `final class MainTabBarController: UITabBarController`	
 					- `FeedViewController`, `SettingViewController` 두 가지를 가져와서 상수로 set.
 					- 💡 `filePrivate`, `private` - 접근제한자
+					- extention으로 `TapBarController`를 set.
 			- 📋 `LoginViewController.swift` 
-				- import : Alamofire
-				- blahblah				
+				- import : UIKit
+				- `final class LoginViewController:UIViewController`
+					- UI들을 fileprivate, 코드로 생성했다.
+					- `#selector`로 설정할 `func`들 정의.
 			- 📋 `FeedViewController.swift` 
-				- import : Alamofire
-				- blahblah				
+				- import : UIKit
+				- `final class FeedViewController:UIViewController`	
+					- class안에 `file private struct Metric` 정의.
+					- view 모드를 button 클릭시 view mode를 미리 switch closure로 정의된 변수로.
+					- `collectionView`는 class안에서 정의해주고 delegate로 상속받아서 설정 해주는 것들은 다 extension으로 설정.
 			- 📋 `PostViewController.swift` 
-				- import : Alamofire
-				- blahblah
+				- import : UIKit
 			- 📋 `ImageCropViewController.swift` 
-				- import : Alamofire
-				- blahblah				
+				- import : UIKit
 			- 📋 `PostEditorViewController.swift` 
-				- import : Alamofire
-				- blahblah				
+				- import : UIKit
 			- 📋 `SettingViewController.swift` 
-				- import : Alamofire
-				- blahblah								
-				
+				- import : UIKit, SafariServices
+				- .			
 
 		- 🗂 `Views`
 			- ✔️ !
