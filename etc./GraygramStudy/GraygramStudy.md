@@ -124,14 +124,30 @@
 				- import : UIKit
 			- 📋 `SettingViewController.swift` 
 				- import : UIKit, SafariServices
-				- .			
 
 		- 🗂 `Views`
-			- ✔️ !
-			- 📋 `.swift` 
-				- import : Alamofire
+			- ✔️ tableView, collectionView의 cell들을 정의.
+			- 📋 `PostCardCell.swift` 
+				- import : UIKit
+				- Metic, Constant, Font처럼 한가지를 크기, 색과 같이 여러가지 프로퍼티를 정의해줘야 하는 겅우, struct로 정의해서 하나로 묶어주었다.
+				- ㅑ
+			- 📋 `PostTileCell.swift` 
+				- import : UIKit
+				- blahblah				
+			- 📋 `CollectionActivityIndicatorView.swift` 
+				- import : UIKit
+				- blahblah				
+			- 📋 `PostEditorImageCell.swift` 
+				- import : UIKit
+				- blahblah	
+			- 📋 `PostEditorMessageCell.swift` 
+				- import : UIKit
+				- blahblah				
+			- 📋 `SettingsCell.swift` 
+				- import : UIKit
 				- blahblah
 
+				
 		- 🗂 `Utils`
 			- ✔️ !
 			- 📋 `String+BoundingRect.swift` : string의 extension
