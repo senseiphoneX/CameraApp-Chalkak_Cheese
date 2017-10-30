@@ -8,14 +8,24 @@
 
 import UIKit
 
-class PreviewViewController: UIViewController {
+
+class PreviewViewController: UIViewController  {
 
     // MARK: - 변수들
     var image: UIImage!
-
+    var filter: CIFilter?
+    
+    // MARK: - funtions
+    func filteringImage(image:UIImage) {
+        filter = CIFilter(name: "CIGaussianBlur")
+//        filter?.setValue(image, forKey: kCIInputImageKey)
+//        filter?.setValue((8.0), forKey: kCIInputRadiusKey)
+//        imageView.image = UIImage(ciImage: (filter?.outputImage)!)
+        print("가우시안!!!!!ㅌ")
+    }
+    
 
     // MARK: - Outlet
-    
     @IBAction func cancelButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
@@ -29,7 +39,7 @@ class PreviewViewController: UIViewController {
     // MARK: - ViewCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = self.image
+        filteringImage(image: self.image)
     }
     
     override func didReceiveMemoryWarning() {

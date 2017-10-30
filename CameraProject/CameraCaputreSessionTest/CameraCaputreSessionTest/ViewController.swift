@@ -76,6 +76,7 @@ class ViewController: UIViewController {
         captureSession.startRunning()
     }
 
+
     
     @IBAction func TakePhotoButton(_ sender: UIButton) {
         let settings = AVCapturePhotoSettings()
