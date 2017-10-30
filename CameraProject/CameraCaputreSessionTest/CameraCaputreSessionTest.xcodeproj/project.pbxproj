@@ -14,6 +14,7 @@
 		E90429901FA4613E003E70A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E904298E1FA4613E003E70A5 /* LaunchScreen.storyboard */; };
 		E904299B1FA4613E003E70A5 /* CameraCaputreSessionTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904299A1FA4613E003E70A5 /* CameraCaputreSessionTestTests.swift */; };
 		E90429A61FA4613E003E70A5 /* CameraCaputreSessionTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90429A51FA4613E003E70A5 /* CameraCaputreSessionTestUITests.swift */; };
+		E90429B41FA75E30003E70A5 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90429B31FA75E30003E70A5 /* PreviewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		E90429A11FA4613E003E70A5 /* CameraCaputreSessionTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CameraCaputreSessionTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E90429A51FA4613E003E70A5 /* CameraCaputreSessionTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaputreSessionTestUITests.swift; sourceTree = "<group>"; };
 		E90429A71FA4613E003E70A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E90429B31FA75E30003E70A5 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				E90429851FA4613E003E70A5 /* AppDelegate.swift */,
 				E90429871FA4613E003E70A5 /* ViewController.swift */,
+				E90429B31FA75E30003E70A5 /* PreviewViewController.swift */,
 				E90429891FA4613E003E70A5 /* Main.storyboard */,
 				E904298C1FA4613E003E70A5 /* Assets.xcassets */,
 				E904298E1FA4613E003E70A5 /* LaunchScreen.storyboard */,
@@ -261,6 +264,7 @@
 			files = (
 				E90429881FA4613E003E70A5 /* ViewController.swift in Sources */,
 				E90429861FA4613E003E70A5 /* AppDelegate.swift in Sources */,
+				E90429B41FA75E30003E70A5 /* PreviewViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +433,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8QZ5U5MR4E;
 				INFOPLIST_FILE = CameraCaputreSessionTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Kimeunyeong.CameraCaputreSessionTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -445,7 +449,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8QZ5U5MR4E;
 				INFOPLIST_FILE = CameraCaputreSessionTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Kimeunyeong.CameraCaputreSessionTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";

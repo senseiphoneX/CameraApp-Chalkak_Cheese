@@ -16,6 +16,11 @@ class ViewController: UIViewController {
     var frontCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
     
+    var photoOutput: AVCapturePhotoOutput?
+    var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
+    
+    var image: UIImage?
+    
     func setUpCaptureSession() {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo //AVCaptureSeesion.Preset : image의 quality를 결정.
     }
@@ -45,25 +50,44 @@ class ViewController: UIViewController {
     func setUpInputOutput() {
         // [camera]-----setupInput-----[captureSession]---setupOutput---[userView]
         //captureSession에 들어오는 값을 설정.
-//        let captureDeviceInput =  5분18초!
         
+        do {
+            let captureDeviceInput = try AVCaptureDeviceInput(device: currentCamera!) //사용자가 카메라로 사진을 찍으면 사진 data가 여기로 들어온당
+            captureSession.addInput(captureDeviceInput)
+            photoOutput = AVCapturePhotoOutput()
+            photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey:AVVideoCodecType.jpeg])], completionHandler: nil)
+            captureSession.addOutput(photoOutput!)
+        } catch  {
+            print(error)
+        }
     }
     
     func setUpPreviewLayer(){
         
+        cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+        cameraPreviewLayer?.frame = self.view.frame
+        self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
         
     }
     
     func startRunningCaputureSession() {
-        
+        captureSession.startRunning()
+    }
+
+    
+    @IBAction func TakePhotoButton(_ sender: UIButton) {
+        let settings = AVCapturePhotoSettings()
+        photoOutput?.capturePhoto(with: settings, delegate: self)
     }
     
-    
-    
-    
-    
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ImagePreview" {
+            let previewVC = segue.destination as! PreviewViewController
+            previewVC.image = self.image
+        }
+    }
     
 
     override func viewDidLoad() {
@@ -81,5 +105,14 @@ class ViewController: UIViewController {
     }
 
 
+}
+
+extension ViewController: AVCapturePhotoCaptureDelegate {
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        if let imageData = photo.fileDataRepresentation(){
+            image = UIImage(data: imageData)
+            performSegue(withIdentifier: "ImagePreview", sender: nil)
+        }
+    }
 }
 
