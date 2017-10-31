@@ -17,10 +17,26 @@ class PreviewViewController: UIViewController  {
     
     // MARK: - funtions
     func filteringImage(image:UIImage) {
+        
+        let ciImage = CIImage(image: image)
+        
         filter = CIFilter(name: "CIGaussianBlur")
-//        filter?.setValue(image, forKey: kCIInputImageKey)
-//        filter?.setValue((8.0), forKey: kCIInputRadiusKey)
-//        imageView.image = UIImage(ciImage: (filter?.outputImage)!)
+        filter?.setValue(ciImage, forKey: kCIInputImageKey)
+        filter?.setValue((20.0), forKey: kCIInputRadiusKey)
+        
+        let outputImage = filter?.outputImage
+        
+        //아래에있는 3가지는 나중에 struct로 빼버리기
+        let rect = CGRect(origin: self.imageView.frame.origin, size: self.image.size)
+        let context = CIContext(options: nil)
+        let cgImage = context.createCGImage(outputImage!, from: rect)
+        ////////////////////////////////////
+        
+        let filteredUIImage = UIImage(cgImage: cgImage!, scale: self.image.scale, orientation: .right)
+//        let filteredUIImage = UIImage(cgImage: cgImage!)
+        
+        imageView.image = filteredUIImage
+        
         print("가우시안!!!!!ㅌ")
     }
     
@@ -46,3 +62,6 @@ class PreviewViewController: UIViewController  {
         super.didReceiveMemoryWarning()
     }
 }
+
+
+
