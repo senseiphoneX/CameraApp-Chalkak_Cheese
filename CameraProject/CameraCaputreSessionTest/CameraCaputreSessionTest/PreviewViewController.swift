@@ -32,12 +32,29 @@ class PreviewViewController: UIViewController  {
         let cgImage = context.createCGImage(outputImage!, from: rect)
         ////////////////////////////////////
         
-        let filteredUIImage = UIImage(cgImage: cgImage!, scale: self.image.scale, orientation: .right)
+//        let filteredUIImage = UIImage(cgImage: cgImage!, scale: self.image.scale, orientation: .right)
 //        let filteredUIImage = UIImage(cgImage: cgImage!)
         
-        imageView.image = filteredUIImage
+//        imageView.image = filteredUIImage.fixOrientation()
+        
+        imageView.image = fixOrientation(img: UIImage(ciImage: outputImage!)) 
         
         print("가우시안!!!!!ㅌ")
+    }
+    
+    func fixOrientation(img: UIImage) -> UIImage {
+        if (img.imageOrientation == .up) {
+            return img
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(img.size, false, img.scale)
+        let rect = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        img.draw(in: rect)
+        
+        let normalizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return normalizedImage
     }
     
 
@@ -62,6 +79,4 @@ class PreviewViewController: UIViewController  {
         super.didReceiveMemoryWarning()
     }
 }
-
-
 
