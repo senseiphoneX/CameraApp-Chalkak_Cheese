@@ -42,7 +42,7 @@ class ViewController: UIViewController {
             }
         }
         
-        currentCamera = backCamera //카메라 처음 실행했을 때 기본값을 backCamera! 나중에 userDefalut로 bool값을 저장해서 유저가 마지막으로 사용한 카메라 설정을 불러와도 좋읏듯 함!
+        currentCamera = backCamera //카메라 처음 실행했을 때 기본값을 backCamera! 나중에 userDefalut로 bool값을 저장해서 유저가 마지막으로 사용한 카메라 설정을 불러와도 좋을듯 함!
         
         
     }
@@ -57,19 +57,18 @@ class ViewController: UIViewController {
             photoOutput = AVCapturePhotoOutput()
             photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey:AVVideoCodecType.jpeg])], completionHandler: nil)
             captureSession.addOutput(photoOutput!)
+            captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
         } catch  {
             print(error)
         }
     }
     
     func setUpPreviewLayer(){
-        
         cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
         cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
         cameraPreviewLayer?.frame = self.view.frame
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
-        
     }
     
     func startRunningCaputureSession() {
