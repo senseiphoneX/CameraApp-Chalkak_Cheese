@@ -11,6 +11,9 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
+    // MARK: - 변수s
+    //나중에 struct로 모아서 정리하기 😇
+    
     var captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
@@ -21,6 +24,8 @@ class ViewController: UIViewController {
     
     var image: UIImage?
     
+    
+    // MARK: - 카메라 관련 함수들
     func setUpCaptureSession() {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo //AVCaptureSeesion.Preset : image의 quality를 결정.
     }
@@ -74,14 +79,42 @@ class ViewController: UIViewController {
     func startRunningCaputureSession() {
         captureSession.startRunning()
     }
-
-
     
+    // MARK: - Custom Functions
+    func frontOrBackCamera(){
+        
+    }
+    
+    func delay(delay:Double, closure:@escaping ()->()) {
+        let when = DispatchTime.now() + delay
+        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
+    }
+    
+    func flashControl(){
+        print("flash control")
+    }
+
+
+    // MARK: - Outlet
     @IBAction func TakePhotoButton(_ sender: UIButton) {
         let settings = AVCapturePhotoSettings()
         photoOutput?.capturePhoto(with: settings, delegate: self)
     }
     
+    @IBAction func FrontOrBackCamera(_ sender: UIButton) {
+        frontOrBackCamera()
+    }
+    
+    @IBAction func FlashButton(_ sender: UIButton) {
+        flashControl()
+    }
+    
+    @IBOutlet weak var TouchFocusMark: UIView!
+    
+    
+    
+    
+    // MARK: - segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ImagePreview" {
             let previewVC = segue.destination as! PreviewViewController
@@ -89,7 +122,42 @@ class ViewController: UIViewController {
         }
     }
     
+    // MARK: - Touching Focus
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touchPoint = touches.first
+        let cameraViewSize = self.view.bounds.size
+        let foucusPoint = CGPoint(x: (touchPoint?.location(in: self.view).y)!/cameraViewSize.height, y: 1.0 - (touchPoint?.location(in: self.view).x)!/cameraViewSize.width)
+        
+        if let device = currentCamera {
+            do {
+                //선택한 포인트의 초점조절
+                try device.lockForConfiguration()
+                if device.isFocusPointOfInterestSupported {
+                    device.focusPointOfInterest = foucusPoint
+                    device.focusMode = AVCaptureDevice.FocusMode.autoFocus
+                }
+                //선택한 포인트의 밝기조절
+                if device.isExposurePointOfInterestSupported {
+                    device.exposurePointOfInterest = foucusPoint
+                    device.exposureMode = AVCaptureDevice.ExposureMode.autoExpose
+                }
+                device.unlockForConfiguration()
+                
+                //focus marker 뜨게
+                TouchFocusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 50, height: 50)
+                TouchFocusMark.isHidden = false
+                
+                delay(delay: 1.0, closure: {
+                    self.TouchFocusMark.isHidden = true
+                })
+                
+            } catch {
+                print("error!!!")
+            }
+        }
+    }
 
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCaptureSession()
@@ -97,6 +165,8 @@ class ViewController: UIViewController {
         setUpInputOutput()
         setUpPreviewLayer()
         startRunningCaputureSession()
+        
+        TouchFocusMark.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
