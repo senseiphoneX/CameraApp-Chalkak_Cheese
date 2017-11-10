@@ -32,12 +32,29 @@
                                 <rect key="frame" x="276" y="32" width="71" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="front/back"/>
+                                <connections>
+                                    <action selector="FrontOrBackCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zya-SS-8Oh"/>
+                                </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUd-8a-veB">
+                                <rect key="frame" x="265" y="115" width="94" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Flash"/>
+                                <connections>
+                                    <action selector="FlashButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VID-kQ-6WM"/>
+                                </connections>
+                            </button>
+                            <view alpha="0.29999999999999999" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ucp-w5-PIr">
+                                <rect key="frame" x="135" y="323" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="TouchFocusMark" destination="Ucp-w5-PIr" id="IoD-AJ-44H"/>
                         <segue destination="VQ7-u4-qF5" kind="show" identifier="ImagePreview" id="qup-hX-2Zm"/>
                     </connections>
                 </viewController>
