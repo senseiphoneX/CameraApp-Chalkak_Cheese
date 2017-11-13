@@ -17,7 +17,8 @@ class ViewController: UIViewController {
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
-    var cameraPosition:Bool = true
+    var cameraPosition:Bool = true //true = back, false = front
+    var flash:Bool = true // true = on, false = off
     
     var photoOutput: AVCapturePhotoOutput?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -110,14 +111,53 @@ class ViewController: UIViewController {
     }
     
     func flashControl(){
-        print("flash control")
+        print("flash control") //off가 기본값
+        if (currentCamera?.hasTorch)! {
+            do {
+                _ = try  currentCamera?.lockForConfiguration()
+            } catch {
+                print("lock for configuration")
+            }
+            
+            if flash {
+                currentCamera?.torchMode = AVCaptureDevice.TorchMode.off
+                
+                flash = false
+            } else {
+                do {
+                    _ = try currentCamera?.setTorchModeOn(level: 1.0)
+                    flash = true
+                } catch {
+                    print("off the flash")
+                }
+            }
+            currentCamera?.unlockForConfiguration()
+        }
     }
 
+    func toggleTorch(){
+        if (currentCamera?.hasTorch)!{
+            do {
+                try currentCamera?.lockForConfiguration()
+                
+                currentCamera?.torchMode = .on
+                
+            } catch {
+                print("no")
+            }
+        }
+        let settings = AVCapturePhotoSettings()
+        photoOutput?.capturePhoto(with: settings, delegate: self)
+        
+    }
 
     // MARK: - Outlet
     @IBAction func TakePhotoButton(_ sender: UIButton) {
-        let settings = AVCapturePhotoSettings()
-        photoOutput?.capturePhoto(with: settings, delegate: self)
+//        let settings = AVCapturePhotoSettings()
+        //////
+        toggleTorch()
+        /////
+//        photoOutput?.capturePhoto(with: settings, delegate: self)
     }
     
     @IBAction func FrontOrBackCamera(_ sender: UIButton) {
