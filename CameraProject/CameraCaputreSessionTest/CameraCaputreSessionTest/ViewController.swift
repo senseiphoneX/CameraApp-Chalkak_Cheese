@@ -82,35 +82,26 @@ class ViewController: UIViewController {
     
     // MARK: - Custom Functions
     func frontOrBackCamera(){
-        
-        print(cameraPosition)
-        
-        captureSession.stopRunning()
-        
         captureSession.beginConfiguration()
         let currentInput:AVCaptureInput = captureSession.inputs[0]
         captureSession.removeInput(currentInput)
         
         if cameraPosition {
             cameraPosition = false
-            print("지금 뒤다")
         } else {
             cameraPosition = true
-            print("지금 앞이다")
         }
         
         setUpDevice()
         
-//        do {
-//            try captureSession.addInput(AVCaptureDeviceInput(device: currentCamera!))
-//        } catch  {
-//            print(error)
-//        }
+        do {
+            try captureSession.addInput(AVCaptureDeviceInput(device: currentCamera!))
+        } catch  {
+            print(error)
+        }
         
         captureSession.commitConfiguration()
         captureSession.startRunning()
-
-        print(cameraPosition)
     }
     
     func delay(delay:Double, closure:@escaping ()->()) {
