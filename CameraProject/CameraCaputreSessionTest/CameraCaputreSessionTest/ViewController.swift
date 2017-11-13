@@ -40,7 +40,7 @@ class ViewController: UIViewController {
         
         //back, front 카메라 어느쪽을 할 것인지 정하기.
         for deviece in devices {
-            if cameraPosition, deviece.position == AVCaptureDevice.Position.back{
+            if cameraPosition, deviece.position == AVCaptureDevice.Position.back {
                 backCamera = deviece
                 currentCamera = backCamera
             } else if cameraPosition == false, deviece.position == AVCaptureDevice.Position.front {
@@ -85,15 +85,31 @@ class ViewController: UIViewController {
         
         print(cameraPosition)
         
-        if currentCamera == backCamera {
+        captureSession.stopRunning()
+        
+        captureSession.beginConfiguration()
+        let currentInput:AVCaptureInput = captureSession.inputs[0]
+        captureSession.removeInput(currentInput)
+        
+        if cameraPosition {
             cameraPosition = false
-
             print("지금 뒤다")
-        } else if currentCamera?.position == AVCaptureDevice.Position.front {
+        } else {
             cameraPosition = true
-            startRunningCaputureSession()
             print("지금 앞이다")
         }
+        
+        setUpDevice()
+        
+//        do {
+//            try captureSession.addInput(AVCaptureDeviceInput(device: currentCamera!))
+//        } catch  {
+//            print(error)
+//        }
+        
+        captureSession.commitConfiguration()
+        captureSession.startRunning()
+
         print(cameraPosition)
     }
     
