@@ -13,11 +13,11 @@ class ViewController: UIViewController {
     
     // MARK: - 변수s
     //나중에 struct로 모아서 정리하기 😇
-    
     var captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
+    var cameraPosition:Bool = true
     
     var photoOutput: AVCapturePhotoOutput?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -40,16 +40,16 @@ class ViewController: UIViewController {
         
         //back, front 카메라 어느쪽을 할 것인지 정하기.
         for deviece in devices {
-            if deviece.position == AVCaptureDevice.Position.back{
+            if cameraPosition, deviece.position == AVCaptureDevice.Position.back {
                 backCamera = deviece
-            } else if deviece.position == AVCaptureDevice.Position.front {
+                currentCamera = backCamera
+            } else if cameraPosition == false, deviece.position == AVCaptureDevice.Position.front {
                 frontCamera = deviece
+                currentCamera = frontCamera
             }
         }
         
-        currentCamera = backCamera //카메라 처음 실행했을 때 기본값을 backCamera! 나중에 userDefalut로 bool값을 저장해서 유저가 마지막으로 사용한 카메라 설정을 불러와도 좋을듯 함!
-        
-        
+//        currentCamera = backCamera //카메라 처음 실행했을 때 기본값을 backCamera! 나중에 userDefalut로 bool값을 저장해서 유저가 마지막으로 사용한 카메라 설정을 불러와도 좋을듯 함!
     }
     
     func setUpInputOutput() {
@@ -82,7 +82,26 @@ class ViewController: UIViewController {
     
     // MARK: - Custom Functions
     func frontOrBackCamera(){
+        captureSession.beginConfiguration()
+        let currentInput:AVCaptureInput = captureSession.inputs[0]
+        captureSession.removeInput(currentInput)
         
+        if cameraPosition {
+            cameraPosition = false
+        } else {
+            cameraPosition = true
+        }
+        
+        setUpDevice()
+        
+        do {
+            try captureSession.addInput(AVCaptureDeviceInput(device: currentCamera!))
+        } catch  {
+            print(error)
+        }
+        
+        captureSession.commitConfiguration()
+        captureSession.startRunning()
     }
     
     func delay(delay:Double, closure:@escaping ()->()) {
