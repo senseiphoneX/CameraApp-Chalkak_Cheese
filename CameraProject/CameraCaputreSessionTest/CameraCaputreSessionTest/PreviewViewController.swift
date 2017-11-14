@@ -14,6 +14,7 @@ class PreviewViewController: UIViewController  {
     // MARK: - 변수들
     var image: UIImage!
     var filter: CIFilter?
+    var cameraPosition: Bool?
     
     // MARK: - funtions
     func filteringImage(image:UIImage) {
@@ -34,7 +35,11 @@ class PreviewViewController: UIViewController  {
         let cgImage = context.createCGImage(outputImage!, from: rect)
         ////////////////////////////////////
         
-        imageView.image = UIImage(cgImage: cgImage!, scale: 1.0, orientation: .right)
+        if cameraPosition! {
+            imageView.image = UIImage(cgImage: cgImage!, scale: 1.0, orientation: .right)
+        } else {
+            imageView.image = UIImage(cgImage: cgImage!, scale: 1.0, orientation: .leftMirrored).imageFlippedForRightToLeftLayoutDirection()
+        }
         
         print("가우시안!!!!!ㅌ")
     }
