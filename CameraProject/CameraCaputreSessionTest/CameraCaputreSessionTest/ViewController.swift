@@ -17,7 +17,8 @@ class ViewController: UIViewController {
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
-    var cameraPosition:Bool = true
+    var cameraPosition:Bool = true //true = back, false = front
+    var flash:Bool = true // true = on, false = off
     
     var photoOutput: AVCapturePhotoOutput?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -110,14 +111,42 @@ class ViewController: UIViewController {
     }
     
     func flashControl(){
-        print("flash control")
+        if flash {
+            flash = false
+        } else {
+            flash = true
+        }
     }
 
+    func toggleTorch(){
+        if (currentCamera?.hasTorch)!{
+            do {
+                try currentCamera?.lockForConfiguration()
+                currentCamera?.torchMode = .on
+            } catch {
+                print("no")
+            }
+        }
+        
+        delay(delay: 1.0) {
+            self.currentCamera?.torchMode = .off
+            self.currentCamera?.unlockForConfiguration()
+        }
+        
+        delay(delay: 0.1) {
+            let settings = AVCapturePhotoSettings()
+            self.photoOutput?.capturePhoto(with: settings, delegate: self)
+        }
+    }
 
     // MARK: - Outlet
     @IBAction func TakePhotoButton(_ sender: UIButton) {
-        let settings = AVCapturePhotoSettings()
-        photoOutput?.capturePhoto(with: settings, delegate: self)
+        if cameraPosition && flash {
+            toggleTorch()
+        } else {
+            let settings = AVCapturePhotoSettings()
+            photoOutput?.capturePhoto(with: settings, delegate: self)
+        }
     }
     
     @IBAction func FrontOrBackCamera(_ sender: UIButton) {
