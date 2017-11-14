@@ -153,6 +153,7 @@ class ViewController: UIViewController {
                 print(error)
             }
         }
+        currentCamera?.unlockForConfiguration()
         
         print(isoValue)
     }
@@ -199,6 +200,8 @@ class ViewController: UIViewController {
         let cameraViewSize = self.view.bounds.size
         let foucusPoint = CGPoint(x: (touchPoint?.location(in: self.view).y)!/cameraViewSize.height, y: 1.0 - (touchPoint?.location(in: self.view).x)!/cameraViewSize.width)
         
+        //초점, 밝기잡을려고 화면 터치하면 slider 위치 리셋되는것
+//        exposureSliderOutlet.value = exposureSliderOutlet.maximumValue/2
         
         
         if let device = currentCamera {
