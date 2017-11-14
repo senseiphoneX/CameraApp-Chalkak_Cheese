@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     var frontCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
     var cameraPosition:Bool = true //true = back, false = front
-    var flash:Bool = true // true = on, false = off
+    var flash:Bool = false // true = on, false = off
     
     var photoOutput: AVCapturePhotoOutput?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -191,6 +191,7 @@ class ViewController: UIViewController {
         if segue.identifier == "ImagePreview" {
             let previewVC = segue.destination as! PreviewViewController
             previewVC.image = self.image
+            previewVC.cameraPosition = cameraPosition
         }
     }
     
