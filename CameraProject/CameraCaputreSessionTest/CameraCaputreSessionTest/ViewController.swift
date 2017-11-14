@@ -138,6 +138,24 @@ class ViewController: UIViewController {
             self.photoOutput?.capturePhoto(with: settings, delegate: self)
         }
     }
+    
+    func exposureSetFromSlider(isoValue:Float){
+        
+        let cmTime:CMTime = CMTimeMake(10, 1000)
+        
+        if let device = currentCamera {
+            do{
+                try device.lockForConfiguration()
+                device.setExposureModeCustom(duration: cmTime, iso: isoValue, completionHandler: { (time) in
+                    //
+                })
+            } catch {
+                print(error)
+            }
+        }
+        
+        print(isoValue)
+    }
 
     // MARK: - Outlet
     @IBAction func TakePhotoButton(_ sender: UIButton) {
@@ -148,15 +166,20 @@ class ViewController: UIViewController {
             photoOutput?.capturePhoto(with: settings, delegate: self)
         }
     }
+    @IBAction func ExposureSlider(_ sender: UISlider) {
+        sender.minimumValue = (currentCamera?.activeFormat.minISO)!
+        sender.maximumValue = (currentCamera?.activeFormat.maxISO)!
+        exposureSetFromSlider(isoValue: sender.value)
+    }
+    
+    @IBOutlet weak var exposureSliderOutlet: UISlider!
     
     @IBAction func FrontOrBackCamera(_ sender: UIButton) {
         frontOrBackCamera()
     }
-    
     @IBAction func FlashButton(_ sender: UIButton) {
         flashControl()
     }
-    
     @IBOutlet weak var TouchFocusMark: UIView!
     
     
@@ -175,6 +198,8 @@ class ViewController: UIViewController {
         let touchPoint = touches.first
         let cameraViewSize = self.view.bounds.size
         let foucusPoint = CGPoint(x: (touchPoint?.location(in: self.view).y)!/cameraViewSize.height, y: 1.0 - (touchPoint?.location(in: self.view).x)!/cameraViewSize.width)
+        
+        
         
         if let device = currentCamera {
             do {
