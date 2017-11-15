@@ -203,8 +203,8 @@ import URLNavigator
 
     ```swift
     enum Result {
-      case .success
-      case .failure
+      case success
+      case failure
     }
     ```
     
@@ -212,8 +212,8 @@ import URLNavigator
 
     ```swift
     enum Result {
-      case .Success
-      case .Failure
+      case Success
+      case Failure
     }
     ```
 
