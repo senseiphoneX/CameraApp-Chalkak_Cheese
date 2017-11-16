@@ -11,19 +11,29 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    // MARK: - 변수s
+    // MARK: - 카메라 관련 변수s
     //나중에 struct로 모아서 정리하기 😇
     var captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
-    var cameraPosition:Bool = true //true = back, false = front
-    var flash:Bool = false // true = on, false = off
     
     var photoOutput: AVCapturePhotoOutput?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
     var image: UIImage?
+    
+    // MARK: - 부가기능 변수s
+    //나중에 struct로 모아서 정리하기 😇
+    var cameraPosition:Bool = true //true = back, false = front
+    var flash:Bool = false // true = on, false = off
+    var timer:Int = 0
+    enum TimerCase: Int {
+        case defalt = 0
+        case threeSeconds = 3
+        case fiveSeconds = 5
+        case tenSeconds = 10
+    }
     
     
     // MARK: - 카메라 관련 함수들
@@ -118,29 +128,33 @@ class ViewController: UIViewController {
         }
     }
 
-    func toggleTorch(){
-        if (currentCamera?.hasTorch)!{
-            do {
-                try currentCamera?.lockForConfiguration()
-                currentCamera?.torchMode = .on
-            } catch {
-                print("no")
+    func takePhoto() {
+        if cameraPosition && flash {
+            if (currentCamera?.hasTorch)!{
+                do {
+                    try currentCamera?.lockForConfiguration()
+                    currentCamera?.torchMode = .on
+                } catch {
+                    print("no")
+                }
             }
-        }
-        
-        delay(delay: 1.0) {
-            self.currentCamera?.torchMode = .off
-            self.currentCamera?.unlockForConfiguration()
-        }
-        
-        delay(delay: 0.1) {
+            
+            delay(delay: 1.0) {
+                self.currentCamera?.torchMode = .off
+                self.currentCamera?.unlockForConfiguration()
+            }
+            
+            delay(delay: 0.1) {
+                let settings = AVCapturePhotoSettings()
+                self.photoOutput?.capturePhoto(with: settings, delegate: self)
+            }
+        } else {
             let settings = AVCapturePhotoSettings()
-            self.photoOutput?.capturePhoto(with: settings, delegate: self)
+            photoOutput?.capturePhoto(with: settings, delegate: self)
         }
     }
     
     func exposureSetFromSlider(isoValue:Float){
-        
         let cmTime:CMTime = CMTimeMake(10, 1000)
         
         if let device = currentCamera {
@@ -160,13 +174,26 @@ class ViewController: UIViewController {
 
     // MARK: - Outlet
     @IBAction func TakePhotoButton(_ sender: UIButton) {
-        if cameraPosition && flash {
-            toggleTorch()
-        } else {
-            let settings = AVCapturePhotoSettings()
-            photoOutput?.capturePhoto(with: settings, delegate: self)
+        switch timer {
+        case TimerCase.defalt.rawValue :
+            takePhoto()
+        case TimerCase.threeSeconds.rawValue :
+            delay(delay: 3, closure: {
+                self.takePhoto()
+            })
+        case TimerCase.fiveSeconds.rawValue :
+            delay(delay: 5, closure: {
+                self.takePhoto()
+            })
+        case TimerCase.tenSeconds.rawValue :
+            delay(delay: 10, closure: {
+                self.takePhoto()
+            })
+        default:
+            print("error")
         }
     }
+    
     @IBAction func ExposureSlider(_ sender: UISlider) {
         sender.minimumValue = (currentCamera?.activeFormat.minISO)!
         sender.maximumValue = (currentCamera?.activeFormat.maxISO)!
@@ -181,6 +208,24 @@ class ViewController: UIViewController {
     @IBAction func FlashButton(_ sender: UIButton) {
         flashControl()
     }
+    
+    @IBAction func TimerButton(_ sender: UIButton) {
+        switch timer {
+        case TimerCase.defalt.rawValue :
+            timer = TimerCase.threeSeconds.rawValue
+        case TimerCase.threeSeconds.rawValue :
+            timer = TimerCase.fiveSeconds.rawValue
+        case TimerCase.fiveSeconds.rawValue :
+            timer = TimerCase.tenSeconds.rawValue
+        case TimerCase.tenSeconds.rawValue :
+            timer = TimerCase.defalt.rawValue
+        default:
+            print("error")
+        }
+        print(timer)
+    }
+    
+    
     @IBOutlet weak var TouchFocusMark: UIView!
     
     
@@ -250,7 +295,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 

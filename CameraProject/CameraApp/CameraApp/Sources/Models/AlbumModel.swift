@@ -1,0 +1,15 @@
+//
+//  AlbumModel.swift
+//  CameraApp
+//
+//  Created by Eunyeong Kim on 2017. 11. 16..
+//  Copyright © 2017년 Eunyeong Kim. All rights reserved.
+//
+
+import Foundation
+
+struct AlbumModel {
+    
+    //image picker에서 이미지 선택한거 보여주는 Album view에서 필요한 변수, 상수들
+    var currentCamera:String?
+}
