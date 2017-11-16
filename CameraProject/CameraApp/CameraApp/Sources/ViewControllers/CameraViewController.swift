@@ -13,25 +13,34 @@ final class CameraViewController: UIViewController {
     // MARK: - Properties
     
     var cameraService = CameraService()
-    static var cameraPosition:Bool = true //true = back, false = front
-    var flash:Bool = false // true = on, false = off
-    var timer:Int = 0
-    enum TimerCase: Int {
-        case defalt = 0
-        case threeSeconds = 3
-        case fiveSeconds = 5
-        case tenSeconds = 10
-    }
     
     // MARK: - Initializing
     
     // MARK: - Actions
+    
     func flashControl(){
-        if flash {
-            flash = false
+        if CameraService.flash {
+            CameraService.flash = false
         } else {
-            flash = true
+            CameraService.flash = true
         }
+    }
+    
+    // MARK: - Touch event
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touchPoint = touches.first
+        let cameraViewSize = self.cameraView.bounds.size
+        let foucusPoint = CGPoint(x: (touchPoint?.location(in: self.view).y)!/cameraViewSize.height, y: 1.0 - (touchPoint?.location(in: self.view).x)!/cameraViewSize.width)
+        //초점, 밝기잡을려고 화면 터치하면 slider 위치가 새로 맞춰진 ISO에 맞춰지게 조정.
+        self.isoSliderOutlet.value = (cameraService.currentCamera?.iso)!
+        cameraService.cameraFocusing(focusPoint: foucusPoint)
+        //focus marker 뜨게
+        focusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 50, height: 50) //touchPoint
+        focusMark.isHidden = false
+        CameraService.delay(delay: 1.0, closure: {
+            self.focusMark.isHidden = true
+        })
     }
     
     // MARK: - UI
@@ -41,10 +50,14 @@ final class CameraViewController: UIViewController {
         flashControl()
     }
     @IBAction func gridButton(_ sender: UIButton) {
+        cameraView.backgroundColor = .red //🔴
     }
     @IBAction func nightModeButton(_ sender: UIButton) {
+        //🔴
     }
     @IBAction func timerButton(_ sender: UIButton) {
+        cameraService.timerSetting()
+        sender.titleLabel?.text = "\(CameraService.timer)초"
     }
     @IBOutlet weak var focusMark: UIView!
     @IBAction func isoSlider(_ sender: UISlider) {
@@ -56,7 +69,24 @@ final class CameraViewController: UIViewController {
     @IBAction func albumButton(_ sender: UIButton) {
     }
     @IBAction func takePhotoButton(_ sender: UIButton) {
-        
+        switch CameraService.timer {
+        case CameraService.TimerCase.defalt.rawValue :
+            cameraService.takePhoto()
+        case CameraService.TimerCase.threeSeconds.rawValue :
+            CameraService.delay(delay: 3, closure: {
+                self.cameraService.takePhoto()
+            })
+        case CameraService.TimerCase.fiveSeconds.rawValue :
+            CameraService.delay(delay: 5, closure: {
+                self.cameraService.takePhoto()
+            })
+        case CameraService.TimerCase.tenSeconds.rawValue :
+            CameraService.delay(delay: 10, closure: {
+                self.cameraService.takePhoto()
+            })
+        default:
+            print("error")
+        }
     }
     @IBAction func frontOrBackCameraButton(_ sender: UIButton) {
         cameraService.frontOrBackCamera()
@@ -75,7 +105,7 @@ final class CameraViewController: UIViewController {
         cameraService.startRunningCaputureSession()
         
         focusMark.isHidden = true
-        selectFilterCollectionView.isHidden = true
+        selectFilterCollectionView.isHidden = true //🔴
     }
 
     override func didReceiveMemoryWarning() {

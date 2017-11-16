@@ -169,7 +169,7 @@ class ViewController: UIViewController {
     }
 
     // MARK: - Outlet
-    @IBAction func TakePhotoButton(_ sender: UIButton) {
+    @IBAction func TakePhotoButton(_ sender: UIButton) { //🔴
         switch timer {
         case TimerCase.defalt.rawValue :
             takePhoto()
@@ -205,7 +205,7 @@ class ViewController: UIViewController {
         flashControl()
     }
     
-    @IBAction func TimerButton(_ sender: UIButton) {
+    @IBAction func TimerButton(_ sender: UIButton) { //🔴
         switch timer {
         case TimerCase.defalt.rawValue :
             timer = TimerCase.threeSeconds.rawValue
@@ -237,7 +237,7 @@ class ViewController: UIViewController {
     }
     
     // MARK: - Touching Focus
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { 
         let touchPoint = touches.first
         let cameraViewSize = self.view.bounds.size
         let foucusPoint = CGPoint(x: (touchPoint?.location(in: self.view).y)!/cameraViewSize.height, y: 1.0 - (touchPoint?.location(in: self.view).x)!/cameraViewSize.width)

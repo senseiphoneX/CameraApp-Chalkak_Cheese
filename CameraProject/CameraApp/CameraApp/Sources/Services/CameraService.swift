@@ -24,6 +24,16 @@ class CameraService: NSObject {
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     //밑에는 사용하는지 안하는지 머름 ㅠ
     var image: UIImage?
+    //카메라 사용 관련 properties
+    static var cameraPosition:Bool = true //true = back, false = front
+    static var flash:Bool = false // true = on, false = off
+    static var timer:Int = 0
+    enum TimerCase: Int {
+        case defalt = 0
+        case threeSeconds = 3
+        case fiveSeconds = 5
+        case tenSeconds = 10
+    }
 
     // MARK: - Camera Core Functions
     
@@ -35,10 +45,10 @@ class CameraService: NSObject {
         let devices = deviceDiscoverySession.devices
         //back, front 카메라 어느쪽을 할 것인지 정하기.
         for deviece in devices {
-            if CameraViewController.cameraPosition, deviece.position == AVCaptureDevice.Position.back {
+            if CameraService.cameraPosition, deviece.position == AVCaptureDevice.Position.back {
                 backCamera = deviece
                 currentCamera = backCamera
-            } else if CameraViewController.cameraPosition == false, deviece.position == AVCaptureDevice.Position.front {
+            } else if CameraService.cameraPosition == false, deviece.position == AVCaptureDevice.Position.front {
                 frontCamera = deviece
                 currentCamera = frontCamera
             }
@@ -73,8 +83,8 @@ class CameraService: NSObject {
         let when = DispatchTime.now() + delay
         DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }
-    func takePhoto(cameraPosition:Bool, flash:Bool) {
-        if cameraPosition && flash {
+    func takePhoto() {
+        if CameraService.cameraPosition && CameraService.flash {
             if (currentCamera?.hasTorch)!{
                 do {
                     try currentCamera?.lockForConfiguration()
@@ -98,14 +108,14 @@ class CameraService: NSObject {
             photoOutput?.capturePhoto(with: settings, delegate: self)
         }
     }
-    func frontOrBackCamera(){
+    func frontOrBackCamera() {
         captureSession.beginConfiguration()
         let currentInput:AVCaptureInput = captureSession.inputs[0]
         captureSession.removeInput(currentInput)
-        if CameraViewController.cameraPosition {
-           CameraViewController.cameraPosition = false
+        if CameraService.cameraPosition {
+           CameraService.cameraPosition = false
         } else {
-            CameraViewController.cameraPosition = true
+            CameraService.cameraPosition = true
         }
         setUpDevice()
         do {
@@ -116,7 +126,21 @@ class CameraService: NSObject {
         captureSession.commitConfiguration()
         captureSession.startRunning()
     }
-    func exposureSetFromSlider(isoValue:Float){
+    func timerSetting() {
+        switch CameraService.timer {
+        case CameraService.TimerCase.defalt.rawValue :
+            CameraService.timer = CameraService.TimerCase.threeSeconds.rawValue
+        case CameraService.TimerCase.threeSeconds.rawValue :
+            CameraService.timer = CameraService.TimerCase.fiveSeconds.rawValue
+        case CameraService.TimerCase.fiveSeconds.rawValue :
+            CameraService.timer = CameraService.TimerCase.tenSeconds.rawValue
+        case CameraService.TimerCase.tenSeconds.rawValue :
+            CameraService.timer = CameraService.TimerCase.defalt.rawValue
+        default:
+            print("error")
+        }
+    }
+    func exposureSetFromSlider(isoValue:Float) {
         let cmTime:CMTime = CMTimeMake(10, 1000) //🔴적절한 cmTime 찾기🔴
         if let device = currentCamera {
             do{
@@ -129,6 +153,26 @@ class CameraService: NSObject {
         }
         currentCamera?.unlockForConfiguration()
         print(isoValue)
+    }
+    func cameraFocusing(focusPoint: CGPoint) {
+        if let device = currentCamera {
+            do {
+                //선택한 포인트의 초점조절
+                try device.lockForConfiguration()
+                if device.isFocusPointOfInterestSupported {
+                    device.focusPointOfInterest = focusPoint
+                    device.focusMode = AVCaptureDevice.FocusMode.autoFocus
+                }
+                //선택한 포인트의 밝기조절
+                if device.isExposurePointOfInterestSupported {
+                    device.exposurePointOfInterest = focusPoint
+                    device.exposureMode = AVCaptureDevice.ExposureMode.autoExpose
+                }
+                device.unlockForConfiguration()
+            } catch {
+                print("error!!!")
+            }
+        }
     }
 }
 
