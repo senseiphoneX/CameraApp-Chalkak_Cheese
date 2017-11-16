@@ -9,7 +9,22 @@
 import UIKit
 
 final class SettingViewController: UIViewController {
-
+    
+    // MARK: - Properties
+    
+    // MARK: - Initializing
+    
+    // MARK: - Actions
+    
+    // MARK: - UI
+    
+    @IBAction func leftBarButton(_ sender: UIBarButtonItem) {
+    }
+    @IBOutlet weak var settingTableView: UITableView!
+    
+    
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
