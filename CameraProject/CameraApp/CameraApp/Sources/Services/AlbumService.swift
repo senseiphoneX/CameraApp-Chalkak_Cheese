@@ -11,7 +11,8 @@ import Foundation
 struct AlbumService {
     
     //Image Picker에서 사진 가져와서 관련 함수들.
-    static func camerafunctions() {
+    static func album() {
+        //imagepicker....
     }
     
 }

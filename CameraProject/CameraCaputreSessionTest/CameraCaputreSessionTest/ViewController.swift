@@ -92,35 +92,31 @@ class ViewController: UIViewController {
     }
     
     // MARK: - Custom Functions
-    func frontOrBackCamera(){
+    func frontOrBackCamera(){ //🔴
         captureSession.beginConfiguration()
         let currentInput:AVCaptureInput = captureSession.inputs[0]
         captureSession.removeInput(currentInput)
-        
         if cameraPosition {
             cameraPosition = false
         } else {
             cameraPosition = true
         }
-        
         setUpDevice()
-        
         do {
             try captureSession.addInput(AVCaptureDeviceInput(device: currentCamera!))
         } catch  {
             print(error)
         }
-        
         captureSession.commitConfiguration()
         captureSession.startRunning()
     }
     
-    func delay(delay:Double, closure:@escaping ()->()) {
+    func delay(delay:Double, closure:@escaping ()->()) {//🔴
         let when = DispatchTime.now() + delay
         DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }
     
-    func flashControl(){
+    func flashControl(){//🔴
         if flash {
             flash = false
         } else {
@@ -128,7 +124,7 @@ class ViewController: UIViewController {
         }
     }
 
-    func takePhoto() {
+    func takePhoto() { //🔴
         if cameraPosition && flash {
             if (currentCamera?.hasTorch)!{
                 do {
@@ -154,7 +150,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func exposureSetFromSlider(isoValue:Float){
+    func exposureSetFromSlider(isoValue:Float){//🔴
         let cmTime:CMTime = CMTimeMake(10, 1000)
         
         if let device = currentCamera {
@@ -194,7 +190,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func ExposureSlider(_ sender: UISlider) {
+    @IBAction func ExposureSlider(_ sender: UISlider) { //🔴
         sender.minimumValue = (currentCamera?.activeFormat.minISO)!
         sender.maximumValue = (currentCamera?.activeFormat.maxISO)!
         exposureSetFromSlider(isoValue: sender.value)
@@ -202,10 +198,10 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var exposureSliderOutlet: UISlider!
     
-    @IBAction func FrontOrBackCamera(_ sender: UIButton) {
+    @IBAction func FrontOrBackCamera(_ sender: UIButton) { //🔴
         frontOrBackCamera()
     }
-    @IBAction func FlashButton(_ sender: UIButton) {
+    @IBAction func FlashButton(_ sender: UIButton) { //🔴
         flashControl()
     }
     

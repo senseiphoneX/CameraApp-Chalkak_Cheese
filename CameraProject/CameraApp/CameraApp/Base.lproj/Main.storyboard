@@ -104,6 +104,10 @@
                                                 </view>
                                             </collectionViewCell>
                                         </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="PJU-VM-h4W"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="agO-19-IJT"/>
+                                        </connections>
                                     </collectionView>
                                     <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="tQc-E5-7BT">
                                         <rect key="frame" x="13" y="443" width="348" height="30"/>
@@ -134,6 +138,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="cameraView" destination="2AU-jF-T0R" id="pwP-nZ-aG9"/>
                         <outlet property="focusMark" destination="l7r-nA-cjB" id="seE-uR-zf3"/>
                         <outlet property="isoSliderOutlet" destination="tQc-E5-7BT" id="oK6-s4-CC9"/>
                         <outlet property="selectFilterCollectionView" destination="OrW-pn-Z23" id="nCZ-hE-N7h"/>
@@ -176,6 +181,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2vn-RV-Nc9" id="KJZ-hz-EEO"/>
+                                    <outlet property="delegate" destination="2vn-RV-Nc9" id="zjb-ND-qX4"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
