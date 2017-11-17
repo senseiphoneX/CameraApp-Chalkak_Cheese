@@ -27,6 +27,7 @@ class CameraService: NSObject {
     //카메라 사용 관련 properties
     static var cameraPosition:Bool = true //true = back, false = front
     static var flash:Bool = false // true = on, false = off
+    static var grid:Bool = true // true = on, false = off
     static var timer:Int = 0
     enum TimerCase: Int {
         case defalt = 0

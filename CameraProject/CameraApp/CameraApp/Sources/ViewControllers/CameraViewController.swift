@@ -19,12 +19,34 @@ final class CameraViewController: UIViewController {
     
     // MARK: - Actions
     
-    func flashControl(){
+    func flashControl() {
         if CameraService.flash {
             CameraService.flash = false
         } else {
             CameraService.flash = true
         }
+    }
+    func gridFrame() {
+        horizonGrid1.frame = CGRect(x: 0, y: (self.cameraView.frame.height/3), width: self.cameraView.frame.width, height: 1)
+        horizonGrid2.frame = CGRect(x: 0, y: 2*(self.cameraView.frame.height/3), width: self.cameraView.frame.width, height: 1)
+        verticalGrid1.frame = CGRect(x: 1*(self.cameraView.frame.width/3), y: 0, width: 1, height: self.cameraView.frame.height)
+        verticalGrid2.frame = CGRect(x: 2*(self.cameraView.frame.width/3), y: 0, width: 1, height: self.cameraView.frame.height)
+    }
+    func gridControl() {
+        if CameraService.grid {
+            horizonGrid1.isHidden = true
+            horizonGrid2.isHidden = true
+            verticalGrid1.isHidden = true
+            verticalGrid2.isHidden = true
+            CameraService.grid = false
+        } else {
+            horizonGrid1.isHidden = false
+            horizonGrid2.isHidden = false
+            verticalGrid1.isHidden = false
+            verticalGrid2.isHidden = false
+            CameraService.grid = true
+        }
+        print(CameraService.grid)
     }
     
     // MARK: - Touch event
@@ -52,7 +74,7 @@ final class CameraViewController: UIViewController {
         print(CameraService.flash)
     }
     @IBAction func gridButton(_ sender: UIButton) {
-        cameraView.backgroundColor = .red //🔴
+        gridControl()
     }
     @IBAction func nightModeButton(_ sender: UIButton) {
         //🔴
@@ -96,7 +118,10 @@ final class CameraViewController: UIViewController {
         cameraService.frontOrBackCamera()
     }
     @IBOutlet weak var selectFilterCollectionView: UICollectionView!
-    
+    @IBOutlet weak var verticalGrid1: UIView!
+    @IBOutlet weak var verticalGrid2: UIView!
+    @IBOutlet weak var horizonGrid1: UIView!
+    @IBOutlet weak var horizonGrid2: UIView!
     
     // MARK: - View Life Cycle
 
@@ -110,9 +135,15 @@ final class CameraViewController: UIViewController {
         
         focusMark.isHidden = true
         selectFilterCollectionView.isHidden = true //🔴
-        CameraViewController.viewSize = self.view.frame.origin //🔴 initializer
+        CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
+        gridFrame()
+        if CameraService.grid == false {
+            verticalGrid1.isHidden = true
+            verticalGrid2.isHidden = true
+            horizonGrid1.isHidden = true
+            horizonGrid2.isHidden = true
+        }
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
