@@ -13,6 +13,7 @@ final class CameraViewController: UIViewController {
     // MARK: - Properties
     
     var cameraService = CameraService()
+    static var viewSize: CGPoint?
     
     // MARK: - Initializing
     
@@ -48,6 +49,7 @@ final class CameraViewController: UIViewController {
     @IBOutlet weak var cameraView: UIView!
     @IBAction func flashButton(_ sender: UIButton) {
         flashControl()
+        print(CameraService.flash)
     }
     @IBAction func gridButton(_ sender: UIButton) {
         cameraView.backgroundColor = .red //🔴
@@ -58,6 +60,7 @@ final class CameraViewController: UIViewController {
     @IBAction func timerButton(_ sender: UIButton) {
         cameraService.timerSetting()
         sender.titleLabel?.text = "\(CameraService.timer)초"
+        print(CameraService.timer)
     }
     @IBOutlet weak var focusMark: UIView!
     @IBAction func isoSlider(_ sender: UISlider) {
@@ -81,6 +84,7 @@ final class CameraViewController: UIViewController {
                 self.cameraService.takePhoto()
             })
         case CameraService.TimerCase.tenSeconds.rawValue :
+            print(CameraService.timer)
             CameraService.delay(delay: 10, closure: {
                 self.cameraService.takePhoto()
             })
@@ -106,6 +110,7 @@ final class CameraViewController: UIViewController {
         
         focusMark.isHidden = true
         selectFilterCollectionView.isHidden = true //🔴
+        CameraViewController.viewSize = self.view.frame.origin //🔴 initializer
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,15 +119,17 @@ final class CameraViewController: UIViewController {
     
 }
 
-//extension CameraViewController : UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 1
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        <#code#>
-//    }
-//}
+extension CameraViewController : UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filterSelectingCell", for: indexPath)
+        cell.backgroundColor = .blue
+        return cell
+    }
+}
 
 extension CameraViewController : UICollectionViewDelegateFlowLayout {
     

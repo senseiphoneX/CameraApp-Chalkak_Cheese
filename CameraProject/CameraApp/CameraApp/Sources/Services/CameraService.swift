@@ -93,12 +93,12 @@ class CameraService: NSObject {
                     print("no")
                 }
             }
-            
+
             CameraService.delay(delay: 1.0) {
                 self.currentCamera?.torchMode = .off
                 self.currentCamera?.unlockForConfiguration()
             }
-            
+
             CameraService.delay(delay: 0.1) {
                 let settings = AVCapturePhotoSettings()
                 self.photoOutput?.capturePhoto(with: settings, delegate: self)
@@ -107,6 +107,7 @@ class CameraService: NSObject {
             let settings = AVCapturePhotoSettings()
             photoOutput?.capturePhoto(with: settings, delegate: self)
         }
+        print("take a photo")
     }
     func frontOrBackCamera() {
         captureSession.beginConfiguration()
@@ -177,9 +178,9 @@ class CameraService: NSObject {
 }
 
 extension CameraService: AVCapturePhotoCaptureDelegate {
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?, cameraPosition: Bool, view: UIView) {
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(){
-            FilterService.filteringImage(image: UIImage(data: imageData)!, cameraPosition: cameraPosition, view: view)
+            FilterService.filteringImage(image: UIImage(data:imageData)!, cameraPosition: CameraService.cameraPosition)
         }
     }
 }

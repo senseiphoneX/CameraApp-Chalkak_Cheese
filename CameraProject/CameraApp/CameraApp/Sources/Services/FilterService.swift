@@ -12,7 +12,7 @@ import UIKit
 class FilterService {
     
     //filter 적용 함수.
-    static func filteringImage(image:UIImage, cameraPosition:Bool, view:UIView) {
+    static func filteringImage(image:UIImage, cameraPosition:Bool) {
         
         let ciImage = CIImage(image: image)
         
@@ -26,8 +26,7 @@ class FilterService {
         let outputImage = filter?.outputImage
         
         //아래에있는 3가지는 나중에 struct로 빼버리기
-        let rect = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: image.size.height, height: image.size.width)
-        print(view.frame.size)
+        let rect = CGRect(x: (CameraViewController.viewSize?.x)!, y: (CameraViewController.viewSize?.y)!, width: image.size.height, height: image.size.width)
         let context = CIContext(options: nil)
         let cgImage = context.createCGImage(outputImage!, from: rect)
         
