@@ -14,5 +14,4 @@ struct AlbumService {
     static func album() {
         //imagepicker....
     }
-    
 }
