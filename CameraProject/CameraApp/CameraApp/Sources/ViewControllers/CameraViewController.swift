@@ -134,7 +134,7 @@ final class CameraViewController: UIViewController {
         cameraService.startRunningCaputureSession()
         
         focusMark.isHidden = true
-        selectFilterCollectionView.isHidden = true //🔴
+        selectFilterCollectionView.isHidden = false //🔴
         CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
         gridFrame()
         if CameraService.grid == false {
@@ -152,16 +152,30 @@ final class CameraViewController: UIViewController {
 
 extension CameraViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 5
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filterSelectingCell", for: indexPath)
-        cell.backgroundColor = .blue
+        cell.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        var label: UILabel {
+            let lb = UILabel()
+            lb.textColor = .white
+            lb.textAlignment = .left
+            lb.font = UIFont.systemFont(ofSize: 10)
+//            lb.backgroundColor = .red //
+            lb.adjustsFontSizeToFitWidth = true
+            return lb
+        }
+        label.text = "\(indexPath.row)"
+        label.frame = cell.layer.bounds
+        cell.addSubview(label) //라벨이 들어가지않는다.... 왜인지 대체 모르겠음......
         return cell
     }
 }
 
 extension CameraViewController : UICollectionViewDelegateFlowLayout {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
 }

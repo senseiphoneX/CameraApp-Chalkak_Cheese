@@ -22,7 +22,6 @@
 		E9D080EC1FBD4A5E002C3A16 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D080EB1FBD4A5E002C3A16 /* FilterType.swift */; };
 		E9D080EE1FBD4C26002C3A16 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9D080ED1FBD4C26002C3A16 /* Default-568h@2x.png */; };
 		E9EDFCE61FBD68140070C75D /* CameraViewFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDFCE41FBD68140070C75D /* CameraViewFilterCollectionViewCell.swift */; };
-		E9EDFCE71FBD68140070C75D /* CameraViewFilterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EDFCE51FBD68140070C75D /* CameraViewFilterCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +42,6 @@
 		E9D080ED1FBD4C26002C3A16 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E9D080F11FBD4C96002C3A16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9EDFCE41FBD68140070C75D /* CameraViewFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewFilterCollectionViewCell.swift; sourceTree = "<group>"; };
-		E9EDFCE51FBD68140070C75D /* CameraViewFilterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CameraViewFilterCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +131,6 @@
 				E9D080E71FBD4A19002C3A16 /* IntroPopUpViewController.swift */,
 				E9D080E81FBD4A19002C3A16 /* IntroPopUpViewController.xib */,
 				E9EDFCE41FBD68140070C75D /* CameraViewFilterCollectionViewCell.swift */,
-				E9EDFCE51FBD68140070C75D /* CameraViewFilterCollectionViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -206,7 +203,6 @@
 			files = (
 				E9D080EA1FBD4A19002C3A16 /* IntroPopUpViewController.xib in Resources */,
 				E9D080C01FBC2B91002C3A16 /* LaunchScreen.storyboard in Resources */,
-				E9EDFCE71FBD68140070C75D /* CameraViewFilterCollectionViewCell.xib in Resources */,
 				E9D080BD1FBC2B91002C3A16 /* Assets.xcassets in Resources */,
 				E9D080EE1FBD4C26002C3A16 /* Default-568h@2x.png in Resources */,
 				E9D080BB1FBC2B91002C3A16 /* Main.storyboard in Resources */,
