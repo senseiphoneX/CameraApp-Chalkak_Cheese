@@ -21,7 +21,7 @@ class FilterService {
 
         filter = CIFilter(name: "CIGaussianBlur")
         filter?.setValue(ciImage, forKey: kCIInputImageKey)
-        filter?.setValue((10.0), forKey: kCIInputRadiusKey)
+        filter?.setValue((0.0), forKey: kCIInputRadiusKey)
         
         let outputImage = filter?.outputImage
         

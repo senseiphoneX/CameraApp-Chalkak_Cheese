@@ -13,6 +13,7 @@ final class CameraViewController: UIViewController {
     // MARK: - Properties
     
     var cameraService = CameraService()
+    var currentIndexPath: IndexPath?
     static var viewSize: CGPoint?
     
     // MARK: - Initializing
@@ -48,6 +49,14 @@ final class CameraViewController: UIViewController {
         }
         print(CameraService.grid)
     }
+    func canPresentPage(indexPath: IndexPath) -> Bool {
+        if indexPath.item < 0 || indexPath.item >= selectFilterCollectionView.numberOfItems(inSection: 0) {
+            print("넘길 수 있는 컬렉션 뷰가 없음.")
+            return false
+        } else {
+            return true
+        }
+    }
     
     // MARK: - Touch event
     
@@ -65,6 +74,7 @@ final class CameraViewController: UIViewController {
             self.focusMark.isHidden = true
         })
     }
+    
     
     // MARK: - UI
     
@@ -122,6 +132,38 @@ final class CameraViewController: UIViewController {
     @IBOutlet weak var verticalGrid2: UIView!
     @IBOutlet weak var horizonGrid1: UIView!
     @IBOutlet weak var horizonGrid2: UIView!
+    @IBAction func swipeToRight(_ sender: UISwipeGestureRecognizer) {
+        print("오른쪽으로 스와이프")
+        self.currentIndexPath = selectFilterCollectionView.indexPathsForSelectedItems?[0]
+        guard let indexPath = self.currentIndexPath else {
+            return
+        }
+        var newIndexPath = indexPath
+        newIndexPath = IndexPath(item: newIndexPath.item+1, section: newIndexPath.section)
+        if canPresentPage(indexPath: newIndexPath) {
+            self.selectFilterCollectionView.selectItem(at: newIndexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
+            self.collectionView(self.selectFilterCollectionView, didSelectItemAt: newIndexPath)
+        } else {
+            print("😀")
+        }
+    }
+    @IBAction func swipeToLeft(_ sender: UISwipeGestureRecognizer) {
+        print("왼쪽으로스와이프")
+        self.currentIndexPath = selectFilterCollectionView.indexPathsForSelectedItems?[0]
+        guard let indexPath = self.currentIndexPath else {
+            return
+        }
+        var newIndexPath = indexPath
+        newIndexPath = IndexPath(item: newIndexPath.item-1, section: newIndexPath.section)
+        if canPresentPage(indexPath: newIndexPath) {
+            self.selectFilterCollectionView.selectItem(at: newIndexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
+            self.collectionView(self.selectFilterCollectionView, didSelectItemAt: newIndexPath)
+        } else {
+            print("😀")
+        }
+    }
+    
+    
     
     // MARK: - View Life Cycle
 
@@ -135,6 +177,7 @@ final class CameraViewController: UIViewController {
         
         focusMark.isHidden = true
         selectFilterCollectionView.isHidden = false //🔴
+        selectFilterCollectionView.selectItem(at: [0, 2], animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
         CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
         gridFrame()
         if CameraService.grid == false {
@@ -158,24 +201,26 @@ extension CameraViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filterSelectingCell", for: indexPath)
         cell.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        var label: UILabel {
-            let lb = UILabel()
-            lb.textColor = .white
-            lb.textAlignment = .left
-            lb.font = UIFont.systemFont(ofSize: 10)
+//        var label: UILabel {
+//            let lb = UILabel()
+//            lb.textColor = .white
+//            lb.textAlignment = .left
+//            lb.font = UIFont.systemFont(ofSize: 10)
 //            lb.backgroundColor = .red //
-            lb.adjustsFontSizeToFitWidth = true
-            return lb
-        }
-        label.text = "\(indexPath.row)"
-        label.frame = cell.layer.bounds
-        cell.addSubview(label) //라벨이 들어가지않는다.... 왜인지 대체 모르겠음......
+//            lb.adjustsFontSizeToFitWidth = true
+//            return lb
+//        }
+//        label.text = "\(indexPath.row)"
+//        label.frame = cell.layer.bounds
+//        cell.addSubview(label) //라벨이 들어가지않는다.... 왜인지 대체 모르겠음...... 🔴
         return cell
     }
 }
 
 extension CameraViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
+        print("지금 선택된 아이템은 \(indexPath.item)번째 아이템입니다.")
+        self.currentIndexPath = indexPath
+        //🔴 선택한 아이템에 따라 live camera filter 바꾸기.
     }
 }
