@@ -9,7 +9,7 @@
 import AVFoundation
 import UIKit
 
-class CameraService: NSObject {
+class CameraService: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     // MARK: - Properties
     
@@ -177,7 +177,27 @@ class CameraService: NSObject {
         }
     }
 }
-
+extension CameraService {
+    func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        
+        print("♥️♥️♥️real time !!")
+        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+        var outputImage = CIImage(cvPixelBuffer: imageBuffer!)
+        
+        let filter = CIFilter(name: "CIGaussianBlur")
+        filter?.setValue(outputImage, forKey: kCIInputImageKey)
+        filter?.setValue((50.0), forKey: kCIInputRadiusKey)
+        outputImage = (filter?.outputImage)!
+     
+        let context = CIContext(options: nil)
+        let cgImage = context.createCGImage(outputImage, from: outputImage.extent)
+        
+        DispatchQueue.main.async {
+            self.cameraPreviewLayer?.contents = cgImage
+        }
+        
+    }
+}
 extension CameraService: AVCapturePhotoCaptureDelegate {
     // #available ios10
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
