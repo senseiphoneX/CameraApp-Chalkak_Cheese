@@ -20,7 +20,7 @@ class CameraService: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     var currentCamera: AVCaptureDevice?
     let photoSettings = AVCapturePhotoSettings()
     //촬영 이후 사용
-    var photoOutput: AVCapturePhotoOutput?
+    var photoOutput: AVCaptureVideoDataOutput?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     //밑에는 사용하는지 안하는지 머름 ㅠ
     var image: UIImage?
@@ -59,10 +59,18 @@ class CameraService: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         do {
             let captureDeviceInput = try AVCaptureDeviceInput(device: currentCamera!)
             captureSession.addInput(captureDeviceInput)
-            photoOutput = AVCapturePhotoOutput()
+            captureSession.beginConfiguration()
+            photoOutput = AVCaptureVideoDataOutput()
+            photoOutput?.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String : kCVPixelFormatType_32BGRA]
+            photoOutput?.alwaysDiscardsLateVideoFrames = true
 //            photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey:AVVideoCodecType.jpeg])], completionHandler: nil)
             captureSession.addOutput(photoOutput!)
             captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
+            
+            let queue = DispatchQueue(label: "filter", qos: .userInteractive, attributes: .concurrent)
+            photoOutput?.setSampleBufferDelegate(self, queue: queue)
+            
+            captureSession.commitConfiguration()
         } catch  {
             print(error)
         }
@@ -85,30 +93,30 @@ class CameraService: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }
     func takePhoto() {
-        if CameraService.cameraPosition && CameraService.flash {
-            if (currentCamera?.hasTorch)!{
-                do {
-                    try currentCamera?.lockForConfiguration()
-                    currentCamera?.torchMode = .on
-                } catch {
-                    print("no")
-                }
-            }
-
-            CameraService.delay(delay: 1.0) {
-                self.currentCamera?.torchMode = .off
-                self.currentCamera?.unlockForConfiguration()
-            }
-
-            CameraService.delay(delay: 0.1) {
-                let settings = AVCapturePhotoSettings()
-                self.photoOutput?.capturePhoto(with: settings, delegate: self)
-            }
-        } else {
-            let settings = AVCapturePhotoSettings()
-            photoOutput?.capturePhoto(with: settings, delegate: self)
-        }
-        print("take a photo")
+//        if CameraService.cameraPosition && CameraService.flash { //🔴
+//            if (currentCamera?.hasTorch)!{
+//                do {
+//                    try currentCamera?.lockForConfiguration()
+//                    currentCamera?.torchMode = .on
+//                } catch {
+//                    print("no")
+//                }
+//            }
+//
+//            CameraService.delay(delay: 1.0) {
+//                self.currentCamera?.torchMode = .off
+//                self.currentCamera?.unlockForConfiguration()
+//            }
+//
+//            CameraService.delay(delay: 0.1) {
+//                let settings = AVCapturePhotoSettings()
+//                self.photoOutput?.capturePhoto(with: settings, delegate: self)
+//            }
+//        } else {
+//            let settings = AVCapturePhotoSettings()
+//            photoOutput?.capturePhoto(with: settings, delegate: self)
+//        }
+//        print("take a photo")
     }
     func frontOrBackCamera() {
         captureSession.beginConfiguration()
@@ -177,10 +185,12 @@ class CameraService: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         }
     }
 }
+
 extension CameraService {
     func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
         print("♥️♥️♥️real time !!")
+        print(sampleBuffer)
         let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         var outputImage = CIImage(cvPixelBuffer: imageBuffer!)
         
@@ -198,21 +208,23 @@ extension CameraService {
         
     }
 }
-extension CameraService: AVCapturePhotoCaptureDelegate {
-    // #available ios10
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
-        if let error = error {
-            print(error)
-        }
-        if let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer!, previewPhotoSampleBuffer: previewPhotoSampleBuffer) {
-            print(UIImage(data: dataImage)?.size as Any)
-            FilterService.filteringImage(image: UIImage(data: dataImage)!, cameraPosition: CameraService.cameraPosition)
-        }
-    }
-    // #available ios11~
+
+//extension CameraService: AVCapturePhotoCaptureDelegate {
+//    // #available ios10
+//    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
+//        if let error = error {
+//            print(error)
+//        }
+//        if let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer!, previewPhotoSampleBuffer: previewPhotoSampleBuffer) {
+//            print(UIImage(data: dataImage)?.size as Any)
+//            FilterService.filteringImage(image: UIImage(data: dataImage)!, cameraPosition: CameraService.cameraPosition)
+//        }
+//    }
+//    // #available ios11~
 //    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
 //        if let imageData = photo.fileDataRepresentation(){
 //            FilterService.filteringImage(image: UIImage(data:imageData)!, cameraPosition: CameraService.cameraPosition)
 //        }
 //    }
-}
+//}
+
