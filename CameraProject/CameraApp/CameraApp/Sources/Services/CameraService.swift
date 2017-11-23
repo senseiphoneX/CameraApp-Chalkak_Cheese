@@ -176,6 +176,37 @@ class CameraService: NSObject {
             }
         }
     }
+    let minimumZoom: CGFloat = 1.0
+    let maximumZoom: CGFloat = 5.0
+    var lastZoomFactor: CGFloat = 1.0
+    func cameraZoom(pinch: UIPinchGestureRecognizer) {
+        func minMaxZoom(factor: CGFloat) -> CGFloat {
+            return min(min(max(factor, minimumZoom), maximumZoom), (currentCamera?.activeFormat.videoMaxZoomFactor)!)
+        }
+        func update(scale factor: CGFloat) {
+            do {
+                try currentCamera?.lockForConfiguration()
+                defer {
+                    currentCamera?.unlockForConfiguration()
+                }
+                currentCamera?.videoZoomFactor = factor
+            } catch {
+                print("error")
+            }
+        }
+        let newScaleFactor = minMaxZoom(factor: pinch.scale * lastZoomFactor)
+        switch pinch.state {
+        case .began:
+            fallthrough
+        case .changed:
+            update(scale: newScaleFactor)
+        case .ended:
+            lastZoomFactor = minMaxZoom(factor: newScaleFactor)
+            update(scale: lastZoomFactor)
+        default:
+            break
+        }
+    }
 }
 
 extension CameraService: AVCapturePhotoCaptureDelegate {

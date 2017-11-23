@@ -133,6 +133,9 @@
                                     <constraint firstItem="J5E-Tw-dzw" firstAttribute="centerX" secondItem="2AU-jF-T0R" secondAttribute="centerX" id="ewR-Yg-a0d"/>
                                     <constraint firstItem="J5E-Tw-dzw" firstAttribute="centerY" secondItem="2AU-jF-T0R" secondAttribute="centerY" id="tcY-n6-SVe"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="gQ0-fr-SH7" appends="YES" id="CTV-Mo-GGV"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -157,6 +160,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="gQ0-fr-SH7">
+                    <connections>
+                        <action selector="cameraZoomGesture:" destination="BYZ-38-t0r" id="dcn-zE-vMK"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="116.49175412293854"/>
         </scene>

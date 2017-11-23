@@ -82,7 +82,9 @@ final class CameraViewController: UIViewController {
             self.focusMark.isHidden = true
         })
     }
-    
+    @IBAction func cameraZoomGesture(_ sender: UIPinchGestureRecognizer) {
+        cameraService.cameraZoom(pinch: sender)
+    }
     
     // MARK: - UI
     
