@@ -33,6 +33,22 @@ final class CameraViewController: UIViewController {
         verticalGrid1.frame = CGRect(x: 1*(self.cameraView.frame.width/3), y: 0, width: 1, height: self.cameraView.frame.height)
         verticalGrid2.frame = CGRect(x: 2*(self.cameraView.frame.width/3), y: 0, width: 1, height: self.cameraView.frame.height)
     }
+    func timerPhotoLabelControl() {
+        self.timerButtonOutlet.isEnabled = false
+        timerLabel.text = "\(CameraService.timer)"
+        timerLabel.isHidden = false
+        for i in 1...CameraService.timer {
+            CameraService.delay(delay: Double(i), closure: {
+                if i == CameraService.timer {
+                    self.timerLabel.isHidden = true
+                    self.cameraService.takePhoto()
+                    self.timerButtonOutlet.isEnabled = true
+                } else {
+                    self.timerLabel.text = "\(CameraService.timer - i)"
+                }
+            })
+        }
+    }
     func gridControl() {
         if CameraService.grid {
             horizonGrid1.isHidden = true
@@ -48,14 +64,6 @@ final class CameraViewController: UIViewController {
             CameraService.grid = true
         }
         print(CameraService.grid)
-    }
-    func canPresentPage(indexPath: IndexPath) -> Bool {
-        if indexPath.item < 0 || indexPath.item >= selectFilterCollectionView.numberOfItems(inSection: 0) {
-            print("넘길 수 있는 컬렉션 뷰가 없음.")
-            return false
-        } else {
-            return true
-        }
     }
     
     // MARK: - Touch event
@@ -89,9 +97,15 @@ final class CameraViewController: UIViewController {
     @IBAction func nightModeButton(_ sender: UIButton) {
         //🔴
     }
+    @IBOutlet weak var timerButtonOutlet: UIButton!
     @IBAction func timerButton(_ sender: UIButton) {
         cameraService.timerSetting()
-        sender.titleLabel?.text = "\(CameraService.timer)초"
+        if CameraService.timer != 0 {
+            sender.setTitle("\(CameraService.timer)초", for: .normal)
+        } else {
+            sender.setTitle("timer", for: .normal)
+        }
+        timerLabel.text = "\(CameraService.timer)"
         print(CameraService.timer)
     }
     @IBOutlet weak var focusMark: UIView!
@@ -108,18 +122,11 @@ final class CameraViewController: UIViewController {
         case CameraService.TimerCase.defalt.rawValue :
             cameraService.takePhoto()
         case CameraService.TimerCase.threeSeconds.rawValue :
-            CameraService.delay(delay: 3, closure: {
-                self.cameraService.takePhoto()
-            })
+            timerPhotoLabelControl()
         case CameraService.TimerCase.fiveSeconds.rawValue :
-            CameraService.delay(delay: 5, closure: {
-                self.cameraService.takePhoto()
-            })
+            timerPhotoLabelControl()
         case CameraService.TimerCase.tenSeconds.rawValue :
-            print(CameraService.timer)
-            CameraService.delay(delay: 10, closure: {
-                self.cameraService.takePhoto()
-            })
+            timerPhotoLabelControl()
         default:
             print("error")
         }
@@ -127,43 +134,11 @@ final class CameraViewController: UIViewController {
     @IBAction func frontOrBackCameraButton(_ sender: UIButton) {
         cameraService.frontOrBackCamera()
     }
-    @IBOutlet weak var selectFilterCollectionView: UICollectionView!
     @IBOutlet weak var verticalGrid1: UIView!
     @IBOutlet weak var verticalGrid2: UIView!
     @IBOutlet weak var horizonGrid1: UIView!
     @IBOutlet weak var horizonGrid2: UIView!
-    @IBAction func swipeToRight(_ sender: UISwipeGestureRecognizer) {
-        print("오른쪽으로 스와이프")
-        self.currentIndexPath = selectFilterCollectionView.indexPathsForSelectedItems?[0]
-        guard let indexPath = self.currentIndexPath else {
-            return
-        }
-        var newIndexPath = indexPath
-        newIndexPath = IndexPath(item: newIndexPath.item+1, section: newIndexPath.section)
-        if canPresentPage(indexPath: newIndexPath) {
-            self.selectFilterCollectionView.selectItem(at: newIndexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
-            self.collectionView(self.selectFilterCollectionView, didSelectItemAt: newIndexPath)
-        } else {
-            print("😀")
-        }
-    }
-    @IBAction func swipeToLeft(_ sender: UISwipeGestureRecognizer) {
-        print("왼쪽으로스와이프")
-        self.currentIndexPath = selectFilterCollectionView.indexPathsForSelectedItems?[0]
-        guard let indexPath = self.currentIndexPath else {
-            return
-        }
-        var newIndexPath = indexPath
-        newIndexPath = IndexPath(item: newIndexPath.item-1, section: newIndexPath.section)
-        if canPresentPage(indexPath: newIndexPath) {
-            self.selectFilterCollectionView.selectItem(at: newIndexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
-            self.collectionView(self.selectFilterCollectionView, didSelectItemAt: newIndexPath)
-        } else {
-            print("😀")
-        }
-    }
-    
-    
+    @IBOutlet weak var timerLabel: UILabel!
     
     // MARK: - View Life Cycle
 
@@ -176,8 +151,7 @@ final class CameraViewController: UIViewController {
         cameraService.startRunningCaputureSession()
         
         focusMark.isHidden = true
-        selectFilterCollectionView.isHidden = false //🔴
-        selectFilterCollectionView.selectItem(at: [0, 2], animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
+        timerLabel.isHidden = true
         CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
         gridFrame()
         if CameraService.grid == false {
@@ -191,36 +165,4 @@ final class CameraViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-}
-
-extension CameraViewController : UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "filterSelectingCell", for: indexPath)
-        cell.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-//        var label: UILabel {
-//            let lb = UILabel()
-//            lb.textColor = .white
-//            lb.textAlignment = .left
-//            lb.font = UIFont.systemFont(ofSize: 10)
-//            lb.backgroundColor = .red //
-//            lb.adjustsFontSizeToFitWidth = true
-//            return lb
-//        }
-//        label.text = "\(indexPath.row)"
-//        label.frame = cell.layer.bounds
-//        cell.addSubview(label) //라벨이 들어가지않는다.... 왜인지 대체 모르겠음...... 🔴
-        return cell
-    }
-}
-
-extension CameraViewController : UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("지금 선택된 아이템은 \(indexPath.item)번째 아이템입니다.")
-        self.currentIndexPath = indexPath
-        //🔴 선택한 아이템에 따라 live camera filter 바꾸기.
-    }
 }
