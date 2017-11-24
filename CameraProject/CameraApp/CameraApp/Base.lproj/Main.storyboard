@@ -157,6 +157,7 @@
                         <outlet property="timerLabel" destination="J5E-Tw-dzw" id="QVv-Oe-YDo"/>
                         <outlet property="verticalGrid1" destination="TCR-BL-biF" id="K5W-fD-NJm"/>
                         <outlet property="verticalGrid2" destination="xxg-ul-IM4" id="Zol-d3-Q09"/>
+                        <segue destination="Chh-bN-nQa" kind="show" identifier="moveToPhotoViewSegue" id="OYW-KC-OYZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -8,12 +8,13 @@
 
 import UIKit
 
-final class CameraViewController: UIViewController {
+final class CameraViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     // MARK: - Properties
     
     var cameraService = CameraService()
     var currentIndexPath: IndexPath?
+    var imagePickerSelectedImage: UIImage?
     static var viewSize: CGPoint?
     
     // MARK: - Initializing
@@ -118,6 +119,11 @@ final class CameraViewController: UIViewController {
     }
     @IBOutlet weak var isoSliderOutlet: UISlider!
     @IBAction func albumButton(_ sender: UIButton) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary //🔴  several album도 테스트 해보기.
+        imagePicker.allowsEditing = false
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true, completion: nil)
     }
     @IBAction func takePhotoButton(_ sender: UIButton) {
         switch CameraService.timer {
@@ -166,5 +172,19 @@ final class CameraViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+}
+
+extension CameraViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "moveToPhotoViewSegue" {
+            let photoAlbumViewController = segue.destination as! PhotoAlbumViewController
+            photoAlbumViewController.imageView.image = self.imagePickerSelectedImage
+        }
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imagePickerSelectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        picker.dismiss(animated: true) {
+            self.performSegue(withIdentifier: "moveToPhotoViewSegue", sender: nil)
+        }
+    }
 }

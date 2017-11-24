@@ -6,12 +6,12 @@
 //  Copyright © 2017년 Eunyeong Kim. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-struct AlbumService {
+class AlbumService: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     //Image Picker에서 사진 가져와서 관련 함수들.
-    static func album() {
-        //imagepicker....
+    static func openImagePickerController() {
+        
     }
 }
