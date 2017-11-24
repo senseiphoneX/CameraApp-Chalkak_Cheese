@@ -19,6 +19,7 @@ final class PhotoAlbumViewController: UIViewController {
     // MARK: - UI
     
     @IBAction func leftBarButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     @IBOutlet weak var imageView: UIImageView!
     
