@@ -13,7 +13,21 @@ final class SelectedImageViewController: UIViewController {
 
     // MARK: - Properties
     
-    // MARK: - Initializing
+    // MARK: - Touch
+    
+    @IBAction func swipeToRight(_ sender: UISwipeGestureRecognizer) {
+        AlbumService.selectedImageNumber = AlbumService.selectedImageNumber! + 1
+        if let imageNumber = AlbumService.selectedImageNumber {
+            loadImageView(indexPath: imageNumber)
+        }
+    }
+    @IBAction func swipeToLeft(_ sender: UISwipeGestureRecognizer) {
+        AlbumService.selectedImageNumber = AlbumService.selectedImageNumber! - 1
+        if let imageNumber = AlbumService.selectedImageNumber {
+            loadImageView(indexPath: imageNumber)
+        }
+    }
+    
     
     // MARK: - Actions
     
