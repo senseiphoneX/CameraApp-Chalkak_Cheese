@@ -20,6 +20,7 @@
 		E9D080E91FBD4A19002C3A16 /* IntroPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D080E71FBD4A19002C3A16 /* IntroPopUpViewController.swift */; };
 		E9D080EA1FBD4A19002C3A16 /* IntroPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9D080E81FBD4A19002C3A16 /* IntroPopUpViewController.xib */; };
 		E9D080EC1FBD4A5E002C3A16 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D080EB1FBD4A5E002C3A16 /* FilterType.swift */; };
+		E9EDFD0A1FC92B4F0070C75D /* SelectedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDFD091FC92B4F0070C75D /* SelectedImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		E9D080E81FBD4A19002C3A16 /* IntroPopUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroPopUpViewController.xib; sourceTree = "<group>"; };
 		E9D080EB1FBD4A5E002C3A16 /* FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
 		E9D080F11FBD4C96002C3A16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9EDFD091FC92B4F0070C75D /* SelectedImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			children = (
 				E9D080C71FBC2BD5002C3A16 /* CameraViewController.swift */,
 				E9D080C91FBC2BE7002C3A16 /* PhotoAlbumViewController.swift */,
+				E9EDFD091FC92B4F0070C75D /* SelectedImageViewController.swift */,
 				E9D080CB1FBC2BF0002C3A16 /* SettingViewController.swift */,
 			);
 			path = ViewControllers;
@@ -218,6 +221,7 @@
 				E9D080CC1FBC2BF0002C3A16 /* SettingViewController.swift in Sources */,
 				E9D080DA1FBC31F7002C3A16 /* AlbumService.swift in Sources */,
 				E9D080EC1FBD4A5E002C3A16 /* FilterType.swift in Sources */,
+				E9EDFD0A1FC92B4F0070C75D /* SelectedImageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
