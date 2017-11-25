@@ -262,7 +262,7 @@
                         <viewLayoutGuide key="safeArea" id="UGY-Js-qYs"/>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="CTR-bu-iwa" id="wb7-F9-Yfn"/>
+                        <outlet property="imageView" destination="CTR-bu-iwa" id="6Wj-nc-UQs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yO1-LE-ftg" userLabel="First Responder" sceneMemberID="firstResponder"/>

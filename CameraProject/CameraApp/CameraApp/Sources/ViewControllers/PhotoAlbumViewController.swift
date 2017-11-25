@@ -12,6 +12,8 @@ final class PhotoAlbumViewController: UIViewController {
 
     // MARK: - Properties
     
+    var selectedImage: UIImage?
+    
     // MARK: - Initializing
     
     // MARK: - Actions
@@ -28,7 +30,7 @@ final class PhotoAlbumViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.imageView.image = selectedImage
     }
 
     override func didReceiveMemoryWarning() {

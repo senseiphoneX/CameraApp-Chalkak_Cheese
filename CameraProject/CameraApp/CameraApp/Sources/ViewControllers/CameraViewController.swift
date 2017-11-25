@@ -178,11 +178,15 @@ extension CameraViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "moveToPhotoViewSegue" {
             let photoAlbumViewController = segue.destination as! PhotoAlbumViewController
-            photoAlbumViewController.imageView.image = self.imagePickerSelectedImage
+            print("😎\(self.imagePickerSelectedImage!)😎")
+            if let image = self.imagePickerSelectedImage {
+                print("☺️\(image)")
+                photoAlbumViewController.selectedImage = image
+            }
         }
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        imagePickerSelectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        self.imagePickerSelectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         picker.dismiss(animated: true) {
             self.performSegue(withIdentifier: "moveToPhotoViewSegue", sender: nil)
         }
