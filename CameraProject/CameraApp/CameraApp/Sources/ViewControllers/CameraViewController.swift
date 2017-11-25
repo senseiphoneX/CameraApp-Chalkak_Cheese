@@ -119,11 +119,12 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     }
     @IBOutlet weak var isoSliderOutlet: UISlider!
     @IBAction func albumButton(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .photoLibrary //🔴  several album도 테스트 해보기.
-        imagePicker.allowsEditing = false
-        imagePicker.delegate = self
-        self.present(imagePicker, animated: true, completion: nil)
+//        let imagePicker = UIImagePickerController()
+//        imagePicker.sourceType = .photoLibrary //🔴  several album도 테스트 해보기.
+//        imagePicker.allowsEditing = false
+//        imagePicker.delegate = self
+//        self.present(imagePicker, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "moveToPhotoAlbumViewSegue", sender: nil)
     }
     @IBAction func takePhotoButton(_ sender: UIButton) {
         switch CameraService.timer {
@@ -175,16 +176,20 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
 }
 
 extension CameraViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "moveToPhotoViewSegue" {
-            let photoAlbumViewController = segue.destination as! PhotoAlbumViewController
-            photoAlbumViewController.imageView.image = self.imagePickerSelectedImage
-        }
-    }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        imagePickerSelectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-        picker.dismiss(animated: true) {
-            self.performSegue(withIdentifier: "moveToPhotoViewSegue", sender: nil)
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "moveToPhotoViewSegue" {
+//            let photoAlbumViewController = segue.destination as! PhotoAlbumViewController
+//            print("😎\(self.imagePickerSelectedImage!)😎")
+//            if let image = self.imagePickerSelectedImage {
+//                print("☺️\(image)")
+//                photoAlbumViewController.selectedImage = image
+//            }
+//        }
+//    }
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        self.imagePickerSelectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+//        picker.dismiss(animated: true) {
+//            self.performSegue(withIdentifier: "moveToPhotoViewSegue", sender: nil)
+//        }
+//    }
 }
