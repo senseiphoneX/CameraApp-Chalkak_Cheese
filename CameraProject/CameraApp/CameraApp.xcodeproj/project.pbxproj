@@ -21,6 +21,9 @@
 		E9D080EA1FBD4A19002C3A16 /* IntroPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9D080E81FBD4A19002C3A16 /* IntroPopUpViewController.xib */; };
 		E9D080EC1FBD4A5E002C3A16 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D080EB1FBD4A5E002C3A16 /* FilterType.swift */; };
 		E9EDFD0A1FC92B4F0070C75D /* SelectedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDFD091FC92B4F0070C75D /* SelectedImageViewController.swift */; };
+		E9EDFD3F1FCAF4830070C75D /* NoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDFD3D1FCAF4830070C75D /* NoticeTableViewCell.swift */; };
+		E9EDFD401FCAF4830070C75D /* NoticeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EDFD3E1FCAF4830070C75D /* NoticeTableViewCell.xib */; };
+		E9EDFD421FCAF8910070C75D /* SettingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDFD411FCAF8910070C75D /* SettingDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		E9D080EB1FBD4A5E002C3A16 /* FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
 		E9D080F11FBD4C96002C3A16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9EDFD091FC92B4F0070C75D /* SelectedImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImageViewController.swift; sourceTree = "<group>"; };
+		E9EDFD3D1FCAF4830070C75D /* NoticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTableViewCell.swift; sourceTree = "<group>"; };
+		E9EDFD3E1FCAF4830070C75D /* NoticeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoticeTableViewCell.xib; sourceTree = "<group>"; };
+		E9EDFD411FCAF8910070C75D /* SettingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +94,7 @@
 				E9D080C91FBC2BE7002C3A16 /* PhotoAlbumViewController.swift */,
 				E9EDFD091FC92B4F0070C75D /* SelectedImageViewController.swift */,
 				E9D080CB1FBC2BF0002C3A16 /* SettingViewController.swift */,
+				E9EDFD411FCAF8910070C75D /* SettingDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -127,7 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				E9D080E71FBD4A19002C3A16 /* IntroPopUpViewController.swift */,
-				E9D080E81FBD4A19002C3A16 /* IntroPopUpViewController.xib */,
+				E9EDFD3D1FCAF4830070C75D /* NoticeTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -135,6 +142,8 @@
 		E9D080D51FBC2E2E002C3A16 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E9D080E81FBD4A19002C3A16 /* IntroPopUpViewController.xib */,
+				E9EDFD3E1FCAF4830070C75D /* NoticeTableViewCell.xib */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -200,6 +209,7 @@
 			files = (
 				E9D080EA1FBD4A19002C3A16 /* IntroPopUpViewController.xib in Resources */,
 				E9D080C01FBC2B91002C3A16 /* LaunchScreen.storyboard in Resources */,
+				E9EDFD401FCAF4830070C75D /* NoticeTableViewCell.xib in Resources */,
 				E9D080BD1FBC2B91002C3A16 /* Assets.xcassets in Resources */,
 				E9D080BB1FBC2B91002C3A16 /* Main.storyboard in Resources */,
 			);
@@ -216,6 +226,8 @@
 				E9D080B61FBC2B91002C3A16 /* AppDelegate.swift in Sources */,
 				E9D080C81FBC2BD5002C3A16 /* CameraViewController.swift in Sources */,
 				E9D080DC1FBD4903002C3A16 /* FilterService.swift in Sources */,
+				E9EDFD421FCAF8910070C75D /* SettingDetailViewController.swift in Sources */,
+				E9EDFD3F1FCAF4830070C75D /* NoticeTableViewCell.swift in Sources */,
 				E9D080CA1FBC2BE7002C3A16 /* PhotoAlbumViewController.swift in Sources */,
 				E9D080E91FBD4A19002C3A16 /* IntroPopUpViewController.swift in Sources */,
 				E9D080CC1FBC2BF0002C3A16 /* SettingViewController.swift in Sources */,
