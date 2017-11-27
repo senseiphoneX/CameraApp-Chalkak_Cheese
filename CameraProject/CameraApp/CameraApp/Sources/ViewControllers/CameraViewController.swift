@@ -79,12 +79,24 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         //focus marker 뜨게
         self.brightnessFocusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 50, height: 50) //touchPoint
         self.focusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 50, height: 50) //touchPoint
-        self.brightnessFocusMark.isHidden = false
-        self.focusMark.isHidden = false
-        CameraService.delay(delay: 1.0, closure: {
-            self.brightnessFocusMark.isHidden = true
-            self.focusMark.isHidden = true
-        })
+//        self.brightnessFocusMark.isHidden = false
+//        self.focusMark.isHidden = false
+//        CameraService.delay(delay: 1.0, closure: {
+//            self.brightnessFocusMark.isHidden = true
+//            self.focusMark.isHidden = true
+//        })
+    }
+    @IBAction func focusPanGesture(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self.focusMark) // = touchPoint
+        sender.view?.center = CGPoint(x: (sender.view?.center.x)! + translation.x, y: (sender.view?.center.y)! + translation.y)
+        sender.setTranslation(CGPoint.zero, in: self.focusMark)
+        cameraService.cameraSetFocus(focusPoint: (sender.view?.center)!)
+    }
+    @IBAction func brightnessFocusPanGesture(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self.brightnessFocusMark) // = touchPoint
+        sender.view?.center = CGPoint(x: (sender.view?.center.x)! + translation.x, y: (sender.view?.center.y)! + translation.y)
+        sender.setTranslation(CGPoint.zero, in: self.brightnessFocusMark)
+        cameraService.cameraSetBrightnessFocus(focusPoint: (sender.view?.center)!)
     }
     @IBAction func cameraZoomGesture(_ sender: UIPinchGestureRecognizer) {
         cameraService.cameraZoom(pinch: sender)
@@ -158,8 +170,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         cameraService.setUpPreviewLayer(view: self.cameraView)
         cameraService.startRunningCaputureSession()
         
-        self.brightnessFocusMark.isHidden = true
-        self.focusMark.isHidden = true
+//        self.brightnessFocusMark.isHidden = true //🔴
+//        self.focusMark.isHidden = true //🔴
         self.timerLabel.isHidden = true
         CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
         gridFrame()
