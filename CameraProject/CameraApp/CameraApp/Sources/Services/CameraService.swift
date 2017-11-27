@@ -176,6 +176,36 @@ class CameraService: NSObject {
             }
         }
     }
+    func cameraSetFocus(focusPoint: CGPoint) {
+        if let device = currentCamera {
+            do {
+                //선택한 포인트의 초점조절
+                try device.lockForConfiguration()
+                if device.isFocusPointOfInterestSupported {
+                    device.focusPointOfInterest = focusPoint
+                    device.focusMode = AVCaptureDevice.FocusMode.continuousAutoFocus
+                }
+                device.unlockForConfiguration()
+            } catch {
+                print("set focus error.")
+            }
+        }
+    }
+    func cameraSetBrightnessFocus(focusPoint: CGPoint) {
+        if let device = currentCamera {
+            do {
+                try device.lockForConfiguration()
+                //선택한 포인트의 밝기조절
+                if device.isExposurePointOfInterestSupported {
+                    device.exposurePointOfInterest = focusPoint
+                    device.exposureMode = AVCaptureDevice.ExposureMode.autoExpose
+                }
+                device.unlockForConfiguration()
+            } catch {
+                print("set brightness error!")
+            }
+        }
+    }
     let minimumZoom: CGFloat = 1.0
     let maximumZoom: CGFloat = 5.0
     var lastZoomFactor: CGFloat = 1.0

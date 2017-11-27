@@ -77,11 +77,26 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         self.isoSliderOutlet.value = (cameraService.currentCamera?.iso)!
         cameraService.cameraFocusing(focusPoint: foucusPoint)
         //focus marker 뜨게
-        focusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 50, height: 50) //touchPoint
-        focusMark.isHidden = false
-        CameraService.delay(delay: 1.0, closure: {
-            self.focusMark.isHidden = true
-        })
+        self.brightnessFocusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 50, height: 50) //touchPoint
+        self.focusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 50, height: 50) //touchPoint
+//        self.brightnessFocusMark.isHidden = false
+//        self.focusMark.isHidden = false
+//        CameraService.delay(delay: 1.0, closure: {
+//            self.brightnessFocusMark.isHidden = true
+//            self.focusMark.isHidden = true
+//        })
+    }
+    @IBAction func focusPanGesture(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self.focusMark) // = touchPoint
+        sender.view?.center = CGPoint(x: (sender.view?.center.x)! + translation.x, y: (sender.view?.center.y)! + translation.y)
+        sender.setTranslation(CGPoint.zero, in: self.focusMark)
+        cameraService.cameraSetFocus(focusPoint: (sender.view?.center)!)
+    }
+    @IBAction func brightnessFocusPanGesture(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self.brightnessFocusMark) // = touchPoint
+        sender.view?.center = CGPoint(x: (sender.view?.center.x)! + translation.x, y: (sender.view?.center.y)! + translation.y)
+        sender.setTranslation(CGPoint.zero, in: self.brightnessFocusMark)
+        cameraService.cameraSetBrightnessFocus(focusPoint: (sender.view?.center)!)
     }
     @IBAction func cameraZoomGesture(_ sender: UIPinchGestureRecognizer) {
         cameraService.cameraZoom(pinch: sender)
@@ -111,6 +126,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         timerLabel.text = "\(CameraService.timer)"
         print(CameraService.timer)
     }
+    @IBOutlet weak var brightnessFocusMark: UIView!
     @IBOutlet weak var focusMark: UIView!
     @IBAction func isoSlider(_ sender: UISlider) {
         sender.minimumValue = (cameraService.currentCamera?.activeFormat.minISO)!
@@ -119,11 +135,6 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     }
     @IBOutlet weak var isoSliderOutlet: UISlider!
     @IBAction func albumButton(_ sender: UIButton) {
-//        let imagePicker = UIImagePickerController()
-//        imagePicker.sourceType = .photoLibrary //🔴  several album도 테스트 해보기.
-//        imagePicker.allowsEditing = false
-//        imagePicker.delegate = self
-//        self.present(imagePicker, animated: true, completion: nil)
         self.performSegue(withIdentifier: "moveToPhotoAlbumViewSegue", sender: nil)
     }
     @IBAction func takePhotoButton(_ sender: UIButton) {
@@ -159,8 +170,9 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         cameraService.setUpPreviewLayer(view: self.cameraView)
         cameraService.startRunningCaputureSession()
         
-        focusMark.isHidden = true
-        timerLabel.isHidden = true
+//        self.brightnessFocusMark.isHidden = true //🔴
+//        self.focusMark.isHidden = true //🔴
+        self.timerLabel.isHidden = true
         CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
         gridFrame()
         if CameraService.grid == false {
