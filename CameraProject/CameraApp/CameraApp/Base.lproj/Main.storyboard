@@ -81,7 +81,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l7r-nA-cjB">
-                                        <rect key="frame" x="163" y="276" width="20" height="20"/>
+                                        <rect key="frame" x="30" y="276" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.33542915239726029" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
@@ -126,6 +126,18 @@
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1JO-Yo-hgj">
+                                        <rect key="frame" x="16" y="424" width="42" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NOi-qj-Mzd">
+                                        <rect key="frame" x="45" y="306" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.28423863407036193" green="0.48832191130839481" blue="0.91921168565750122" alpha="0.33542915239999999" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
@@ -148,6 +160,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="brightnessFocusMark" destination="NOi-qj-Mzd" id="YV4-lt-bj2"/>
                         <outlet property="cameraView" destination="2AU-jF-T0R" id="pwP-nZ-aG9"/>
                         <outlet property="focusMark" destination="l7r-nA-cjB" id="seE-uR-zf3"/>
                         <outlet property="horizonGrid1" destination="olS-Kd-zHw" id="q5d-2V-ncs"/>
