@@ -5,7 +5,6 @@
 //  Created by Eunyeong Kim on 2017. 11. 15..
 //  Copyright © 2017년 Eunyeong Kim. All rights reserved.
 //
-//😀 tint color setting
 
 import MediaPlayer
 import UIKit
@@ -19,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let audioSession = AVAudioSession.sharedInstance()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        window?.tintColor = UIColor(red: 245, green: 166, blue: 35, alpha: 1)
         return true
     }
     
