@@ -32,7 +32,6 @@ final class PhotoAlbumViewController: UIViewController {
         super.viewDidLoad()
         AlbumService.loadPhotos()
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

@@ -94,12 +94,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         //focus marker 뜨게
         self.brightnessFocusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 50, height: 50) //touchPoint
         self.focusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 50, height: 50) //touchPoint
-//        self.brightnessFocusMark.isHidden = false
-//        self.focusMark.isHidden = false
-//        CameraService.delay(delay: 1.0, closure: {
-//            self.brightnessFocusMark.isHidden = true
-//            self.focusMark.isHidden = true
-//        })
+        self.brightnessFocusMark.isHidden = false
+        self.focusMark.isHidden = false
     }
     @IBAction func focusPanGesture(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.focusMark) // = touchPoint
@@ -126,9 +122,6 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     }
     @IBAction func gridButton(_ sender: UIButton) {
         gridControl()
-    }
-    @IBAction func nightModeButton(_ sender: UIButton) {
-        //🔴
     }
     @IBOutlet weak var timerButtonOutlet: UIButton!
     @IBAction func timerButton(_ sender: UIButton) {

@@ -67,11 +67,13 @@ extension SettingViewController : UITableViewDataSource {
         if indexPath.section == 0 {
             let createSegueCell = tableView.dequeueReusableCell(withIdentifier: "createSegueCell", for: indexPath)
             createSegueCell.textLabel?.text = "사용된 오픈소스"
+            createSegueCell.textLabel?.textColor = .white
             return createSegueCell
         } else if indexPath.section == 1 {
             let switchCell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath)
             switchCell.textLabel?.text = "자동 저장" //구현안됨.🔴
             switchCell.selectionStyle = .none
+            switchCell.textLabel?.textColor = .white
             return switchCell
         } else {
             let noticeCell: NoticeTableViewCell = tableView.dequeueReusableCell(withIdentifier: "noticeCell", for: indexPath) as! NoticeTableViewCell

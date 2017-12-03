@@ -54,7 +54,6 @@ final class SelectedImageViewController: UIViewController {
             loadImageView(indexPath: imageNumber)
         }
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 
