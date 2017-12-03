@@ -92,8 +92,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         self.isoSliderOutlet.value = (cameraService.currentCamera?.iso)!
         cameraService.cameraFocusing(focusPoint: foucusPoint)
         //focus marker 뜨게
-        self.brightnessFocusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 50, height: 50) //touchPoint
-        self.focusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 50, height: 50) //touchPoint
+        self.brightnessFocusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 81, height: 81) //touchPoint
+        self.focusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 81, height: 81) //touchPoint
         self.brightnessFocusMark.isHidden = false
         self.focusMark.isHidden = false
     }
@@ -134,8 +134,10 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         timerLabel.text = "\(CameraService.timer)"
         print(CameraService.timer)
     }
-    @IBOutlet weak var brightnessFocusMark: UIView!
-    @IBOutlet weak var focusMark: UIView!
+//    @IBOutlet weak var brightnessFocusMark: UIView!
+//    @IBOutlet weak var focusMark: UIView!
+    @IBOutlet weak var brightnessFocusMark: UIImageView!
+    @IBOutlet weak var focusMark: UIImageView!
     @IBAction func isoSlider(_ sender: UISlider) {
         sender.minimumValue = (cameraService.currentCamera?.activeFormat.minISO)!
         sender.maximumValue = (cameraService.currentCamera?.activeFormat.maxISO)!
