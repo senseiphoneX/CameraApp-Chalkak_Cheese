@@ -123,8 +123,8 @@
 		E9D080D21FBC2DE0002C3A16 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				E9D080D91FBC31F7002C3A16 /* AlbumService.swift */,
 				E9D080D71FBC31E5002C3A16 /* CameraService.swift */,
+				E9D080D91FBC31F7002C3A16 /* AlbumService.swift */,
 				E9D080DB1FBD4903002C3A16 /* FilterService.swift */,
 			);
 			path = Services;

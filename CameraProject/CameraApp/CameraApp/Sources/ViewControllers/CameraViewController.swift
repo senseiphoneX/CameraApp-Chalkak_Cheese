@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MediaPlayer
 
 final class CameraViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
@@ -65,6 +66,20 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
             CameraService.grid = true
         }
         print(CameraService.grid)
+    }
+    @objc func takePhotoButtonAction() {
+        switch CameraService.timer {
+        case CameraService.TimerCase.defalt.rawValue :
+            cameraService.takePhoto()
+        case CameraService.TimerCase.threeSeconds.rawValue :
+            timerPhotoLabelControl()
+        case CameraService.TimerCase.fiveSeconds.rawValue :
+            timerPhotoLabelControl()
+        case CameraService.TimerCase.tenSeconds.rawValue :
+            timerPhotoLabelControl()
+        default:
+            print("error")
+        }
     }
     
     // MARK: - Touch event
@@ -138,18 +153,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         self.performSegue(withIdentifier: "moveToPhotoAlbumViewSegue", sender: nil)
     }
     @IBAction func takePhotoButton(_ sender: UIButton) {
-        switch CameraService.timer {
-        case CameraService.TimerCase.defalt.rawValue :
-            cameraService.takePhoto()
-        case CameraService.TimerCase.threeSeconds.rawValue :
-            timerPhotoLabelControl()
-        case CameraService.TimerCase.fiveSeconds.rawValue :
-            timerPhotoLabelControl()
-        case CameraService.TimerCase.tenSeconds.rawValue :
-            timerPhotoLabelControl()
-        default:
-            print("error")
-        }
+        takePhotoButtonAction()
     }
     @IBAction func frontOrBackCameraButton(_ sender: UIButton) {
         cameraService.frontOrBackCamera()
@@ -170,10 +174,15 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         cameraService.setUpPreviewLayer(view: self.cameraView)
         cameraService.startRunningCaputureSession()
         
-//        self.brightnessFocusMark.isHidden = true //🔴
-//        self.focusMark.isHidden = true //🔴
+        self.brightnessFocusMark.isHidden = true //🔴
+        self.focusMark.isHidden = true //🔴
         self.timerLabel.isHidden = true
         CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.takePhotoButtonAction), name: Notification.Name(rawValue: "volumeChanged"), object: nil)
+        let volView = MPVolumeView(frame: CGRect(x: 0, y: -100, width: 0, height: 0))
+        view.addSubview(volView)
+        
         gridFrame()
         if CameraService.grid == false {
             verticalGrid1.isHidden = true
@@ -205,3 +214,5 @@ extension CameraViewController {
 //        }
 //    }
 }
+
+

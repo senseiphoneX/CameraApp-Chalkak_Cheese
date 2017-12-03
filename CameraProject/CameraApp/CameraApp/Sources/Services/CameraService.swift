@@ -22,12 +22,14 @@ class CameraService: NSObject {
     //촬영 이후 사용
     var photoOutput: AVCapturePhotoOutput?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
-    //밑에는 사용하는지 안하는지 머름 ㅠ
-    var image: UIImage?
+//    var image: UIImage? //🔴 지울까?
     //카메라 사용 관련 properties
     static var cameraPosition:Bool = true //true = back, false = front
     static var flash:Bool = false // true = on, false = off
     static var grid:Bool = true // true = on, false = off
+    let minimumZoom: CGFloat = 1.0 //🔴 private로?
+    let maximumZoom: CGFloat = 5.0 //🔴 private로?
+    var lastZoomFactor: CGFloat = 1.0 //🔴 private로?
     static var timer:Int = 0
     enum TimerCase: Int {
         case defalt = 0
@@ -94,12 +96,10 @@ class CameraService: NSObject {
                     print("no")
                 }
             }
-
             CameraService.delay(delay: 1.0) {
                 self.currentCamera?.torchMode = .off
                 self.currentCamera?.unlockForConfiguration()
             }
-
             CameraService.delay(delay: 0.1) {
                 let settings = AVCapturePhotoSettings()
                 self.photoOutput?.capturePhoto(with: settings, delegate: self)
@@ -206,9 +206,6 @@ class CameraService: NSObject {
             }
         }
     }
-    let minimumZoom: CGFloat = 1.0
-    let maximumZoom: CGFloat = 5.0
-    var lastZoomFactor: CGFloat = 1.0
     func cameraZoom(pinch: UIPinchGestureRecognizer) {
         func minMaxZoom(factor: CGFloat) -> CGFloat {
             return min(min(max(factor, minimumZoom), maximumZoom), (currentCamera?.activeFormat.videoMaxZoomFactor)!)
@@ -246,7 +243,6 @@ extension CameraService: AVCapturePhotoCaptureDelegate {
             print(error)
         }
         if let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer!, previewPhotoSampleBuffer: previewPhotoSampleBuffer) {
-            print(UIImage(data: dataImage)?.size as Any)
             FilterService.filteringImage(image: UIImage(data: dataImage)!, cameraPosition: CameraService.cameraPosition)
         }
     }
