@@ -22,6 +22,19 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     
     // MARK: - Actions
     
+    func albumButtonPreviewAtCameraView() {
+        let photoAsset = AlbumService.fetchResult.object(at: 0)
+        let photoSize = CGSize(width: 42.7, height: 42.7)
+        AlbumService.imageManager.requestImage(for: photoAsset, targetSize: photoSize, contentMode: .aspectFill, options: nil) { (image, info) -> Void in
+            if let img = image {
+                let imageView = UIImageView(image: img)
+                imageView.frame.size = photoSize
+                imageView.contentMode = UIViewContentMode.scaleAspectFill
+                imageView.clipsToBounds = true
+                self.albumButtonOutlet.addSubview(imageView)
+            }
+        }
+    }
     func flashControl() {
         if CameraService.flash {
             CameraService.flash = false
@@ -147,6 +160,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     @IBAction func albumButton(_ sender: UIButton) {
         self.performSegue(withIdentifier: "moveToPhotoAlbumViewSegue", sender: nil)
     }
+    @IBOutlet weak var albumButtonOutlet: UIButton!
     @IBAction func takePhotoButton(_ sender: UIButton) {
         takePhotoButtonAction()
     }
@@ -185,6 +199,9 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
             horizonGrid1.isHidden = true
             horizonGrid2.isHidden = true
         }
+        
+        AlbumService.loadPhotos()
+        self.albumButtonPreviewAtCameraView()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

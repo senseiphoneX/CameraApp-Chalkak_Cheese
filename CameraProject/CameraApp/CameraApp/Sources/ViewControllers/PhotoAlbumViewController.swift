@@ -30,7 +30,6 @@ final class PhotoAlbumViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AlbumService.loadPhotos()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

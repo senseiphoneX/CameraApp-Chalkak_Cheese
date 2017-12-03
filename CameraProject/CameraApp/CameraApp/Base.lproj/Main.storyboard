@@ -182,6 +182,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="albumButtonOutlet" destination="WFv-od-O0k" id="mbU-yT-Rwg"/>
                         <outlet property="brightnessFocusMark" destination="T1m-0e-TZk" id="JtR-a4-fke"/>
                         <outlet property="cameraView" destination="2AU-jF-T0R" id="pwP-nZ-aG9"/>
                         <outlet property="focusMark" destination="v0F-sn-jzE" id="poH-5g-hS0"/>
