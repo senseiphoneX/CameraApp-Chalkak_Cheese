@@ -7,6 +7,7 @@
 //
 
 import AVFoundation
+import Photos
 import UIKit
 
 class CameraService: NSObject {
@@ -15,8 +16,6 @@ class CameraService: NSObject {
     
     //camera load에 사용 properties
     var captureSession = AVCaptureSession()
-    var backCamera: AVCaptureDevice?
-    var frontCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
     let photoSettings = AVCapturePhotoSettings()
     //촬영 이후 사용
@@ -49,11 +48,15 @@ class CameraService: NSObject {
         //back, front 카메라 어느쪽을 할 것인지 정하기.
         for deviece in devices {
             if CameraService.cameraPosition, deviece.position == AVCaptureDevice.Position.back {
-                backCamera = deviece
-                currentCamera = backCamera
+                if let dualCameradevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
+                    currentCamera = dualCameradevice
+                } else if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
+                    currentCamera = backCameraDevice
+                }
             } else if CameraService.cameraPosition == false, deviece.position == AVCaptureDevice.Position.front {
-                frontCamera = deviece
-                currentCamera = frontCamera
+                if let frontCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) {
+                    currentCamera = frontCameraDevice
+                }
             }
         }
     }
@@ -62,6 +65,12 @@ class CameraService: NSObject {
             let captureDeviceInput = try AVCaptureDeviceInput(device: currentCamera!)
             captureSession.addInput(captureDeviceInput)
             photoOutput = AVCapturePhotoOutput()
+            photoOutput?.isHighResolutionCaptureEnabled = true
+            if let connection = photoOutput?.connection(with: .video) {
+                if connection.isVideoStabilizationSupported {
+                    connection.preferredVideoStabilizationMode = .auto
+                }
+            }
 //            photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey:AVVideoCodecType.jpeg])], completionHandler: nil)
             captureSession.addOutput(photoOutput!)
             captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
@@ -87,6 +96,7 @@ class CameraService: NSObject {
         DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }
     func takePhoto() {
+        photoSettings.isHighResolutionPhotoEnabled = true
         if CameraService.cameraPosition && CameraService.flash {
             if (currentCamera?.hasTorch)!{
                 do {
@@ -237,7 +247,6 @@ class CameraService: NSObject {
 }
 
 extension CameraService: AVCapturePhotoCaptureDelegate {
-    // #available ios10
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
         if let error = error {
             print(error)
@@ -246,10 +255,4 @@ extension CameraService: AVCapturePhotoCaptureDelegate {
             FilterService.filteringImage(image: UIImage(data: dataImage)!, cameraPosition: CameraService.cameraPosition)
         }
     }
-    // #available ios11~
-//    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-//        if let imageData = photo.fileDataRepresentation(){
-//            FilterService.filteringImage(image: UIImage(data:imageData)!, cameraPosition: CameraService.cameraPosition)
-//        }
-//    }
 }
