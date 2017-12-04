@@ -236,10 +236,6 @@ final class CameraViewController: UIViewController {
         checkCameraPermission()
         checkPhotoLibraryPermission()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

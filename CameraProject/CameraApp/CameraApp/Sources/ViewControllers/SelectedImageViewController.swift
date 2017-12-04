@@ -16,15 +16,21 @@ final class SelectedImageViewController: UIViewController {
     // MARK: - Touch
     
     @IBAction func swipeToRight(_ sender: UISwipeGestureRecognizer) {
-        AlbumService.selectedImageNumber = AlbumService.selectedImageNumber! + 1
-        if let imageNumber = AlbumService.selectedImageNumber {
-            loadImageView(indexPath: imageNumber)
+        if let number = AlbumService.numberOfPhotos {
+            if AlbumService.selectedImageNumber != number {
+                AlbumService.selectedImageNumber = AlbumService.selectedImageNumber! + 1
+                if let imageNumber = AlbumService.selectedImageNumber {
+                    loadImageView(indexPath: imageNumber)
+                }
+            }
         }
     }
     @IBAction func swipeToLeft(_ sender: UISwipeGestureRecognizer) {
-        AlbumService.selectedImageNumber = AlbumService.selectedImageNumber! - 1
-        if let imageNumber = AlbumService.selectedImageNumber {
-            loadImageView(indexPath: imageNumber)
+        if AlbumService.selectedImageNumber != 0 {
+            AlbumService.selectedImageNumber = AlbumService.selectedImageNumber! - 1
+            if let imageNumber = AlbumService.selectedImageNumber {
+                loadImageView(indexPath: imageNumber)
+            }
         }
     }
     
@@ -35,7 +41,11 @@ final class SelectedImageViewController: UIViewController {
         let photoAsset = AlbumService.fetchResult.object(at: item)
         let photoSize = CGSize(width: photoAsset.pixelWidth, height: photoAsset.pixelHeight)
         AlbumService.imageManager.requestImage(for: photoAsset, targetSize: photoSize, contentMode: .aspectFill, options: nil) { (image, info) in
-            self.imageView.image = image!
+            if let img = image {
+                self.imageView.image = img
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
     

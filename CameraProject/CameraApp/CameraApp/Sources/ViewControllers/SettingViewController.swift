@@ -21,7 +21,6 @@ final class SettingViewController: UIViewController {
         let runs = countViewRunTimes() + 1
         UserDefaults.standard.setValue(runs, forKey: "runTimes")
         UserDefaults.standard.synchronize()
-        print("😀😀\(UserDefaults.standard.value(forKey: "runTimes") as! Int)")
         if runs == 2 {
             if #available(iOS 10.3, *) {
                 SKStoreReviewController.requestReview()

@@ -16,6 +16,7 @@ class AlbumService {
     static var fetchResult: PHFetchResult<PHAsset>!
     static var imageManager = PHCachingImageManager()
     static var selectedImageNumber: Int?
+    static var numberOfPhotos: Int?
     
     // MARK: - Functions
     
@@ -24,5 +25,6 @@ class AlbumService {
         let options = PHFetchOptions()
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         fetchResult = PHAsset.fetchAssets(with: .image, options: options)
+        numberOfPhotos = fetchResult.count
     }
 }
