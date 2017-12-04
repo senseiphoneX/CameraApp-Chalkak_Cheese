@@ -6,10 +6,10 @@
 //  Copyright © 2017년 Eunyeong Kim. All rights reserved.
 //
 
-import UIKit
 import MediaPlayer
+import UIKit
 
-final class CameraViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+final class CameraViewController: UIViewController {
     
     // MARK: - Properties
     
