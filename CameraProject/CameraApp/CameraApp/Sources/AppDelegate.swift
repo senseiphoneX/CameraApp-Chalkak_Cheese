@@ -9,14 +9,14 @@
 import MediaPlayer
 import UIKit
 
-var volume: Float = 0.5
+    var volume: Float = 0.5
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let audioSession = AVAudioSession.sharedInstance()
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window?.tintColor = UIColor(red: 245, green: 166, blue: 35, alpha: 1)
         return true

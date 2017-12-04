@@ -12,7 +12,7 @@ class SettingDetailViewController: UIViewController {
 
     // MARK: - Properties
     
-    static var navigationBarTitle: String?
+//    static var navigationBarTitle: String?
     
     // MARK: - Initializing
     

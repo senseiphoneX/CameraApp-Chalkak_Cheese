@@ -82,8 +82,10 @@ class CameraService: NSObject {
         cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
         cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-        cameraPreviewLayer?.frame = view.frame
-        view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
+        DispatchQueue.main.async {
+            self.cameraPreviewLayer?.frame = view.frame
+            view.layer.insertSublayer(self.cameraPreviewLayer!, at: 0)
+        }
     }
     func startRunningCaputureSession() {
         captureSession.startRunning()

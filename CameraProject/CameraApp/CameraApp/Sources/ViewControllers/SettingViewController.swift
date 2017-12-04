@@ -6,6 +6,7 @@
 //  Copyright © 2017년 Eunyeong Kim. All rights reserved.
 //
 
+import StoreKit
 import UIKit
 
 final class SettingViewController: UIViewController {
@@ -15,6 +16,26 @@ final class SettingViewController: UIViewController {
     // MARK: - Initializing
     
     // MARK: - Actions
+    
+    func saveToUserDefaultViewRunTimes() {
+        let runs = countViewRunTimes() + 1
+        UserDefaults.standard.setValue(runs, forKey: "runTimes")
+        UserDefaults.standard.synchronize()
+        print("😀😀\(UserDefaults.standard.value(forKey: "runTimes") as! Int)")
+        if runs == 2 {
+            if #available(iOS 10.3, *) {
+                SKStoreReviewController.requestReview()
+            }
+        }
+    }
+    func countViewRunTimes() -> Int {
+        let savedRunTimes = UserDefaults.standard.value(forKey: "runTimes")
+        var runTimes = 0
+        if savedRunTimes != nil {
+            runTimes = savedRunTimes as! Int
+        }
+        return runTimes
+    }
     
     // MARK: - UI
     
@@ -29,6 +50,7 @@ final class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.settingTableView.register(UINib.init(nibName: "NoticeTableViewCell", bundle: nil), forCellReuseIdentifier: "noticeCell")
+        self.saveToUserDefaultViewRunTimes()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

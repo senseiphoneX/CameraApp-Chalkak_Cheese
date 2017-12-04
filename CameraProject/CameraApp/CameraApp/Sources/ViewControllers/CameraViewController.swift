@@ -7,6 +7,7 @@
 //
 
 import MediaPlayer
+import Photos
 import UIKit
 
 final class CameraViewController: UIViewController {
@@ -22,16 +23,59 @@ final class CameraViewController: UIViewController {
     
     // MARK: - Actions
     
+    private func checkCameraPermission() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .denied: break
+        case .restricted: break
+        case .authorized: self.readyToUseCamera()
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+                if granted {
+                    self.readyToUseCamera()
+                }
+            })
+        }
+    }
+    private func checkPhotoLibraryPermission() {
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({ (status) in
+                if status == .authorized {
+                    AlbumService.loadPhotos()
+                    self.albumButtonPreviewAtCameraView()
+                }
+            })
+        case .restricted: break
+        case .denied: break
+        case .authorized:
+            AlbumService.loadPhotos()
+            self.albumButtonPreviewAtCameraView()
+        }
+    }
+    private func readyToUseCamera() {
+        self.cameraService.setUpCaptureSession()
+        self.cameraService.setUpDevice()
+        self.cameraService.setUpInputOutput()
+        self.cameraService.setUpPreviewLayer(view: self.cameraView)
+        self.cameraService.startRunningCaputureSession()
+        CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.takePhotoButtonAction), name: Notification.Name(rawValue: "volumeChanged"), object: nil)
+        let volView = MPVolumeView(frame: CGRect(x: 0, y: -100, width: 0, height: 0))
+        self.view.addSubview(volView)
+    }
     func albumButtonPreviewAtCameraView() {
         let photoAsset = AlbumService.fetchResult.object(at: 0)
         let photoSize = CGSize(width: 42.7, height: 42.7)
         AlbumService.imageManager.requestImage(for: photoAsset, targetSize: photoSize, contentMode: .aspectFill, options: nil) { (image, info) -> Void in
             if let img = image {
-                let imageView = UIImageView(image: img)
-                imageView.frame.size = photoSize
-                imageView.contentMode = UIViewContentMode.scaleAspectFill
-                imageView.clipsToBounds = true
-                self.albumButtonOutlet.addSubview(imageView)
+                DispatchQueue.main.async {
+                    let imageView = UIImageView(image: img)
+                    imageView.frame.size = photoSize
+                    imageView.contentMode = UIViewContentMode.scaleAspectFill
+                    imageView.clipsToBounds = true
+                    self.albumButtonOutlet.addSubview(imageView)
+                }
             }
         }
     }
@@ -145,6 +189,7 @@ final class CameraViewController: UIViewController {
         print(CameraService.flash)
     }
     @IBAction func gridButton(_ sender: UIButton) {
+        self.gridFrame()
         gridControl()
     }
     @IBOutlet weak var timerButtonOutlet: UIButton!
@@ -188,33 +233,12 @@ final class CameraViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        cameraService.setUpCaptureSession()
-        cameraService.setUpDevice()
-        cameraService.setUpInputOutput()
-        cameraService.setUpPreviewLayer(view: self.cameraView)
-        cameraService.startRunningCaputureSession()
+        checkCameraPermission()
+        checkPhotoLibraryPermission()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         
-        self.brightnessFocusMark.isHidden = true //🔴
-        self.focusMark.isHidden = true //🔴
-        self.focusMarkLabel.isHidden = true
-        self.brightnessFocusMarkLabel.isHidden = true
-        self.timerLabel.isHidden = true
-        CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.takePhotoButtonAction), name: Notification.Name(rawValue: "volumeChanged"), object: nil)
-        let volView = MPVolumeView(frame: CGRect(x: 0, y: -100, width: 0, height: 0))
-        view.addSubview(volView)
-        
-        gridFrame()
-        if CameraService.grid == false {
-            verticalGrid1.isHidden = true
-            verticalGrid2.isHidden = true
-            horizonGrid1.isHidden = true
-            horizonGrid2.isHidden = true
-        }
-        
-        AlbumService.loadPhotos()
-        self.albumButtonPreviewAtCameraView()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
