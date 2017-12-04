@@ -80,6 +80,14 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         }
         print(CameraService.grid)
     }
+    func setFocusLabelFrame() {
+        if brightnessFocusMark.isHidden == false && focusMark.isHidden == false {
+            brightnessFocusMarkLabel.frame = CGRect(x: brightnessFocusMark.frame.origin.x + 12, y: brightnessFocusMark.frame.origin.y + 81 , width: 57, height: 13)
+            focusMarkLabel.frame = CGRect(x: focusMark.frame.origin.x + 12, y: focusMark.frame.origin.y - 13, width: 57, height: 13)
+            brightnessFocusMarkLabel.isHidden = false
+            focusMarkLabel.isHidden = false
+        }
+    }
     @objc func takePhotoButtonAction() {
         switch CameraService.timer {
         case CameraService.TimerCase.defalt.rawValue :
@@ -109,18 +117,21 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         self.focusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 81, height: 81) //touchPoint
         self.brightnessFocusMark.isHidden = false
         self.focusMark.isHidden = false
+        self.setFocusLabelFrame()
     }
     @IBAction func focusPanGesture(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.focusMark) // = touchPoint
         sender.view?.center = CGPoint(x: (sender.view?.center.x)! + translation.x, y: (sender.view?.center.y)! + translation.y)
         sender.setTranslation(CGPoint.zero, in: self.focusMark)
         cameraService.cameraSetFocus(focusPoint: (sender.view?.center)!)
+        self.setFocusLabelFrame()
     }
     @IBAction func brightnessFocusPanGesture(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.brightnessFocusMark) // = touchPoint
         sender.view?.center = CGPoint(x: (sender.view?.center.x)! + translation.x, y: (sender.view?.center.y)! + translation.y)
         sender.setTranslation(CGPoint.zero, in: self.brightnessFocusMark)
         cameraService.cameraSetBrightnessFocus(focusPoint: (sender.view?.center)!)
+        self.setFocusLabelFrame()
     }
     @IBAction func cameraZoomGesture(_ sender: UIPinchGestureRecognizer) {
         cameraService.cameraZoom(pinch: sender)
@@ -147,8 +158,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         timerLabel.text = "\(CameraService.timer)"
         print(CameraService.timer)
     }
-//    @IBOutlet weak var brightnessFocusMark: UIView!
-//    @IBOutlet weak var focusMark: UIView!
+    @IBOutlet weak var focusMarkLabel: UILabel!
+    @IBOutlet weak var brightnessFocusMarkLabel: UILabel!
     @IBOutlet weak var brightnessFocusMark: UIImageView!
     @IBOutlet weak var focusMark: UIImageView!
     @IBAction func isoSlider(_ sender: UISlider) {
@@ -185,6 +196,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         
         self.brightnessFocusMark.isHidden = true //🔴
         self.focusMark.isHidden = true //🔴
+        self.focusMarkLabel.isHidden = true
+        self.brightnessFocusMarkLabel.isHidden = true
         self.timerLabel.isHidden = true
         CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
         

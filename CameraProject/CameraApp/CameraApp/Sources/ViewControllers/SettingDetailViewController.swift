@@ -12,12 +12,15 @@ class SettingDetailViewController: UIViewController {
 
     // MARK: - Properties
     
+    static var navigationBarTitle: String?
+    
     // MARK: - Initializing
     
     // MARK: - Actions
     
     // MARK: - UI
     
+    @IBOutlet weak var navigationBar: UINavigationItem!
     @IBAction func leftBarButtonItem(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -26,6 +29,8 @@ class SettingDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        print("😇\(SettingDetailViewController.navigationBarTitle)")
+//        navigationBar.title = SettingDetailViewController.navigationBarTitle
     }
 
     override func didReceiveMemoryWarning() {

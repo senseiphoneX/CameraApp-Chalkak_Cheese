@@ -23,10 +23,12 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7d2-jx-iqc">
                                         <rect key="frame" x="24" y="40" width="27.5" height="28"/>
+                                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.33542915239999999" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27.300000000000001" id="De6-nx-c6o"/>
                                             <constraint firstAttribute="width" constant="27.300000000000001" id="zjr-am-5MB"/>
                                         </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-5"/>
                                         <state key="normal" image="offFlashIcon"/>
                                         <connections>
                                             <action selector="flashButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Cj-Qw-5Fx"/>
@@ -79,7 +81,7 @@
                                     </slider>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFv-od-O0k">
                                         <rect key="frame" x="27.5" y="596.5" width="42.5" height="43"/>
-                                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42.700000000000003" id="Hbb-ao-GxJ"/>
                                             <constraint firstAttribute="width" constant="42.700000000000003" id="y0I-4O-PLa"/>
@@ -140,6 +142,20 @@
                                             <outletCollection property="gestureRecognizers" destination="0ct-9o-ZmR" appends="YES" id="tde-A7-eeG"/>
                                         </connections>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Brightness" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQZ-a0-67m">
+                                        <rect key="frame" x="51" y="504" width="57" height="13"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Focus" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8C-hc-eaa">
+                                        <rect key="frame" x="210" y="409" width="57" height="13"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" red="0.9882352941176471" green="0.43137254901960786" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
@@ -184,8 +200,10 @@
                     <connections>
                         <outlet property="albumButtonOutlet" destination="WFv-od-O0k" id="mbU-yT-Rwg"/>
                         <outlet property="brightnessFocusMark" destination="T1m-0e-TZk" id="JtR-a4-fke"/>
+                        <outlet property="brightnessFocusMarkLabel" destination="eQZ-a0-67m" id="UBb-51-n63"/>
                         <outlet property="cameraView" destination="2AU-jF-T0R" id="pwP-nZ-aG9"/>
                         <outlet property="focusMark" destination="v0F-sn-jzE" id="poH-5g-hS0"/>
+                        <outlet property="focusMarkLabel" destination="j8C-hc-eaa" id="bHA-lx-g9w"/>
                         <outlet property="horizonGrid1" destination="olS-Kd-zHw" id="q5d-2V-ncs"/>
                         <outlet property="horizonGrid2" destination="dIz-RM-koI" id="37Q-jL-e36"/>
                         <outlet property="isoSliderOutlet" destination="tQc-E5-7BT" id="oK6-s4-CC9"/>
@@ -369,6 +387,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="013-Kt-ADU"/>
                     </view>
+                    <connections>
+                        <outlet property="navigationBar" destination="j58-4k-hTh" id="Ms0-Kh-LFs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PKI-VN-fRK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

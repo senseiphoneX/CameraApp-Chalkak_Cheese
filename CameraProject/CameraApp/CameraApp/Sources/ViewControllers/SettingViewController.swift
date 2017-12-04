@@ -39,6 +39,9 @@ extension SettingViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "createSegueCell", for: indexPath)
+//            SettingDetailViewController.navigationBarTitle = "\(cell.textLabel?.text)"
+//            print(cell.textLabel?.text)
             performSegue(withIdentifier: "moveToDetailViewSegue", sender: nil)
         }
     }
