@@ -145,6 +145,8 @@ final class CameraViewController: UIViewController {
         default:
             print("error")
         }
+        AlbumService.loadPhotos()
+        self.albumButtonPreviewAtCameraView()
     }
     
     // MARK: - Touch event
