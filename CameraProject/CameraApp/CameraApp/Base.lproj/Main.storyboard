@@ -155,12 +155,23 @@
                                         <color key="textColor" red="0.9882352941176471" green="0.43137254901960786" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCn-jY-X7k">
+                                        <rect key="frame" x="250.5" y="63" width="15" height="14"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="15" id="f0B-oc-e67"/>
+                                            <constraint firstAttribute="height" constant="14" id="mMB-9S-geG"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="cs1-T9-VIg" firstAttribute="width" secondItem="7d2-jx-iqc" secondAttribute="width" id="2Hi-jM-0xW"/>
                                     <constraint firstItem="WFv-od-O0k" firstAttribute="centerY" secondItem="jc1-rr-ile" secondAttribute="centerY" id="38O-3J-rVL"/>
+                                    <constraint firstItem="kCn-jY-X7k" firstAttribute="leading" secondItem="qQE-Lg-lC0" secondAttribute="trailing" constant="-5" id="3Py-A4-nAH"/>
                                     <constraint firstItem="qQE-Lg-lC0" firstAttribute="height" secondItem="7d2-jx-iqc" secondAttribute="height" id="5n4-Jq-fav"/>
                                     <constraint firstAttribute="trailing" secondItem="iY0-DI-1aI" secondAttribute="trailing" constant="24" id="Cgf-TT-9Kj"/>
                                     <constraint firstItem="iqw-mR-NPt" firstAttribute="centerY" secondItem="jc1-rr-ile" secondAttribute="centerY" id="LQ2-vA-OBd"/>
@@ -172,6 +183,7 @@
                                     <constraint firstItem="qQE-Lg-lC0" firstAttribute="top" secondItem="7d2-jx-iqc" secondAttribute="top" id="c4B-aL-xAm"/>
                                     <constraint firstItem="7d2-jx-iqc" firstAttribute="leading" secondItem="2AU-jF-T0R" secondAttribute="leading" constant="24" id="dq5-bv-M7U"/>
                                     <constraint firstItem="J5E-Tw-dzw" firstAttribute="centerX" secondItem="2AU-jF-T0R" secondAttribute="centerX" id="ewR-Yg-a0d"/>
+                                    <constraint firstItem="kCn-jY-X7k" firstAttribute="top" secondItem="qQE-Lg-lC0" secondAttribute="bottom" constant="-5" id="inr-nN-UA2"/>
                                     <constraint firstItem="qQE-Lg-lC0" firstAttribute="width" secondItem="7d2-jx-iqc" secondAttribute="width" id="j66-C2-Qin"/>
                                     <constraint firstItem="cs1-T9-VIg" firstAttribute="height" secondItem="7d2-jx-iqc" secondAttribute="height" id="jni-3h-h5d"/>
                                     <constraint firstItem="iY0-DI-1aI" firstAttribute="width" secondItem="7d2-jx-iqc" secondAttribute="width" id="kTu-Q1-O5x"/>
@@ -207,6 +219,7 @@
                         <outlet property="horizonGrid2" destination="dIz-RM-koI" id="37Q-jL-e36"/>
                         <outlet property="isoSliderOutlet" destination="tQc-E5-7BT" id="oK6-s4-CC9"/>
                         <outlet property="timerButtonOutlet" destination="qQE-Lg-lC0" id="SQ8-sA-Zks"/>
+                        <outlet property="timerButtonSecondLabel" destination="kCn-jY-X7k" id="P3w-d6-f4Z"/>
                         <outlet property="timerLabel" destination="J5E-Tw-dzw" id="QVv-Oe-YDo"/>
                         <outlet property="verticalGrid1" destination="TCR-BL-biF" id="K5W-fD-NJm"/>
                         <outlet property="verticalGrid2" destination="xxg-ul-IM4" id="Zol-d3-Q09"/>
