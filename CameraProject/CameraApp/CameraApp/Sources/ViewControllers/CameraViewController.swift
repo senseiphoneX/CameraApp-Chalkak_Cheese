@@ -215,6 +215,22 @@ final class CameraViewController: UIViewController {
         cameraService.exposureSetFromSlider(isoValue: sender.value)
     }
     @IBOutlet weak var isoSliderOutlet: UISlider!
+    // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 temperature
+    @IBAction func temperatureSlider(_ sender: UISlider) {
+    }
+    @IBAction func temperatureAutoButton(_ sender: UIButton) {
+    }
+    // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 shutter speed
+    @IBAction func shutterSpeedSlider(_ sender: UISlider) {
+    }
+    @IBAction func shutterSpeedAutoButton(_ sender: UIButton) {
+    }
+    // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 lens position
+    @IBAction func lensPositionSlider(_ sender: UISlider) {
+    }
+    @IBAction func lensPositionAutoButton(_ sender: UIButton) {
+    }
+    
     @IBAction func albumButton(_ sender: UIButton) {
         self.performSegue(withIdentifier: "moveToPhotoAlbumViewSegue", sender: nil)
     }
