@@ -221,8 +221,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MpW-rt-1hn">
                                         <rect key="frame" x="315" y="179" width="46" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="reset">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Auto">
+                                            <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="shutterSpeedAutoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wup-rA-r2R"/>
@@ -231,8 +231,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekp-sg-byO">
                                         <rect key="frame" x="315" y="224" width="46" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="reset">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Auto">
+                                            <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="lensPositionAutoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UPp-8J-V5r"/>
@@ -241,8 +241,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cD9-wr-s39">
                                         <rect key="frame" x="315" y="129" width="46" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="reset">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Auto">
+                                            <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="temperatureAutoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nRw-xn-wfa"/>
@@ -301,6 +301,8 @@
                         <outlet property="horizonGrid1" destination="olS-Kd-zHw" id="q5d-2V-ncs"/>
                         <outlet property="horizonGrid2" destination="dIz-RM-koI" id="37Q-jL-e36"/>
                         <outlet property="isoSliderOutlet" destination="tQc-E5-7BT" id="oK6-s4-CC9"/>
+                        <outlet property="lensPositionSliderOutlet" destination="Px4-LQ-b5S" id="8LS-Wf-t3G"/>
+                        <outlet property="shutterSpeedSliderOutlet" destination="q68-q0-XsL" id="jfA-Fp-X8y"/>
                         <outlet property="temperatureSliderOutlet" destination="PUD-Iq-IjH" id="Bbd-N4-FPf"/>
                         <outlet property="timerButtonOutlet" destination="qQE-Lg-lC0" id="SQ8-sA-Zks"/>
                         <outlet property="timerButtonSecondLabel" destination="kCn-jY-X7k" id="P3w-d6-f4Z"/>

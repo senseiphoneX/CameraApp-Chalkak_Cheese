@@ -246,11 +246,13 @@ final class CameraViewController: UIViewController {
         }
     }
     // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 shutter speed
+    @IBOutlet weak var shutterSpeedSliderOutlet: UISlider!
     @IBAction func shutterSpeedSlider(_ sender: UISlider) {
     }
     @IBAction func shutterSpeedAutoButton(_ sender: UIButton) {
     }
     // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 lens position
+    @IBOutlet weak var lensPositionSliderOutlet: UISlider!
     @IBAction func lensPositionSlider(_ sender: UISlider) {
     }
     @IBAction func lensPositionAutoButton(_ sender: UIButton) {
