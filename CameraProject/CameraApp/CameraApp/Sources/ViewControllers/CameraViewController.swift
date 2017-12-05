@@ -217,8 +217,12 @@ final class CameraViewController: UIViewController {
     @IBOutlet weak var isoSliderOutlet: UISlider!
     // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 temperature
     @IBAction func temperatureSlider(_ sender: UISlider) {
+        sender.maximumValue = 8000
+        sender.minimumValue = 3000
+        cameraService.temperatureSetFromSlider(temperatureValue: sender.value)
     }
     @IBAction func temperatureAutoButton(_ sender: UIButton) {
+        print("unlock")
     }
     // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 shutter speed
     @IBAction func shutterSpeedSlider(_ sender: UISlider) {

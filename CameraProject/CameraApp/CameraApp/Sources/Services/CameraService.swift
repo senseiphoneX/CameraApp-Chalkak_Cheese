@@ -154,19 +154,47 @@ class CameraService: NSObject {
             print("error")
         }
     }
-    func exposureSetFromSlider(isoValue:Float) {
+    func exposureSetFromSlider(isoValue: Float) {
         let cmTime:CMTime = CMTimeMake(10, 1000) //🔴적절한 cmTime 찾기🔴
         if let device = currentCamera {
             do{
                 try device.lockForConfiguration()
-                device.setExposureModeCustom(duration: cmTime, iso: isoValue, completionHandler: { (time) in
-                })
+                device.setExposureModeCustom(duration: cmTime, iso: isoValue, completionHandler: nil)
             } catch {
                 print(error)
             }
         }
         currentCamera?.unlockForConfiguration()
-        print(isoValue)
+    }
+    func nomalizedGains(grains: AVCaptureDevice.WhiteBalanceGains) -> AVCaptureDevice.WhiteBalanceGains {
+        var g = grains
+        g.redGain = max(1.0, g.redGain)
+        g.greenGain = max(1.0, g.greenGain)
+        g.blueGain = max(1.0, g.blueGain)
+        if let device = self.currentCamera {
+            g.redGain = min(device.maxWhiteBalanceGain, g.redGain)
+            g.greenGain = min(device.maxWhiteBalanceGain, g.greenGain)
+            g.blueGain = min(device.maxWhiteBalanceGain, g.blueGain)
+        }
+        return g
+    }
+    func setWhiteBalanceGains(gains: AVCaptureDevice.WhiteBalanceGains) {
+        if let device = self.currentCamera {
+            let normalGains = nomalizedGains(grains: gains)
+            do{
+                try device.lockForConfiguration()
+                device.setWhiteBalanceModeLocked(with: normalGains, completionHandler: nil)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    func temperatureSetFromSlider(temperatureValue: Float) {
+        let currentTint = (self.currentCamera?.temperatureAndTintValues(for: (self.currentCamera?.deviceWhiteBalanceGains)!).tint)!
+        let newWhiteBalance = AVCaptureDevice.WhiteBalanceTemperatureAndTintValues.init(temperature: temperatureValue, tint: currentTint)
+        let newGains = self.currentCamera?.deviceWhiteBalanceGains(for: newWhiteBalance)
+        setWhiteBalanceGains(gains: newGains!)
+        self.currentCamera?.isWhiteBalanceModeSupported(AVCaptureDevice.WhiteBalanceMode.locked)
     }
     func cameraFocusing(focusPoint: CGPoint) {
         if let device = currentCamera {
