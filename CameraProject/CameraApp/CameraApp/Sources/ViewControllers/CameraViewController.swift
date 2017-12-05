@@ -17,6 +17,7 @@ final class CameraViewController: UIViewController {
     var cameraService = CameraService()
     var currentIndexPath: IndexPath?
     var imagePickerSelectedImage: UIImage?
+    private let tintColor = UIColor(red: 245.0 / 255.0, green: 166.0 / 255.0, blue: 35.0 / 255.0, alpha: 1.0)
     static var viewSize: CGPoint?
     
     // MARK: - Initializing
@@ -185,7 +186,7 @@ final class CameraViewController: UIViewController {
             verticalGrid1.isHidden = false
             verticalGrid2.isHidden = false
             CameraService.grid = true
-            sender.imageView?.tintColor = UIColor(red: 245.0 / 255.0, green: 166.0 / 255.0, blue: 35.0 / 255.0, alpha: 1.0)
+            sender.imageView?.tintColor = tintColor
         }
         print(CameraService.grid)
     }
@@ -194,7 +195,7 @@ final class CameraViewController: UIViewController {
     @IBAction func timerButton(_ sender: UIButton) {
         cameraService.timerSetting()
         if CameraService.timer != 0 {
-            sender.tintColor = UIColor(red: 245.0 / 255.0, green: 166.0 / 255.0, blue: 35.0 / 255.0, alpha: 1.0)
+            sender.tintColor = tintColor
             timerButtonSecondLabel.isHidden = false
         } else {
             sender.setTitle("timer", for: .normal)
@@ -215,14 +216,34 @@ final class CameraViewController: UIViewController {
         cameraService.exposureSetFromSlider(isoValue: sender.value)
     }
     @IBOutlet weak var isoSliderOutlet: UISlider!
-    // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 temperature
     @IBAction func temperatureSlider(_ sender: UISlider) {
         sender.maximumValue = 8000
         sender.minimumValue = 3000
         cameraService.temperatureSetFromSlider(temperatureValue: sender.value)
     }
+    @IBOutlet weak var temperatureSliderOutlet: UISlider!
     @IBAction func temperatureAutoButton(_ sender: UIButton) {
-        print("unlock")
+        if CameraService.isAutoTemperature {
+            CameraService.isAutoTemperature = false
+            sender.setTitle("Manual", for: .normal)
+            sender.setTitleColor(.white, for: .normal)
+            temperatureSliderOutlet.isEnabled = true
+        } else {
+//            if let device = cameraService.currentCamera {
+//                do{
+//                    try device.lockForConfiguration()
+//                    device.isWhiteBalanceModeSupported(.autoWhiteBalance)
+//                    device.isLockingWhiteBalanceWithCustomDeviceGainsSupported = false
+//                } catch {
+//                    print(error)
+//                }
+//                device.unlockForConfiguration()
+//            }
+            CameraService.isAutoTemperature = true
+            sender.setTitle("Auto", for: .normal)
+            sender.setTitleColor(tintColor, for: .normal)
+            temperatureSliderOutlet.isEnabled = false
+        }
     }
     // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 shutter speed
     @IBAction func shutterSpeedSlider(_ sender: UISlider) {
@@ -281,5 +302,3 @@ extension CameraViewController {
 //        }
 //    }
 }
-
-

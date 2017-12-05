@@ -23,13 +23,16 @@ class CameraService: NSObject {
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
 //    var image: UIImage? //🔴 지울까?
     //카메라 사용 관련 properties
-    static var cameraPosition:Bool = true //true = back, false = front
-    static var flash:Bool = false // true = on, false = off
-    static var grid:Bool = false // true = on, false = off
+    static var cameraPosition: Bool = true //true = back, false = front
+    static var flash: Bool = false // true = on, false = off
+    static var grid: Bool = false // true = on, false = off
+    static var isAutoTemperature: Bool = false // true = on, false = off
+    static var isAutoLensPosition: Bool = false
+    static var isAutoShutterSpeed: Bool = false
     let minimumZoom: CGFloat = 1.0 //🔴 private로?
     let maximumZoom: CGFloat = 5.0 //🔴 private로?
     var lastZoomFactor: CGFloat = 1.0 //🔴 private로?
-    static var timer:Int = 0
+    static var timer: Int = 0
     enum TimerCase: Int {
         case defalt = 0
         case threeSeconds = 3
@@ -188,6 +191,7 @@ class CameraService: NSObject {
                 print(error)
             }
         }
+        currentCamera?.unlockForConfiguration()
     }
     func temperatureSetFromSlider(temperatureValue: Float) {
         let currentTint = (self.currentCamera?.temperatureAndTintValues(for: (self.currentCamera?.deviceWhiteBalanceGains)!).tint)!
