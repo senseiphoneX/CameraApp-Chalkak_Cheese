@@ -250,12 +250,54 @@ final class CameraViewController: UIViewController {
     @IBAction func shutterSpeedSlider(_ sender: UISlider) {
     }
     @IBAction func shutterSpeedAutoButton(_ sender: UIButton) {
+        if CameraService.isAutoShutterSpeed {
+            CameraService.isAutoShutterSpeed = false
+            sender.setTitle("Manual", for: .normal)
+            sender.setTitleColor(.white, for: .normal)
+            shutterSpeedSliderOutlet.isEnabled = true
+        } else {
+            //            if let device = cameraService.currentCamera {
+            //                do{
+            //                    try device.lockForConfiguration()
+            //                    device.isWhiteBalanceModeSupported(.autoWhiteBalance)
+            //                    device.isLockingWhiteBalanceWithCustomDeviceGainsSupported = false
+            //                } catch {
+            //                    print(error)
+            //                }
+            //                device.unlockForConfiguration()
+            //            }
+            CameraService.isAutoShutterSpeed = true
+            sender.setTitle("Auto", for: .normal)
+            sender.setTitleColor(tintColor, for: .normal)
+            shutterSpeedSliderOutlet.isEnabled = false
+        }
     }
     // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 lens position
     @IBOutlet weak var lensPositionSliderOutlet: UISlider!
     @IBAction func lensPositionSlider(_ sender: UISlider) {
     }
     @IBAction func lensPositionAutoButton(_ sender: UIButton) {
+        if CameraService.isAutoLensPosition {
+            CameraService.isAutoLensPosition = false
+            sender.setTitle("Manual", for: .normal)
+            sender.setTitleColor(.white, for: .normal)
+            lensPositionSliderOutlet.isEnabled = true
+        } else {
+            //            if let device = cameraService.currentCamera {
+            //                do{
+            //                    try device.lockForConfiguration()
+            //                    device.isWhiteBalanceModeSupported(.autoWhiteBalance)
+            //                    device.isLockingWhiteBalanceWithCustomDeviceGainsSupported = false
+            //                } catch {
+            //                    print(error)
+            //                }
+            //                device.unlockForConfiguration()
+            //            }
+            CameraService.isAutoLensPosition = true
+            sender.setTitle("Auto", for: .normal)
+            sender.setTitleColor(tintColor, for: .normal)
+            lensPositionSliderOutlet.isEnabled = false
+        }
     }
     
     @IBAction func albumButton(_ sender: UIButton) {
