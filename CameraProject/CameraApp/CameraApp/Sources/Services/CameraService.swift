@@ -28,7 +28,6 @@ class CameraService: NSObject {
     static var grid: Bool = false // true = on, false = off
     static var isAutoTemperature: Bool = false // true = on, false = off
     static var isAutoLensPosition: Bool = false
-    static var isAutoShutterSpeed: Bool = false
     let minimumZoom: CGFloat = 1.0 //🔴 private로?
     let maximumZoom: CGFloat = 5.0 //🔴 private로?
     var lastZoomFactor: CGFloat = 1.0 //🔴 private로?
@@ -158,11 +157,10 @@ class CameraService: NSObject {
         }
     }
     func exposureSetFromSlider(isoValue: Float) {
-        let cmTime:CMTime = CMTimeMake(10, 1000) //🔴적절한 cmTime 찾기🔴
         if let device = currentCamera {
             do{
                 try device.lockForConfiguration()
-                device.setExposureModeCustom(duration: cmTime, iso: isoValue, completionHandler: nil)
+                device.setExposureModeCustom(duration: AVCaptureDevice.currentExposureDuration, iso: isoValue, completionHandler: nil)
             } catch {
                 print(error)
             }
