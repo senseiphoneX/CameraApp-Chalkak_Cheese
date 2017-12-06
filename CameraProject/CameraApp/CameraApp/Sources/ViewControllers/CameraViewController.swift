@@ -219,6 +219,7 @@ final class CameraViewController: UIViewController {
     @IBAction func temperatureSlider(_ sender: UISlider) {
         sender.maximumValue = 8000
         sender.minimumValue = 3000
+//        sender.value = 1 🔴
         cameraService.temperatureSetFromSlider(temperatureValue: sender.value)
     }
     @IBOutlet weak var temperatureSliderOutlet: UISlider!
@@ -275,6 +276,9 @@ final class CameraViewController: UIViewController {
     // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 lens position
     @IBOutlet weak var lensPositionSliderOutlet: UISlider!
     @IBAction func lensPositionSlider(_ sender: UISlider) {
+        cameraService.setLensPosition(value: sender.value)
+        sender.maximumValue = 1
+        sender.minimumValue = 0
     }
     @IBAction func lensPositionAutoButton(_ sender: UIButton) {
         if CameraService.isAutoLensPosition {

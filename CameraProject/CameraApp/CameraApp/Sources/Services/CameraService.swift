@@ -193,6 +193,17 @@ class CameraService: NSObject {
         }
         currentCamera?.unlockForConfiguration()
     }
+    func setLensPosition(value: Float) {
+        if let device = self.currentCamera {
+            do{
+                try device.lockForConfiguration()
+                device.setFocusModeLocked(lensPosition: value, completionHandler: nil)
+            } catch {
+                print(error)
+            }
+        }
+        currentCamera?.unlockForConfiguration()
+    }
     func temperatureSetFromSlider(temperatureValue: Float) {
         let currentTint = (self.currentCamera?.temperatureAndTintValues(for: (self.currentCamera?.deviceWhiteBalanceGains)!).tint)!
         let newWhiteBalance = AVCaptureDevice.WhiteBalanceTemperatureAndTintValues.init(temperature: temperatureValue, tint: currentTint)
