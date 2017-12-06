@@ -23,13 +23,15 @@ class CameraService: NSObject {
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
 //    var image: UIImage? //🔴 지울까?
     //카메라 사용 관련 properties
-    static var cameraPosition:Bool = true //true = back, false = front
-    static var flash:Bool = false // true = on, false = off
-    static var grid:Bool = false // true = on, false = off
+    static var cameraPosition: Bool = true //true = back, false = front
+    static var flash: Bool = false // true = on, false = off
+    static var grid: Bool = false // true = on, false = off
+    static var isAutoTemperature: Bool = false // true = on, false = off
+    static var isAutoLensPosition: Bool = false
     let minimumZoom: CGFloat = 1.0 //🔴 private로?
     let maximumZoom: CGFloat = 5.0 //🔴 private로?
     var lastZoomFactor: CGFloat = 1.0 //🔴 private로?
-    static var timer:Int = 0
+    static var timer: Int = 0
     enum TimerCase: Int {
         case defalt = 0
         case threeSeconds = 3
@@ -154,19 +156,58 @@ class CameraService: NSObject {
             print("error")
         }
     }
-    func exposureSetFromSlider(isoValue:Float) {
-        let cmTime:CMTime = CMTimeMake(10, 1000) //🔴적절한 cmTime 찾기🔴
+    func exposureSetFromSlider(isoValue: Float) {
         if let device = currentCamera {
             do{
                 try device.lockForConfiguration()
-                device.setExposureModeCustom(duration: cmTime, iso: isoValue, completionHandler: { (time) in
-                })
+                device.setExposureModeCustom(duration: AVCaptureDevice.currentExposureDuration, iso: isoValue, completionHandler: nil)
             } catch {
                 print(error)
             }
         }
         currentCamera?.unlockForConfiguration()
-        print(isoValue)
+    }
+    func nomalizedGains(grains: AVCaptureDevice.WhiteBalanceGains) -> AVCaptureDevice.WhiteBalanceGains {
+        var g = grains
+        g.redGain = max(1.0, g.redGain)
+        g.greenGain = max(1.0, g.greenGain)
+        g.blueGain = max(1.0, g.blueGain)
+        if let device = self.currentCamera {
+            g.redGain = min(device.maxWhiteBalanceGain, g.redGain)
+            g.greenGain = min(device.maxWhiteBalanceGain, g.greenGain)
+            g.blueGain = min(device.maxWhiteBalanceGain, g.blueGain)
+        }
+        return g
+    }
+    func setWhiteBalanceGains(gains: AVCaptureDevice.WhiteBalanceGains) {
+        if let device = self.currentCamera {
+            let normalGains = nomalizedGains(grains: gains)
+            do{
+                try device.lockForConfiguration()
+                device.setWhiteBalanceModeLocked(with: normalGains, completionHandler: nil)
+            } catch {
+                print(error)
+            }
+        }
+        currentCamera?.unlockForConfiguration()
+    }
+    func setLensPosition(value: Float) {
+        if let device = self.currentCamera {
+            do{
+                try device.lockForConfiguration()
+                device.setFocusModeLocked(lensPosition: value, completionHandler: nil)
+            } catch {
+                print(error)
+            }
+        }
+        currentCamera?.unlockForConfiguration()
+    }
+    func temperatureSetFromSlider(temperatureValue: Float) {
+        let currentTint = (self.currentCamera?.temperatureAndTintValues(for: (self.currentCamera?.deviceWhiteBalanceGains)!).tint)!
+        let newWhiteBalance = AVCaptureDevice.WhiteBalanceTemperatureAndTintValues.init(temperature: temperatureValue, tint: currentTint)
+        let newGains = self.currentCamera?.deviceWhiteBalanceGains(for: newWhiteBalance)
+        setWhiteBalanceGains(gains: newGains!)
+        self.currentCamera?.isWhiteBalanceModeSupported(AVCaptureDevice.WhiteBalanceMode.locked)
     }
     func cameraFocusing(focusPoint: CGPoint) {
         if let device = currentCamera {

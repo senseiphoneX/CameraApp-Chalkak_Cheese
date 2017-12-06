@@ -17,6 +17,7 @@ final class CameraViewController: UIViewController {
     var cameraService = CameraService()
     var currentIndexPath: IndexPath?
     var imagePickerSelectedImage: UIImage?
+    private let tintColor = UIColor(red: 245.0 / 255.0, green: 166.0 / 255.0, blue: 35.0 / 255.0, alpha: 1.0)
     static var viewSize: CGPoint?
     
     // MARK: - Initializing
@@ -185,7 +186,7 @@ final class CameraViewController: UIViewController {
             verticalGrid1.isHidden = false
             verticalGrid2.isHidden = false
             CameraService.grid = true
-            sender.imageView?.tintColor = UIColor(red: 245.0 / 255.0, green: 166.0 / 255.0, blue: 35.0 / 255.0, alpha: 1.0)
+            sender.imageView?.tintColor = tintColor
         }
         print(CameraService.grid)
     }
@@ -194,7 +195,7 @@ final class CameraViewController: UIViewController {
     @IBAction func timerButton(_ sender: UIButton) {
         cameraService.timerSetting()
         if CameraService.timer != 0 {
-            sender.tintColor = UIColor(red: 245.0 / 255.0, green: 166.0 / 255.0, blue: 35.0 / 255.0, alpha: 1.0)
+            sender.tintColor = tintColor
             timerButtonSecondLabel.isHidden = false
         } else {
             sender.setTitle("timer", for: .normal)
@@ -215,6 +216,67 @@ final class CameraViewController: UIViewController {
         cameraService.exposureSetFromSlider(isoValue: sender.value)
     }
     @IBOutlet weak var isoSliderOutlet: UISlider!
+    @IBAction func temperatureSlider(_ sender: UISlider) {
+        sender.maximumValue = 8000
+        sender.minimumValue = 3000
+//        sender.value = 1 🔴
+        cameraService.temperatureSetFromSlider(temperatureValue: sender.value)
+    }
+    @IBOutlet weak var temperatureSliderOutlet: UISlider!
+    @IBAction func temperatureAutoButton(_ sender: UIButton) {
+        if CameraService.isAutoTemperature {
+            CameraService.isAutoTemperature = false
+            sender.setTitle("Manual", for: .normal)
+            sender.setTitleColor(.white, for: .normal)
+            temperatureSliderOutlet.isEnabled = true
+        } else {
+//            if let device = cameraService.currentCamera {
+//                do{
+//                    try device.lockForConfiguration()
+//                    device.isWhiteBalanceModeSupported(.autoWhiteBalance)
+//                    device.isLockingWhiteBalanceWithCustomDeviceGainsSupported = false
+//                } catch {
+//                    print(error)
+//                }
+//                device.unlockForConfiguration()
+//            }
+            CameraService.isAutoTemperature = true
+            sender.setTitle("Auto", for: .normal)
+            sender.setTitleColor(tintColor, for: .normal)
+            temperatureSliderOutlet.isEnabled = false
+        }
+    }
+    // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 lens position
+    @IBOutlet weak var lensPositionSliderOutlet: UISlider!
+    @IBAction func lensPositionSlider(_ sender: UISlider) {
+        cameraService.setLensPosition(value: sender.value)
+        sender.maximumValue = 1
+        sender.minimumValue = 0
+    }
+    @IBAction func lensPositionAutoButton(_ sender: UIButton) {
+        if CameraService.isAutoLensPosition {
+            CameraService.isAutoLensPosition = false
+            sender.setTitle("Manual", for: .normal)
+            sender.setTitleColor(.white, for: .normal)
+            lensPositionSliderOutlet.isEnabled = true
+        } else {
+            //            if let device = cameraService.currentCamera {
+            //                do{
+            //                    try device.lockForConfiguration()
+            //                    device.isWhiteBalanceModeSupported(.autoWhiteBalance)
+            //                    device.isLockingWhiteBalanceWithCustomDeviceGainsSupported = false
+            //                } catch {
+            //                    print(error)
+            //                }
+            //                device.unlockForConfiguration()
+            //            }
+            CameraService.isAutoLensPosition = true
+            sender.setTitle("Auto", for: .normal)
+            sender.setTitleColor(tintColor, for: .normal)
+            lensPositionSliderOutlet.isEnabled = false
+        }
+    }
+    
     @IBAction func albumButton(_ sender: UIButton) {
         self.performSegue(withIdentifier: "moveToPhotoAlbumViewSegue", sender: nil)
     }
@@ -261,5 +323,3 @@ extension CameraViewController {
 //        }
 //    }
 }
-
-
