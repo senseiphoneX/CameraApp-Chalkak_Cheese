@@ -200,7 +200,6 @@ final class CameraViewController: UIViewController {
             sender.tintColor = tintColor
             timerButtonSecondLabel.isHidden = false
         } else {
-            sender.setTitle("timer", for: .normal)
             sender.tintColor = .white
             timerButtonSecondLabel.isHidden = true
         }
