@@ -6,10 +6,11 @@
 //  Copyright © 2017년 Eunyeong Kim. All rights reserved.
 //
 
+import MessageUI
 import StoreKit
 import UIKit
 
-final class SettingViewController: UIViewController {
+final class SettingViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     // MARK: - Properties
     
@@ -34,6 +35,9 @@ final class SettingViewController: UIViewController {
             runTimes = savedRunTimes as! Int
         }
         return runTimes
+    }
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - UI
@@ -63,13 +67,31 @@ extension SettingViewController : UITableViewDelegate {
 //            let cell = tableView.dequeueReusableCell(withIdentifier: "createSegueCell", for: indexPath)
 //            SettingDetailViewController.navigationBarTitle = "\(cell.textLabel?.text)"
 //            print(cell.textLabel?.text)
-            if indexPath.row == 0 {
-//                let url = NSURL(string: "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=고유아이디")
+            switch indexPath.row {
+            case 0:
                 let url = NSURL(string: "http://www.naver.com") //🔴
+//                let url = NSURL(string: "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=고유아이디")
                 UIApplication.shared.open(url! as URL, options: [:], completionHandler: { (true) in
                 })
-            }else if indexPath.row == 1 {
+            case 1:
+                // 메일보내기 넣기.
+                let composeVC = MFMailComposeViewController()
+                let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
+                let messageBody = """
+                ..
+                Device model: \(UIDevice.current.model)
+                System version: \(UIDevice.current.systemVersion)
+                Application version: \(appVersion ?? "0.0")
+                """
+                composeVC.mailComposeDelegate = self
+                composeVC.setToRecipients(["k01090652272@gmail.com"])
+                composeVC.setSubject("[Camera app] Feedback")
+                composeVC.setMessageBody(messageBody, isHTML: false)
+                self.present(composeVC, animated: true, completion: nil)
+                print("mail")
+            case 2:
                 performSegue(withIdentifier: "moveToDetailViewSegue", sender: nil)
+            default: break
             }
         }
     }
@@ -87,7 +109,7 @@ extension SettingViewController : UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 1
+            return 2
         } else if section == 1 {
             return 1
         } else {
@@ -98,8 +120,12 @@ extension SettingViewController : UITableViewDataSource {
         if indexPath.section == 0 {
             let createSegueCell = tableView.dequeueReusableCell(withIdentifier: "createSegueCell", for: indexPath)
             createSegueCell.textLabel?.textColor = .white
-            if indexPath.row == 0 {
+            switch indexPath.row {
+            case 0:
                 createSegueCell.textLabel?.text = "App Store에서 리뷰하기"
+            case 1:
+                createSegueCell.textLabel?.text = "개발자에게 메일보내기"
+            default: break
             }
             return createSegueCell
 //        } else if indexPath.section == 1 {
