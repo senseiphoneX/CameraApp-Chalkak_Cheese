@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2vn-RV-Nc9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -63,10 +63,10 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqw-mR-NPt">
                                         <rect key="frame" x="315.5" y="602" width="32" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="32.200000000000003" id="enE-Fi-yhx"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32.200000000000003" id="enE-Fi-yhx"/>
                                             <constraint firstAttribute="height" constant="32.200000000000003" id="vK6-PI-bJi"/>
                                         </constraints>
-                                        <state key="normal" title="front/back" image="frontBackIcon"/>
+                                        <state key="normal" image="frontBackIcon"/>
                                         <connections>
                                             <action selector="frontOrBackCameraButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KBf-yL-AGi"/>
                                         </connections>
@@ -76,7 +76,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42.700000000000003" id="Hbb-ao-GxJ"/>
-                                            <constraint firstAttribute="width" constant="42.700000000000003" id="y0I-4O-PLa"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42.700000000000003" id="y0I-4O-PLa"/>
                                         </constraints>
                                         <state key="normal" title="album">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -151,7 +151,7 @@
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCn-jY-X7k">
                                         <rect key="frame" x="191.5" y="60" width="15" height="14"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="15" id="f0B-oc-e67"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="15" id="f0B-oc-e67"/>
                                             <constraint firstAttribute="height" constant="14" id="mMB-9S-geG"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -239,7 +239,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMe-nv-35k">
                                         <rect key="frame" x="243.5" y="40" width="30" height="28"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="cCi-Fg-fgU"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="cCi-Fg-fgU"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <state key="normal" title="M/A">
