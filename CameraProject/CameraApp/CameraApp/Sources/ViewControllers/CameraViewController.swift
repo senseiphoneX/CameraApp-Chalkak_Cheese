@@ -54,12 +54,12 @@ final class CameraViewController: UIViewController {
         }
     }
     private func readyToUseCamera() {
+        CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
         self.cameraService.setUpCaptureSession()
         self.cameraService.setUpDevice()
         self.cameraService.setUpInputOutput()
         self.cameraService.setUpPreviewLayer(view: self.cameraView)
         self.cameraService.startRunningCaputureSession()
-        CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.takePhotoButtonAction), name: Notification.Name(rawValue: "volumeChanged"), object: nil)
         let volView = MPVolumeView(frame: CGRect(x: 0, y: -100, width: 0, height: 0))
@@ -70,13 +70,11 @@ final class CameraViewController: UIViewController {
         let photoSize = CGSize(width: 42.7, height: 42.7)
         AlbumService.imageManager.requestImage(for: photoAsset, targetSize: photoSize, contentMode: .aspectFill, options: nil) { (image, info) -> Void in
             if let img = image {
-                DispatchQueue.main.async {
-                    let imageView = UIImageView(image: img)
-                    imageView.frame.size = photoSize
-                    imageView.contentMode = UIViewContentMode.scaleAspectFill
-                    imageView.clipsToBounds = true
-                    self.albumButtonOutlet.addSubview(imageView)
-                }
+                let imageView = UIImageView(image: img)
+                imageView.frame.size = photoSize
+                imageView.contentMode = UIViewContentMode.scaleAspectFill
+                imageView.clipsToBounds = true
+                self.albumButtonOutlet.addSubview(imageView)
             }
         }
     }

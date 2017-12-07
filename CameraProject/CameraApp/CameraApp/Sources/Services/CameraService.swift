@@ -75,7 +75,7 @@ class CameraService: NSObject {
             }
 //            photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey:AVVideoCodecType.jpeg])], completionHandler: nil)
             captureSession.addOutput(photoOutput!)
-            captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
+            captureSession.sessionPreset = AVCaptureSession.Preset.photo
         } catch  {
             print(error)
         }
@@ -87,6 +87,10 @@ class CameraService: NSObject {
         DispatchQueue.main.async {
             self.cameraPreviewLayer?.frame = view.frame
             view.layer.insertSublayer(self.cameraPreviewLayer!, at: 0)
+            print("😀 size")
+            print(view.layer.frame.size)
+            print("😀 origin")
+            print(view.layer.frame.origin)
         }
     }
     func startRunningCaputureSession() {
