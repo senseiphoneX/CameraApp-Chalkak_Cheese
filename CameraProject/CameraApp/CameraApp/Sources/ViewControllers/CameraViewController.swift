@@ -152,7 +152,9 @@ final class CameraViewController: UIViewController {
         self.setFocusLabelFrame()
     }
     @IBAction func cameraZoomGesture(_ sender: UIPinchGestureRecognizer) {
-        cameraService.cameraZoom(pinch: sender)
+        
+//        cameraService.cameraZoom(pinch: sender)
+        zoonLabel.text = "\(cameraService.cameraZoom(pinch: sender))x"
     }
     
     // MARK: - UI
@@ -292,6 +294,7 @@ final class CameraViewController: UIViewController {
     @IBOutlet weak var horizonGrid1: UIView!
     @IBOutlet weak var horizonGrid2: UIView!
     @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var zoonLabel: UILabel!
     
     // MARK: - View Life Cycle
 

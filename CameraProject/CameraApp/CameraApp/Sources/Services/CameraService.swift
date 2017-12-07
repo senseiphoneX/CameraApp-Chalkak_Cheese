@@ -259,7 +259,7 @@ class CameraService: NSObject {
             }
         }
     }
-    func cameraZoom(pinch: UIPinchGestureRecognizer) {
+    func cameraZoom(pinch: UIPinchGestureRecognizer) -> Double {
         func minMaxZoom(factor: CGFloat) -> CGFloat {
             return min(min(max(factor, minimumZoom), maximumZoom), (currentCamera?.activeFormat.videoMaxZoomFactor)!)
         }
@@ -286,6 +286,7 @@ class CameraService: NSObject {
         default:
             break
         }
+        return Double(newScaleFactor).rounded(places: 1)
     }
 }
 
@@ -297,5 +298,12 @@ extension CameraService: AVCapturePhotoCaptureDelegate {
         if let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer!, previewPhotoSampleBuffer: previewPhotoSampleBuffer) {
             FilterService.filteringImage(image: UIImage(data: dataImage)!, cameraPosition: CameraService.cameraPosition)
         }
+    }
+}
+
+extension Double {
+    public func rounded(places: Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self*divisor).rounded() / divisor
     }
 }

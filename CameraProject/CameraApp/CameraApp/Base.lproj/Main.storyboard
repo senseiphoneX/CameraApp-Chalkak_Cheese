@@ -223,6 +223,13 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1x" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVk-QZ-kbA">
+                                        <rect key="frame" x="166" y="552" width="42" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
@@ -283,6 +290,7 @@
                         <outlet property="timerLabel" destination="J5E-Tw-dzw" id="QVv-Oe-YDo"/>
                         <outlet property="verticalGrid1" destination="TCR-BL-biF" id="K5W-fD-NJm"/>
                         <outlet property="verticalGrid2" destination="xxg-ul-IM4" id="Zol-d3-Q09"/>
+                        <outlet property="zoonLabel" destination="oVk-QZ-kbA" id="a9c-9O-vrI"/>
                         <segue destination="Chh-bN-nQa" kind="show" identifier="moveToPhotoAlbumViewSegue" id="OYW-KC-OYZ"/>
                     </connections>
                 </viewController>
