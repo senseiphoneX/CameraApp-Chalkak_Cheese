@@ -50,7 +50,7 @@ class CameraService: NSObject {
         //back, front 카메라 어느쪽을 할 것인지 정하기.
         for deviece in devices {
             if CameraService.cameraPosition, deviece.position == AVCaptureDevice.Position.back {
-                if let dualCameradevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
+                if let dualCameradevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) {
                     currentCamera = dualCameradevice
                 } else if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
                     currentCamera = backCameraDevice
@@ -68,6 +68,11 @@ class CameraService: NSObject {
             captureSession.addInput(captureDeviceInput)
             photoOutput = AVCapturePhotoOutput()
             photoOutput?.isHighResolutionCaptureEnabled = true
+            if #available(iOS 10.2, *) {
+                if (photoOutput?.isDualCameraFusionSupported)! {
+                    
+                }
+            }
             if let connection = photoOutput?.connection(with: .video) {
                 if connection.isVideoStabilizationSupported {
                     connection.preferredVideoStabilizationMode = .auto
