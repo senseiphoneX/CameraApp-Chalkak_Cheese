@@ -78,46 +78,6 @@
                                         <color key="textColor" red="0.9882352941176471" green="0.43137254901960786" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Px4-LQ-b5S">
-                                        <rect key="frame" x="14" y="225" width="293" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="lensPositionSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="VyL-ze-KYT"/>
-                                        </connections>
-                                    </slider>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lens position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVJ-4c-EhZ">
-                                        <rect key="frame" x="17" y="211" width="93" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekp-sg-byO">
-                                        <rect key="frame" x="315" y="224" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Auto">
-                                            <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="lensPositionAutoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UPp-8J-V5r"/>
-                                        </connections>
-                                    </button>
-                                    <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="tQc-E5-7BT">
-                                        <rect key="frame" x="14" y="267" width="293" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="isoSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="4Bo-vb-TYl"/>
-                                        </connections>
-                                    </slider>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ISO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McH-IC-4jc">
-                                        <rect key="frame" x="16" y="253" width="28" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zoomLabelCircle" translatesAutoresizingMaskIntoConstraints="NO" id="5pS-HQ-hTG">
                                         <rect key="frame" x="171" y="450" width="33" height="33"/>
                                         <constraints>
@@ -131,31 +91,6 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PUD-Iq-IjH">
-                                        <rect key="frame" x="14" y="174" width="293" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="temperatureSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="b2W-rf-1tP"/>
-                                        </connections>
-                                    </slider>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Temperature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQN-oG-EgT">
-                                        <rect key="frame" x="16" y="152" width="92" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cD9-wr-s39">
-                                        <rect key="frame" x="315" y="174" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Auto">
-                                            <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="temperatureAutoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nRw-xn-wfa"/>
-                                        </connections>
-                                    </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCn-jY-X7k">
                                         <rect key="frame" x="192.5" y="-22" width="15" height="14"/>
                                         <constraints>
@@ -167,7 +102,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.1137254902" blue="0.1137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="oVk-QZ-kbA" firstAttribute="height" secondItem="5pS-HQ-hTG" secondAttribute="height" id="3Gx-51-qIB"/>
@@ -183,6 +118,119 @@
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="gQ0-fr-SH7" appends="YES" id="CTV-Mo-GGV"/>
                                 </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bm2-Wp-zRH">
+                                <rect key="frame" x="0.0" y="78" width="375" height="168"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQN-oG-EgT">
+                                        <rect key="frame" x="20" y="8" width="92" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="40Q-YA-r9n"/>
+                                            <constraint firstAttribute="width" constant="92" id="9DA-Dy-Q1q"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cD9-wr-s39">
+                                        <rect key="frame" x="305" y="28.5" width="50" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="7EX-9C-bv9"/>
+                                            <constraint firstAttribute="width" constant="50" id="ODh-SV-Ajb"/>
+                                        </constraints>
+                                        <state key="normal" title="Auto">
+                                            <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="temperatureAutoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nRw-xn-wfa"/>
+                                        </connections>
+                                    </button>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PUD-Iq-IjH">
+                                        <rect key="frame" x="18" y="29" width="279" height="30"/>
+                                        <color key="tintColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="29" id="Sxu-eh-upe"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="temperatureSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="b2W-rf-1tP"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lens position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVJ-4c-EhZ">
+                                        <rect key="frame" x="20" y="58" width="92" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Px4-LQ-b5S">
+                                        <rect key="frame" x="18" y="79" width="279" height="30"/>
+                                        <color key="tintColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="lensPositionSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="VyL-ze-KYT"/>
+                                        </connections>
+                                    </slider>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekp-sg-byO">
+                                        <rect key="frame" x="305" y="78.5" width="50" height="30"/>
+                                        <state key="normal" title="Auto">
+                                            <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="lensPositionAutoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UPp-8J-V5r"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ISO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McH-IC-4jc">
+                                        <rect key="frame" x="20" y="108" width="92" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="tQc-E5-7BT">
+                                        <rect key="frame" x="18" y="129" width="279" height="30"/>
+                                        <color key="tintColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="isoSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="4Bo-vb-TYl"/>
+                                        </connections>
+                                    </slider>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ew3-12-2Um">
+                                        <rect key="frame" x="305" y="128.5" width="50" height="30"/>
+                                        <state key="normal" title="Auto">
+                                            <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.17000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ew3-12-2Um" firstAttribute="trailing" secondItem="ekp-sg-byO" secondAttribute="trailing" id="06y-8N-XLs"/>
+                                    <constraint firstItem="Px4-LQ-b5S" firstAttribute="top" secondItem="CVJ-4c-EhZ" secondAttribute="bottom" id="1om-3K-tWV"/>
+                                    <constraint firstItem="ekp-sg-byO" firstAttribute="trailing" secondItem="cD9-wr-s39" secondAttribute="trailing" id="4Ur-R0-wt7"/>
+                                    <constraint firstItem="tQc-E5-7BT" firstAttribute="leading" secondItem="OQN-oG-EgT" secondAttribute="leading" id="5Y4-vf-ctb"/>
+                                    <constraint firstItem="tQc-E5-7BT" firstAttribute="width" secondItem="Px4-LQ-b5S" secondAttribute="width" id="6Oc-ZD-K3F"/>
+                                    <constraint firstAttribute="bottom" secondItem="tQc-E5-7BT" secondAttribute="bottom" constant="10" id="8tq-PH-4BQ"/>
+                                    <constraint firstItem="McH-IC-4jc" firstAttribute="height" secondItem="OQN-oG-EgT" secondAttribute="height" id="CTy-0y-oFg"/>
+                                    <constraint firstItem="cD9-wr-s39" firstAttribute="leading" secondItem="PUD-Iq-IjH" secondAttribute="trailing" constant="10" id="J5F-uy-Ewt"/>
+                                    <constraint firstItem="CVJ-4c-EhZ" firstAttribute="width" secondItem="OQN-oG-EgT" secondAttribute="width" id="KIT-Yr-1Hr"/>
+                                    <constraint firstItem="Px4-LQ-b5S" firstAttribute="trailing" secondItem="PUD-Iq-IjH" secondAttribute="trailing" id="Ngb-DO-ml9"/>
+                                    <constraint firstItem="tQc-E5-7BT" firstAttribute="height" secondItem="Px4-LQ-b5S" secondAttribute="height" id="Qcm-Hf-PNk"/>
+                                    <constraint firstItem="CVJ-4c-EhZ" firstAttribute="height" secondItem="OQN-oG-EgT" secondAttribute="height" id="TKF-Af-tgS"/>
+                                    <constraint firstItem="CVJ-4c-EhZ" firstAttribute="leading" secondItem="OQN-oG-EgT" secondAttribute="leading" id="Uqo-H3-aTa"/>
+                                    <constraint firstItem="OQN-oG-EgT" firstAttribute="top" secondItem="bm2-Wp-zRH" secondAttribute="top" constant="8" id="VRg-aS-xYP"/>
+                                    <constraint firstAttribute="trailing" secondItem="cD9-wr-s39" secondAttribute="trailing" constant="20" id="WmW-7r-x4e"/>
+                                    <constraint firstItem="ew3-12-2Um" firstAttribute="leading" secondItem="ekp-sg-byO" secondAttribute="leading" id="Wy1-du-xqO"/>
+                                    <constraint firstItem="CVJ-4c-EhZ" firstAttribute="top" secondItem="PUD-Iq-IjH" secondAttribute="bottom" id="XXQ-nT-xEk"/>
+                                    <constraint firstItem="PUD-Iq-IjH" firstAttribute="top" secondItem="OQN-oG-EgT" secondAttribute="bottom" id="Y9j-z0-Awd"/>
+                                    <constraint firstItem="tQc-E5-7BT" firstAttribute="top" secondItem="McH-IC-4jc" secondAttribute="bottom" id="Ydr-PN-a8m"/>
+                                    <constraint firstItem="cD9-wr-s39" firstAttribute="centerY" secondItem="PUD-Iq-IjH" secondAttribute="centerY" id="aqj-sv-eHv"/>
+                                    <constraint firstItem="ekp-sg-byO" firstAttribute="height" secondItem="cD9-wr-s39" secondAttribute="height" id="bAQ-Gg-7LB"/>
+                                    <constraint firstItem="Px4-LQ-b5S" firstAttribute="leading" secondItem="OQN-oG-EgT" secondAttribute="leading" id="dLL-JJ-Fmb"/>
+                                    <constraint firstItem="OQN-oG-EgT" firstAttribute="leading" secondItem="bm2-Wp-zRH" secondAttribute="leading" constant="20" id="ddH-JX-KDQ"/>
+                                    <constraint firstItem="ekp-sg-byO" firstAttribute="centerY" secondItem="Px4-LQ-b5S" secondAttribute="centerY" id="f3N-0x-eLz"/>
+                                    <constraint firstItem="McH-IC-4jc" firstAttribute="leading" secondItem="OQN-oG-EgT" secondAttribute="leading" id="fSp-Sj-Mck"/>
+                                    <constraint firstItem="ew3-12-2Um" firstAttribute="centerY" secondItem="tQc-E5-7BT" secondAttribute="centerY" id="g9W-zf-usd"/>
+                                    <constraint firstItem="Px4-LQ-b5S" firstAttribute="height" secondItem="PUD-Iq-IjH" secondAttribute="height" id="gUI-S4-hRE"/>
+                                    <constraint firstItem="ekp-sg-byO" firstAttribute="leading" secondItem="cD9-wr-s39" secondAttribute="leading" id="hVN-is-JUl"/>
+                                    <constraint firstItem="McH-IC-4jc" firstAttribute="top" secondItem="Px4-LQ-b5S" secondAttribute="bottom" id="sE4-v6-pVW"/>
+                                    <constraint firstItem="McH-IC-4jc" firstAttribute="width" secondItem="OQN-oG-EgT" secondAttribute="width" id="x7L-Qo-TzW"/>
+                                    <constraint firstItem="PUD-Iq-IjH" firstAttribute="leading" secondItem="OQN-oG-EgT" secondAttribute="leading" id="zfq-dg-gfR"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kpj-ri-v8i">
                                 <rect key="frame" x="0.0" y="578" width="375" height="88.5"/>
@@ -223,6 +271,9 @@
                                         <state key="normal" title="M/A">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="manualModeViewButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XLf-1X-pmV"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iY0-DI-1aI">
                                         <rect key="frame" x="289.5" y="0.0" width="27.5" height="28"/>
@@ -285,6 +336,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.11372549019607843" green="0.11372549019607843" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bm2-Wp-zRH" secondAttribute="trailing" id="9aI-ON-wL5"/>
                             <constraint firstItem="kpj-ri-v8i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Bze-mX-KGO"/>
                             <constraint firstItem="qlG-7U-jJ4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="29" id="E59-Ih-LRm"/>
                             <constraint firstAttribute="trailing" secondItem="kpj-ri-v8i" secondAttribute="trailing" id="HKC-au-dQP"/>
@@ -294,6 +346,8 @@
                             <constraint firstItem="kCn-jY-X7k" firstAttribute="top" secondItem="qQE-Lg-lC0" secondAttribute="bottom" constant="-7" id="T6L-Qx-Hbw"/>
                             <constraint firstItem="WFv-od-O0k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="27.5" id="WW9-dw-N5L"/>
                             <constraint firstItem="jc1-rr-ile" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Wbv-6q-r72"/>
+                            <constraint firstItem="bm2-Wp-zRH" firstAttribute="top" secondItem="2AU-jF-T0R" secondAttribute="top" id="WfM-di-coc"/>
+                            <constraint firstItem="bm2-Wp-zRH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WqQ-P1-pQe"/>
                             <constraint firstItem="2AU-jF-T0R" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Z1M-tB-u4X"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iqw-mR-NPt" secondAttribute="trailing" constant="27.5" id="aEa-iL-NLG"/>
                             <constraint firstItem="WFv-od-O0k" firstAttribute="centerY" secondItem="jc1-rr-ile" secondAttribute="centerY" id="b9Y-cC-VeC"/>
@@ -317,6 +371,7 @@
                         <outlet property="horizonGrid2" destination="dIz-RM-koI" id="37Q-jL-e36"/>
                         <outlet property="isoSliderOutlet" destination="tQc-E5-7BT" id="oK6-s4-CC9"/>
                         <outlet property="lensPositionSliderOutlet" destination="Px4-LQ-b5S" id="8LS-Wf-t3G"/>
+                        <outlet property="manualModeControlView" destination="bm2-Wp-zRH" id="1QD-OG-PQH"/>
                         <outlet property="temperatureSliderOutlet" destination="PUD-Iq-IjH" id="Bbd-N4-FPf"/>
                         <outlet property="timerButtonOutlet" destination="qQE-Lg-lC0" id="SQ8-sA-Zks"/>
                         <outlet property="timerButtonSecondLabel" destination="kCn-jY-X7k" id="P3w-d6-f4Z"/>

@@ -164,6 +164,7 @@ final class CameraViewController: UIViewController {
     // MARK: - UI
     
     @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var manualModeControlView: UIView!
     @IBAction func flashButton(_ sender: UIButton) {
         if CameraService.flash {
             CameraService.flash = false
@@ -210,6 +211,13 @@ final class CameraViewController: UIViewController {
         timerLabel.text = "\(CameraService.timer)"
         timerButtonSecondLabel.text = "\(CameraService.timer)"
         print(CameraService.timer)
+    }
+    @IBAction func manualModeViewButton(_ sender: UIButton) {
+        if manualModeControlView.isHidden {
+            manualModeControlView.isHidden = false
+        } else {
+            manualModeControlView.isHidden = true
+        }
     }
     @IBOutlet weak var focusMarkLabel: UILabel!
     @IBOutlet weak var brightnessFocusMarkLabel: UILabel!
