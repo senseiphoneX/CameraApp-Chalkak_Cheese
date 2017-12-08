@@ -54,7 +54,7 @@ final class CameraViewController: UIViewController {
         }
     }
     private func readyToUseCamera() {
-        CameraViewController.viewSize = self.cameraView.frame.origin //🔴 initializer
+        CameraViewController.viewSize = self.cameraView.frame.origin //🔴 main thread르 바꿔주기!
         self.cameraService.setUpCaptureSession()
         self.cameraService.setUpDevice()
         self.cameraService.setUpInputOutput()
@@ -125,15 +125,23 @@ final class CameraViewController: UIViewController {
         let touchPoint = touches.first
         let cameraViewSize = self.cameraView.bounds.size
         let foucusPoint = CGPoint(x: (touchPoint?.location(in: self.view).y)!/cameraViewSize.height, y: 1.0 - (touchPoint?.location(in: self.view).x)!/cameraViewSize.width)
-        //초점, 밝기잡을려고 화면 터치하면 slider 위치가 새로 맞춰진 ISO에 맞춰지게 조정.
-        self.isoSliderOutlet.value = (cameraService.currentCamera?.iso)!
-        cameraService.cameraFocusing(focusPoint: foucusPoint)
-        //focus marker 뜨게
-        self.brightnessFocusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 81, height: 81) //touchPoint
-        self.focusMark.frame = CGRect(x: (touchPoint?.location(in: self.view).x)! - 25, y: (touchPoint?.location(in: self.view).y)! - 25, width: 81, height: 81) //touchPoint
-        self.brightnessFocusMark.isHidden = false
-        self.focusMark.isHidden = false
-        self.setFocusLabelFrame()
+        if let touch = touchPoint {
+            print(touch.location(in: self.cameraView))
+            if touch.location(in: self.cameraView).x <= self.cameraView.frame.width &&
+                touch.location(in: self.cameraView).x > 0 &&
+                touch.location(in: self.cameraView).y <= self.cameraView.frame.height &&
+                touch.location(in: self.cameraView).y > 0 {
+                //초점, 밝기잡을려고 화면 터치하면 slider 위치가 새로 맞춰진 ISO에 맞춰지게 조정.
+                self.isoSliderOutlet.value = (cameraService.currentCamera?.iso)!
+                cameraService.cameraFocusing(focusPoint: foucusPoint)
+                //focus marker 뜨게
+                self.brightnessFocusMark.frame = CGRect(x: touch.location(in: self.view).x - 25, y: touch.location(in: self.view).y - 78.5, width: 81, height: 81) //touchPoint
+                self.focusMark.frame = CGRect(x: touch.location(in: self.view).x - 25, y: touch.location(in: self.view).y - 78.5, width: 81, height: 81) //touchPoint
+                self.brightnessFocusMark.isHidden = false
+                self.focusMark.isHidden = false
+                self.setFocusLabelFrame()
+            }
+        }
     }
     @IBAction func focusPanGesture(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.focusMark) // = touchPoint
@@ -150,8 +158,6 @@ final class CameraViewController: UIViewController {
         self.setFocusLabelFrame()
     }
     @IBAction func cameraZoomGesture(_ sender: UIPinchGestureRecognizer) {
-        
-//        cameraService.cameraZoom(pinch: sender)
         zoonLabel.text = "\(cameraService.cameraZoom(pinch: sender))x"
     }
     
