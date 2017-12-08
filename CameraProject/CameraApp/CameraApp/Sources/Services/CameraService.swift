@@ -75,7 +75,7 @@ class CameraService: NSObject {
             }
 //            photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey:AVVideoCodecType.jpeg])], completionHandler: nil)
             captureSession.addOutput(photoOutput!)
-            captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
+            captureSession.sessionPreset = AVCaptureSession.Preset.photo
         } catch  {
             print(error)
         }
@@ -85,8 +85,12 @@ class CameraService: NSObject {
         cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
         cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
         DispatchQueue.main.async {
-            self.cameraPreviewLayer?.frame = view.frame
+            self.cameraPreviewLayer?.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y-57.5, width: view.frame.width, height: view.frame.height)
             view.layer.insertSublayer(self.cameraPreviewLayer!, at: 0)
+            print("😀 size")
+            print(view.layer.frame.size)
+            print("😀 origin")
+            print(view.layer.frame.origin)
         }
     }
     func startRunningCaputureSession() {
