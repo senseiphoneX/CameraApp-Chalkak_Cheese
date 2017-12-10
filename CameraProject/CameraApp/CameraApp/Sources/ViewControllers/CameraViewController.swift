@@ -25,16 +25,15 @@ final class CameraViewController: UIViewController {
     // MARK: - Actions
     
     private func checkFirstLaunch() {
-        
         let isFirstLaunched = UserDefaults.standard.string(forKey: "isFirstLaunched")
         if isFirstLaunched == nil {
-            UserDefaults.standard.set("true", forKey: "isFirstLaunched")
+            UserDefaults.standard.set("true", forKey: "isFirstLaunched.")
             let popUpView: IntroPopUpViewController = UINib(nibName: "IntroPopUpViewController", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! IntroPopUpViewController
             popUpView.frame = self.view.frame
             self.view.addSubview(popUpView)
         }
     }
-    func checkCameraPermission() {
+    private func checkCameraPermission() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .denied: break
         case .restricted: break
@@ -48,7 +47,7 @@ final class CameraViewController: UIViewController {
             })
         }
     }
-    func checkPhotoLibraryPermission() {
+    private func checkPhotoLibraryPermission() {
         switch PHPhotoLibrary.authorizationStatus() {
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization({ (status) in
