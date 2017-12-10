@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E98131461FDD555D00CBD6FB /* IntroPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98131451FDD555D00CBD6FB /* IntroPopUpViewController.swift */; };
 		E9D080B61FBC2B91002C3A16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D080B51FBC2B91002C3A16 /* AppDelegate.swift */; };
 		E9D080BB1FBC2B91002C3A16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D080B91FBC2B91002C3A16 /* Main.storyboard */; };
 		E9D080BD1FBC2B91002C3A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D080BC1FBC2B91002C3A16 /* Assets.xcassets */; };
@@ -17,7 +18,6 @@
 		E9D080D81FBC31E5002C3A16 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D080D71FBC31E5002C3A16 /* CameraService.swift */; };
 		E9D080DA1FBC31F7002C3A16 /* AlbumService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D080D91FBC31F7002C3A16 /* AlbumService.swift */; };
 		E9D080DC1FBD4903002C3A16 /* FilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D080DB1FBD4903002C3A16 /* FilterService.swift */; };
-		E9D080E91FBD4A19002C3A16 /* IntroPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D080E71FBD4A19002C3A16 /* IntroPopUpViewController.swift */; };
 		E9D080EA1FBD4A19002C3A16 /* IntroPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9D080E81FBD4A19002C3A16 /* IntroPopUpViewController.xib */; };
 		E9D080EC1FBD4A5E002C3A16 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D080EB1FBD4A5E002C3A16 /* FilterType.swift */; };
 		E9EDFD0A1FC92B4F0070C75D /* SelectedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EDFD091FC92B4F0070C75D /* SelectedImageViewController.swift */; };
@@ -27,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E98131451FDD555D00CBD6FB /* IntroPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPopUpViewController.swift; sourceTree = "<group>"; };
 		E9D080B21FBC2B91002C3A16 /* CameraApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D080B51FBC2B91002C3A16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9D080BA1FBC2B91002C3A16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -38,7 +39,6 @@
 		E9D080D71FBC31E5002C3A16 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		E9D080D91FBC31F7002C3A16 /* AlbumService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumService.swift; sourceTree = "<group>"; };
 		E9D080DB1FBD4903002C3A16 /* FilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterService.swift; sourceTree = "<group>"; };
-		E9D080E71FBD4A19002C3A16 /* IntroPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPopUpViewController.swift; sourceTree = "<group>"; };
 		E9D080E81FBD4A19002C3A16 /* IntroPopUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroPopUpViewController.xib; sourceTree = "<group>"; };
 		E9D080EB1FBD4A5E002C3A16 /* FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
 		E9D080F11FBD4C96002C3A16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,7 +133,7 @@
 		E9D080D41FBC2E0B002C3A16 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E9D080E71FBD4A19002C3A16 /* IntroPopUpViewController.swift */,
+				E98131451FDD555D00CBD6FB /* IntroPopUpViewController.swift */,
 				E9EDFD3D1FCAF4830070C75D /* NoticeTableViewCell.swift */,
 			);
 			path = Views;
@@ -226,10 +226,10 @@
 				E9D080B61FBC2B91002C3A16 /* AppDelegate.swift in Sources */,
 				E9D080C81FBC2BD5002C3A16 /* CameraViewController.swift in Sources */,
 				E9D080DC1FBD4903002C3A16 /* FilterService.swift in Sources */,
+				E98131461FDD555D00CBD6FB /* IntroPopUpViewController.swift in Sources */,
 				E9EDFD421FCAF8910070C75D /* SettingDetailViewController.swift in Sources */,
 				E9EDFD3F1FCAF4830070C75D /* NoticeTableViewCell.swift in Sources */,
 				E9D080CA1FBC2BE7002C3A16 /* PhotoAlbumViewController.swift in Sources */,
-				E9D080E91FBD4A19002C3A16 /* IntroPopUpViewController.swift in Sources */,
 				E9D080CC1FBC2BF0002C3A16 /* SettingViewController.swift in Sources */,
 				E9D080DA1FBC31F7002C3A16 /* AlbumService.swift in Sources */,
 				E9D080EC1FBD4A5E002C3A16 /* FilterType.swift in Sources */,

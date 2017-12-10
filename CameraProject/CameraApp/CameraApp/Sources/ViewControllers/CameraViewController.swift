@@ -24,11 +24,22 @@ final class CameraViewController: UIViewController {
     
     // MARK: - Actions
     
-    private func checkCameraPermission() {
+    private func checkFirstLaunch() {
+        
+        let isFirstLaunched = UserDefaults.standard.string(forKey: "isFirstLaunched")
+        if isFirstLaunched == nil {
+            UserDefaults.standard.set("true", forKey: "isFirstLaunched")
+            let popUpView: IntroPopUpViewController = UINib(nibName: "IntroPopUpViewController", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! IntroPopUpViewController
+            popUpView.frame = self.view.frame
+            self.view.addSubview(popUpView)
+        }
+    }
+    func checkCameraPermission() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .denied: break
         case .restricted: break
-        case .authorized: self.readyToUseCamera()
+        case .authorized:
+            self.readyToUseCamera()
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
                 if granted {
@@ -37,7 +48,7 @@ final class CameraViewController: UIViewController {
             })
         }
     }
-    private func checkPhotoLibraryPermission() {
+    func checkPhotoLibraryPermission() {
         switch PHPhotoLibrary.authorizationStatus() {
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization({ (status) in
@@ -313,6 +324,15 @@ final class CameraViewController: UIViewController {
         super.viewDidLoad()
         checkCameraPermission()
         checkPhotoLibraryPermission()
+        checkFirstLaunch()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        DispatchQueue.main.async {
+            self.cameraService.captureSession.stopRunning()
+            self.cameraService.cameraPreviewLayer?.removeFromSuperlayer()
+            self.cameraService.cameraPreviewLayer = nil
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

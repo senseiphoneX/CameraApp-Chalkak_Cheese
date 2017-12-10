@@ -360,6 +360,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="7bG-xZ-PDl"/>
                     <connections>
                         <outlet property="albumButtonOutlet" destination="WFv-od-O0k" id="mbU-yT-Rwg"/>
                         <outlet property="brightnessFocusMark" destination="T1m-0e-TZk" id="JtR-a4-fke"/>
@@ -399,7 +400,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="117.39130434782609" y="115.7608695652174"/>
+            <point key="canvasLocation" x="455.19999999999999" y="115.59220389805098"/>
         </scene>
         <!--Setting View Controller-->
         <scene sceneID="3vt-ca-NqA">
@@ -502,7 +503,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qjE-lg-fTj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="118" y="882"/>
+            <point key="canvasLocation" x="455" y="928"/>
         </scene>
         <!--Setting Detail View Controller-->
         <scene sceneID="kC5-7q-oab">
@@ -561,7 +562,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PKI-VN-fRK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1197.5999999999999" y="880.20989505247383"/>
+            <point key="canvasLocation" x="1537" y="901"/>
         </scene>
         <!--Selected Image View Controller-->
         <scene sceneID="VZ8-fa-21I">
@@ -630,7 +631,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2192.8000000000002" y="115.59220389805098"/>
+            <point key="canvasLocation" x="2532" y="115.59220389805098"/>
         </scene>
         <!--Photo Album View Controller-->
         <scene sceneID="xxx-Jh-oC1">
@@ -706,7 +707,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yO1-LE-ftg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1199" y="116"/>
+            <point key="canvasLocation" x="1536.8" y="115.59220389805098"/>
         </scene>
     </scenes>
     <resources>
