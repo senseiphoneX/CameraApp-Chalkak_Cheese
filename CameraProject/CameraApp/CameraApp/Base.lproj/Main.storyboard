@@ -419,7 +419,7 @@
                                 <color key="barTintColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <navigationItem id="Bfq-UN-UHw">
-                                        <barButtonItem key="leftBarButtonItem" image="Back Chevron" id="XEG-dn-WPo">
+                                        <barButtonItem key="leftBarButtonItem" image="Left Chevron" id="XEG-dn-WPo">
                                             <color key="tintColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
                                                 <action selector="leftBarButton:" destination="2vn-RV-Nc9" id="uxX-PR-jLe"/>
@@ -712,6 +712,7 @@
     </scenes>
     <resources>
         <image name="Back Chevron" width="13" height="22"/>
+        <image name="Left Chevron" width="13" height="22"/>
         <image name="albumNavigationLeftBtn" width="78" height="22"/>
         <image name="brightnessIcon" width="83" height="83"/>
         <image name="focusIcon" width="81" height="81"/>

@@ -327,11 +327,11 @@ final class CameraViewController: UIViewController {
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
-        DispatchQueue.main.async {
-            self.cameraService.captureSession.stopRunning()
-            self.cameraService.cameraPreviewLayer?.removeFromSuperlayer()
-            self.cameraService.cameraPreviewLayer = nil
-        }
+//        DispatchQueue.main.async {
+//            self.cameraService.captureSession.stopRunning()
+//            self.cameraService.cameraPreviewLayer?.removeFromSuperlayer()
+//            self.cameraService.cameraPreviewLayer = nil
+//        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
