@@ -10,8 +10,10 @@ import UIKit
 
 class IntroPopUpViewController: UIView {
     
+    // MARK: - Properties
+    
+    var viewPage: Int?
     let titleText: String = "더 좋은 찰칵 소리를 내는 팁."
-//    let buttonText: String = "당신의 찰칵을 들려주세요!"
     let text : String =
         """
         👆
@@ -27,18 +29,41 @@ class IntroPopUpViewController: UIView {
         자, 이제 당신의 찰칵을 들려주세요! 📸
         """
     
+    // MARK: - Actions
+    
+    // MARK: - UI
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var button: UIButton!
     @IBAction func button(_ sender: UIButton) {
-        self.removeFromSuperview()
+        if let page = self.viewPage {
+            switch page {
+            case 0:
+                print(page)
+                //image page 1
+                self.viewPage! += 1
+            case 1:
+                print(page)
+                //image page 2
+                self.viewPage! += 1
+            case 2:
+                print(page)
+                //image page 3 // 총 이미지 4장.
+                self.removeFromSuperview()
+            default:
+                break
+            }
+        }
     }
+    
+    // MARK: - View Life Cycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.text = titleText
-//        button.setTitle(buttonText, for: .normal)
         textView.text = text
+        //image page 0
+        self.viewPage = 0
     }
 }

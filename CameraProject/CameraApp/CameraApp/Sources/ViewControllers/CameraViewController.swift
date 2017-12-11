@@ -30,7 +30,7 @@ final class CameraViewController: UIViewController {
     private func checkFirstLaunch() {
         let isFirstLaunched = UserDefaults.standard.string(forKey: "isFirstLaunched")
         if isFirstLaunched == nil {
-            UserDefaults.standard.set("true", forKey: "isFirstLaunched")
+            UserDefaults.standard.set("true", forKey: "isFirstLaunched😀")
             let popUpView: IntroPopUpViewController = UINib(nibName: "IntroPopUpViewController", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! IntroPopUpViewController
             popUpView.frame = self.view.frame
             self.view.addSubview(popUpView)

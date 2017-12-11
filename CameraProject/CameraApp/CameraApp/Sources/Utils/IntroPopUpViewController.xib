@@ -16,13 +16,12 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Gd-Os-eUV">
-                    <rect key="frame" x="295" y="587" width="50" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Gd-Os-eUV">
+                    <rect key="frame" x="295" y="587" width="70" height="70"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="fEc-0H-jOC"/>
-                        <constraint firstAttribute="width" constant="50" id="jo3-RF-2Si"/>
+                        <constraint firstAttribute="height" constant="70" id="fEc-0H-jOC"/>
+                        <constraint firstAttribute="width" constant="70" id="jo3-RF-2Si"/>
                     </constraints>
-                    <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" image="Back Chevron">
                         <color key="titleColor" red="0.1137254902" green="0.1137254902" blue="0.1137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
@@ -56,8 +55,8 @@
                 <constraint firstItem="Dte-JC-CrH" firstAttribute="top" secondItem="TYL-v5-M2J" secondAttribute="bottom" constant="40" id="8S3-yw-0LH"/>
                 <constraint firstItem="9Gd-Os-eUV" firstAttribute="top" secondItem="Dte-JC-CrH" secondAttribute="bottom" constant="30" id="NQL-Or-2WO"/>
                 <constraint firstItem="TYL-v5-M2J" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="34" id="Sjd-Hj-ayR"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9Gd-Os-eUV" secondAttribute="bottom" constant="30" id="gmb-cU-e7B"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9Gd-Os-eUV" secondAttribute="trailing" constant="30" id="vIr-Ka-iNw"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9Gd-Os-eUV" secondAttribute="bottom" constant="10" id="gmb-cU-e7B"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9Gd-Os-eUV" secondAttribute="trailing" constant="10" id="vIr-Ka-iNw"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Dte-JC-CrH" secondAttribute="trailing" constant="30" id="wXF-E2-gzl"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
