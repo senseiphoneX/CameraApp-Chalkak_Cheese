@@ -28,6 +28,7 @@ class CameraService: NSObject {
     static var grid: Bool = false // true = on, false = off
     static var isAutoTemperature: Bool = false // true = on, false = off
     static var isAutoLensPosition: Bool = false
+    static var isAutoISO: Bool = false
     let minimumZoom: CGFloat = 1.0 //🔴 private로?
     let maximumZoom: CGFloat = 5.0 //🔴 private로?
     var lastZoomFactor: CGFloat = 1.0 //🔴 private로?
@@ -38,7 +39,7 @@ class CameraService: NSObject {
         case fiveSeconds = 5
         case tenSeconds = 10
     }
-
+    
     // MARK: - Camera Core Functions
     
     func setUpCaptureSession() {
@@ -316,3 +317,4 @@ extension Double {
         return (self*divisor).rounded() / divisor
     }
 }
+

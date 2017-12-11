@@ -14,7 +14,7 @@ final class CameraViewController: UIViewController {
     
     // MARK: - Properties
     
-    var cameraService = CameraService()
+    private var cameraService = CameraService()
     var currentIndexPath: IndexPath?
     var imagePickerSelectedImage: UIImage?
     private let tintColor = UIColor(red: 245.0 / 255.0, green: 166.0 / 255.0, blue: 35.0 / 255.0, alpha: 1.0)
@@ -273,8 +273,8 @@ final class CameraViewController: UIViewController {
     @IBOutlet weak var lensPositionSliderOutlet: UISlider!
     @IBAction func lensPositionSlider(_ sender: UISlider) {
         cameraService.setLensPosition(value: sender.value)
-        sender.maximumValue = 1
-        sender.minimumValue = 0
+        sender.maximumValue = 1.0
+        sender.minimumValue = 0.0
     }
     @IBAction func lensPositionAutoButton(_ sender: UIButton) {
         if CameraService.isAutoLensPosition {
@@ -325,13 +325,63 @@ final class CameraViewController: UIViewController {
         checkPhotoLibraryPermission()
         checkFirstLaunch()
     }
+    
+    var lensPositionObserving: NSKeyValueObservation?
+    var temperatureObserving: NSKeyValueObservation?
+    var whiteBalanceGainsObserving: NSKeyValueObservation?
+    var isoObserving: NSKeyValueObservation?
+    
+    func addObservers() {
+        //temeperature 경로.
+        //currentCamera?.temperatureAndTintValues(for: (cameraService.currentCamera?.deviceWhiteBalanceGains)!).temperature
+        
+        lensPositionObserving = self.cameraService.currentCamera?.observe((\.lensPosition), changeHandler: { (observe, change) in
+            
+            //! 빼기.
+            if !CameraService.isAutoLensPosition {
+                let newValue = observe.lensPosition
+                DispatchQueue.main.async {
+                    self.lensPositionSliderOutlet.value = newValue
+                }
+            }
+        })
+        
+        
+        //        let gains = cameraService.currentCamera?.deviceWhiteBalanceGains)!
+        //        let tem = cameraService.currentCamera
+        
+//        temperatureObserving = self.cameraService.currentCamera?.observe((\.temperatureAndTintValues(for: (self.cameraService.currentCamera.deviceWhiteBalanceGains))), changeHandler: { (observe, change) in
+//
+//            // ! 빼기.
+//            if !CameraService.isAutoTemperature {
+//                let newValue = observe.deviceWhiteBalanceGains
+//                if (self.cameraService.currentCamera?.temperatureAndTintValues(for: newValue).temperature) != nil {
+//                    DispatchQueue.main.async {
+//                        self.temperatureSliderOutlet.value = (self.cameraService.currentCamera?.temperatureAndTintValues(for: newValue).temperature)!
+//                    }
+//                }
+//            }
+//        })
+        
+        isoObserving = self.cameraService.currentCamera?.observe((\.iso), changeHandler: { (observe, change) in
+            
+            // ! 빼기.
+            if !CameraService.isAutoISO {
+                let newValue = observe.iso
+                DispatchQueue.main.async {
+                    self.isoSliderOutlet.value = newValue
+                }
+            }
+        })
+    }
+
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.addObservers()
+    }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
-//        DispatchQueue.main.async {
-//            self.cameraService.captureSession.stopRunning()
-//            self.cameraService.cameraPreviewLayer?.removeFromSuperlayer()
-//            self.cameraService.cameraPreviewLayer = nil
-//        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
