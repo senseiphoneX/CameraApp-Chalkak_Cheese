@@ -275,6 +275,33 @@ final class CameraViewController: UIViewController {
         cameraService.exposureSetFromSlider(isoValue: sender.value)
     }
     @IBOutlet weak var isoSliderOutlet: UISlider!
+    @IBAction func isoAutoButton(_ sender: UIButton) {
+        
+        
+        if CameraService.isAutoISO {
+            CameraService.isAutoISO = false
+            sender.setTitle("Manual", for: .normal)
+            sender.setTitleColor(.white, for: .normal)
+            isoSliderOutlet.isEnabled = true
+        } else {
+            if let device = cameraService.currentCamera {
+                do{
+                    try device.lockForConfiguration()
+                    device.exposureMode = AVCaptureDevice.ExposureMode.autoExpose
+                } catch {
+                    print(error)
+                }
+                device.unlockForConfiguration()
+            }
+            CameraService.isAutoISO = true
+            sender.setTitle("Auto", for: .normal)
+            sender.setTitleColor(tintColor, for: .normal)
+            isoSliderOutlet.isEnabled = false
+        }
+        
+        
+        
+    }
     @IBAction func temperatureSlider(_ sender: UISlider) {
         cameraService.temperatureSetFromSlider(temperatureValue: sender.value)
     }
@@ -286,23 +313,22 @@ final class CameraViewController: UIViewController {
             sender.setTitleColor(.white, for: .normal)
             temperatureSliderOutlet.isEnabled = true
         } else {
-//            if let device = cameraService.currentCamera {
-//                do{
-//                    try device.lockForConfiguration()
-//                    device.isWhiteBalanceModeSupported(.autoWhiteBalance)
-//                    device.isLockingWhiteBalanceWithCustomDeviceGainsSupported = false
-//                } catch {
-//                    print(error)
-//                }
-//                device.unlockForConfiguration()
-//            }
+            if let device = cameraService.currentCamera {
+                do{
+                    try device.lockForConfiguration()
+                    device.isWhiteBalanceModeSupported(.autoWhiteBalance)
+                    device.whiteBalanceMode = AVCaptureDevice.WhiteBalanceMode.continuousAutoWhiteBalance
+                } catch {
+                    print(error)
+                }
+                device.unlockForConfiguration()
+            }
             CameraService.isAutoTemperature = true
             sender.setTitle("Auto", for: .normal)
             sender.setTitleColor(tintColor, for: .normal)
             temperatureSliderOutlet.isEnabled = false
         }
     }
-    // 🚗🚕🚙 🚗🚕🚙 🚗🚕🚙 lens position
     @IBOutlet weak var lensPositionSliderOutlet: UISlider!
     @IBAction func lensPositionSlider(_ sender: UISlider) {
         cameraService.setLensPosition(value: sender.value)
@@ -316,16 +342,15 @@ final class CameraViewController: UIViewController {
             sender.setTitleColor(.white, for: .normal)
             lensPositionSliderOutlet.isEnabled = true
         } else {
-            //            if let device = cameraService.currentCamera {
-            //                do{
-            //                    try device.lockForConfiguration()
-            //                    device.isWhiteBalanceModeSupported(.autoWhiteBalance)
-            //                    device.isLockingWhiteBalanceWithCustomDeviceGainsSupported = false
-            //                } catch {
-            //                    print(error)
-            //                }
-            //                device.unlockForConfiguration()
-            //            }
+            if let device = cameraService.currentCamera {
+                do{
+                    try device.lockForConfiguration()
+                    device.focusMode = AVCaptureDevice.FocusMode.autoFocus
+                } catch {
+                    print(error)
+                }
+                device.unlockForConfiguration()
+            }
             CameraService.isAutoLensPosition = true
             sender.setTitle("Auto", for: .normal)
             sender.setTitleColor(tintColor, for: .normal)

@@ -26,9 +26,9 @@ class CameraService: NSObject {
     static var cameraPosition: Bool = true //true = back, false = front
     static var flash: Bool = false // true = on, false = off
     static var grid: Bool = false // true = on, false = off
-    static var isAutoTemperature: Bool = false // true = on, false = off
-    static var isAutoLensPosition: Bool = false
-    static var isAutoISO: Bool = false
+    static var isAutoTemperature: Bool = true // true = on, false = off
+    static var isAutoLensPosition: Bool = true
+    static var isAutoISO: Bool = true
     let minimumZoom: CGFloat = 1.0 //🔴 private로?
     let maximumZoom: CGFloat = 5.0 //🔴 private로?
     var lastZoomFactor: CGFloat = 1.0 //🔴 private로?
@@ -201,6 +201,14 @@ class CameraService: NSObject {
         }
         currentCamera?.unlockForConfiguration()
     }
+
+    func temperatureSetFromSlider(temperatureValue: Float) {
+        let currentTint = (self.currentCamera?.temperatureAndTintValues(for: (self.currentCamera?.deviceWhiteBalanceGains)!).tint)!
+        let newWhiteBalance = AVCaptureDevice.WhiteBalanceTemperatureAndTintValues.init(temperature: temperatureValue, tint: currentTint)
+        let newGains = self.currentCamera?.deviceWhiteBalanceGains(for: newWhiteBalance)
+        setWhiteBalanceGains(gains: newGains!)
+        self.currentCamera?.isWhiteBalanceModeSupported(AVCaptureDevice.WhiteBalanceMode.locked)
+    }
     func setLensPosition(value: Float) {
         if let device = self.currentCamera {
             do{
@@ -211,13 +219,6 @@ class CameraService: NSObject {
             }
         }
         currentCamera?.unlockForConfiguration()
-    }
-    func temperatureSetFromSlider(temperatureValue: Float) {
-        let currentTint = (self.currentCamera?.temperatureAndTintValues(for: (self.currentCamera?.deviceWhiteBalanceGains)!).tint)!
-        let newWhiteBalance = AVCaptureDevice.WhiteBalanceTemperatureAndTintValues.init(temperature: temperatureValue, tint: currentTint)
-        let newGains = self.currentCamera?.deviceWhiteBalanceGains(for: newWhiteBalance)
-        setWhiteBalanceGains(gains: newGains!)
-        self.currentCamera?.isWhiteBalanceModeSupported(AVCaptureDevice.WhiteBalanceMode.locked)
     }
     func cameraFocusing(focusPoint: CGPoint) {
         if let device = currentCamera {
@@ -233,6 +234,7 @@ class CameraService: NSObject {
                     device.exposurePointOfInterest = focusPoint
                     device.exposureMode = AVCaptureDevice.ExposureMode.autoExpose
                 }
+                device.whiteBalanceMode = AVCaptureDevice.WhiteBalanceMode.continuousAutoWhiteBalance
                 device.unlockForConfiguration()
             } catch {
                 print("error!!!")
