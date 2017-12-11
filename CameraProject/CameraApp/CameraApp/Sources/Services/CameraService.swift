@@ -300,7 +300,9 @@ extension CameraService: AVCapturePhotoCaptureDelegate {
             print(error)
         }
         if let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer!, previewPhotoSampleBuffer: previewPhotoSampleBuffer) {
-            FilterService.filteringImage(image: UIImage(data: dataImage)!, cameraPosition: CameraService.cameraPosition)
+//            필터 사용할때 사용하기.
+//            FilterService.filteringImage(image: UIImage(data: dataImage)!, cameraPosition: CameraService.cameraPosition)
+            UIImageWriteToSavedPhotosAlbum(UIImage(data: dataImage)!, nil, nil, nil)
         }
     }
 }
