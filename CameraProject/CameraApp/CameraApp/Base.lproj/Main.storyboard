@@ -145,16 +145,6 @@
                                             <action selector="temperatureAutoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nRw-xn-wfa"/>
                                         </connections>
                                     </button>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PUD-Iq-IjH">
-                                        <rect key="frame" x="18" y="29" width="279" height="30"/>
-                                        <color key="tintColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="29" id="Sxu-eh-upe"/>
-                                        </constraints>
-                                        <connections>
-                                            <action selector="temperatureSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="b2W-rf-1tP"/>
-                                        </connections>
-                                    </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lens position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVJ-4c-EhZ">
                                         <rect key="frame" x="20" y="58" width="92" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -196,6 +186,16 @@
                                             <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5500" minValue="3000" maxValue="8000" translatesAutoresizingMaskIntoConstraints="NO" id="PUD-Iq-IjH">
+                                        <rect key="frame" x="18" y="29" width="279" height="30"/>
+                                        <color key="tintColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="29" id="Sxu-eh-upe"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="temperatureSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="b2W-rf-1tP"/>
+                                        </connections>
+                                    </slider>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.17000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
