@@ -93,10 +93,6 @@ class CameraService: NSObject {
         DispatchQueue.main.async {
             self.cameraPreviewLayer?.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y-57.5, width: view.frame.width, height: view.frame.height)
             view.layer.insertSublayer(self.cameraPreviewLayer!, at: 0)
-            print("😀 size")
-            print(view.layer.frame.size)
-            print("😀 origin")
-            print(view.layer.frame.origin)
         }
     }
     func startRunningCaputureSession() {
@@ -132,7 +128,6 @@ class CameraService: NSObject {
             let settings = AVCapturePhotoSettings()
             photoOutput?.capturePhoto(with: settings, delegate: self)
         }
-        print("take a photo")
     }
     func frontOrBackCamera() {
         captureSession.beginConfiguration()

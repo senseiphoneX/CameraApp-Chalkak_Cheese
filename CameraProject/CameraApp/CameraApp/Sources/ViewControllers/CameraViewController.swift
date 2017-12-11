@@ -17,6 +17,7 @@ final class CameraViewController: UIViewController {
     private var cameraService = CameraService()
     var currentIndexPath: IndexPath?
     var imagePickerSelectedImage: UIImage?
+    var wholeBlackView: UIView?
     private let tintColor = UIColor(red: 245.0 / 255.0, green: 166.0 / 255.0, blue: 35.0 / 255.0, alpha: 1.0)
     static var viewSize: CGPoint?
     private var lensPositionObserving: NSKeyValueObservation?
@@ -30,7 +31,7 @@ final class CameraViewController: UIViewController {
     private func checkFirstLaunch() {
         let isFirstLaunched = UserDefaults.standard.string(forKey: "isFirstLaunched")
         if isFirstLaunched == nil {
-            UserDefaults.standard.set("true", forKey: "isFirstLaunched😀")
+            UserDefaults.standard.set("true", forKey: "isFirstLaunched")
             let popUpView: IntroPopUpViewController = UINib(nibName: "IntroPopUpViewController", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! IntroPopUpViewController
             popUpView.frame = self.view.frame
             self.view.addSubview(popUpView)
@@ -79,6 +80,10 @@ final class CameraViewController: UIViewController {
         self.view.addSubview(volView)
         isoSliderOutlet.minimumValue = cameraService.currentCamera?.activeFormat.minISO ?? 1.0
         isoSliderOutlet.maximumValue = cameraService.currentCamera?.activeFormat.maxISO ?? 0.0
+        self.wholeBlackView = UIView(frame: self.cameraView.bounds)
+        self.wholeBlackView?.backgroundColor = .black
+        self.wholeBlackView?.isHidden = true
+        self.cameraView.addSubview(wholeBlackView!)
     }
     func albumButtonPreviewAtCameraView() {
         let photoAsset = AlbumService.fetchResult.object(at: 0)
@@ -175,7 +180,6 @@ final class CameraViewController: UIViewController {
         let cameraViewSize = self.cameraView.bounds.size
         let foucusPoint = CGPoint(x: (touchPoint?.location(in: self.view).y)!/cameraViewSize.height, y: 1.0 - (touchPoint?.location(in: self.view).x)!/cameraViewSize.width)
         if let touch = touchPoint {
-            print(touch.location(in: self.cameraView))
             if touch.location(in: self.cameraView).x <= self.cameraView.frame.width &&
                 touch.location(in: self.cameraView).x > 0 &&
                 touch.location(in: self.cameraView).y <= self.cameraView.frame.height &&
@@ -256,7 +260,6 @@ final class CameraViewController: UIViewController {
         }
         timerLabel.text = "\(CameraService.timer)"
         timerButtonSecondLabel.text = "\(CameraService.timer)"
-        print(CameraService.timer)
     }
     @IBAction func manualModeViewButton(_ sender: UIButton) {
         if manualModeControlView.isHidden {
@@ -276,8 +279,6 @@ final class CameraViewController: UIViewController {
     }
     @IBOutlet weak var isoSliderOutlet: UISlider!
     @IBAction func isoAutoButton(_ sender: UIButton) {
-        
-        
         if CameraService.isAutoISO {
             CameraService.isAutoISO = false
             sender.setTitle("Manual", for: .normal)
@@ -298,9 +299,6 @@ final class CameraViewController: UIViewController {
             sender.setTitleColor(tintColor, for: .normal)
             isoSliderOutlet.isEnabled = false
         }
-        
-        
-        
     }
     @IBAction func temperatureSlider(_ sender: UISlider) {
         cameraService.temperatureSetFromSlider(temperatureValue: sender.value)
@@ -364,6 +362,10 @@ final class CameraViewController: UIViewController {
     @IBOutlet weak var albumButtonOutlet: UIButton!
     @IBAction func takePhotoButton(_ sender: UIButton) {
         takePhotoButtonAction()
+        self.wholeBlackView?.isHidden = false
+        CameraService.delay(delay: 0.14) {
+            self.wholeBlackView?.isHidden = true
+        }
     }
     @IBAction func frontOrBackCameraButton(_ sender: UIButton) {
         cameraService.frontOrBackCamera()

@@ -88,7 +88,6 @@ extension SettingViewController : UITableViewDelegate {
                 composeVC.setSubject("[Camera app] Feedback")
                 composeVC.setMessageBody(messageBody, isHTML: false)
                 self.present(composeVC, animated: true, completion: nil)
-                print("mail")
             case 2:
                 performSegue(withIdentifier: "moveToDetailViewSegue", sender: nil)
             default: break
