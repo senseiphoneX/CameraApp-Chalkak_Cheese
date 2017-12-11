@@ -68,7 +68,7 @@ final class CameraViewController: UIViewController {
         }
     }
     private func readyToUseCamera() {
-        CameraViewController.viewSize = self.cameraView.frame.origin //🔴 main thread르 바꿔주기!
+        CameraViewController.viewSize = self.cameraView.frame.origin
         self.cameraService.setUpCaptureSession()
         self.cameraService.setUpDevice()
         self.cameraService.setUpInputOutput()

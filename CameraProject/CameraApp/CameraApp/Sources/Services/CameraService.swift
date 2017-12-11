@@ -14,24 +14,21 @@ class CameraService: NSObject {
     
     // MARK: - Properties
     
-    //camera load에 사용 properties
     var captureSession = AVCaptureSession()
     var currentCamera: AVCaptureDevice?
-    let photoSettings = AVCapturePhotoSettings()
-    //촬영 이후 사용
-    var photoOutput: AVCapturePhotoOutput?
-    var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
-//    var image: UIImage? //🔴 지울까?
-    //카메라 사용 관련 properties
-    static var cameraPosition: Bool = true //true = back, false = front
-    static var flash: Bool = false // true = on, false = off
-    static var grid: Bool = false // true = on, false = off
-    static var isAutoTemperature: Bool = true // true = on, false = off
+    private let photoSettings = AVCapturePhotoSettings()
+    private var photoOutput: AVCapturePhotoOutput?
+    private var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
+//    var image: UIImage? //🔴 필터 때 필요. 우선은 놔두기.
+    static var cameraPosition: Bool = true
+    static var flash: Bool = false
+    static var grid: Bool = false
+    static var isAutoTemperature: Bool = true
     static var isAutoLensPosition: Bool = true
     static var isAutoISO: Bool = true
-    let minimumZoom: CGFloat = 1.0 //🔴 private로?
-    let maximumZoom: CGFloat = 5.0 //🔴 private로?
-    var lastZoomFactor: CGFloat = 1.0 //🔴 private로?
+    private let minimumZoom: CGFloat = 1.0
+    private let maximumZoom: CGFloat = 5.0
+    private var lastZoomFactor: CGFloat = 1.0
     static var timer: Int = 0
     enum TimerCase: Int {
         case defalt = 0
