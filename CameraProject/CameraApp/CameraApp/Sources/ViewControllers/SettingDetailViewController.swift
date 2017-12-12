@@ -14,10 +14,6 @@ class SettingDetailViewController: UIViewController {
     
 //    static var navigationBarTitle: String?
     
-    // MARK: - Initializing
-    
-    // MARK: - Actions
-    
     // MARK: - UI
     
     @IBOutlet weak var navigationBar: UINavigationItem!

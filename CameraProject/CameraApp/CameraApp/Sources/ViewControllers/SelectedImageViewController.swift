@@ -37,7 +37,7 @@ final class SelectedImageViewController: UIViewController {
     
     // MARK: - Actions
     
-    func loadImageView(indexPath item: Int) {
+    private func loadImageView(indexPath item: Int) {
         let photoAsset = AlbumService.fetchResult.object(at: item)
         let photoSize = CGSize(width: photoAsset.pixelWidth, height: photoAsset.pixelHeight)
         AlbumService.imageManager.requestImage(for: photoAsset, targetSize: photoSize, contentMode: .aspectFill, options: nil) { (image, info) in

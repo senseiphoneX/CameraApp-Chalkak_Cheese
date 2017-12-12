@@ -102,7 +102,7 @@ class CameraService: NSObject {
         let when = DispatchTime.now() + delay
         DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }
-    func takePhoto() {
+    func checkFlashModeAndTakePhoto() {
         photoSettings.isHighResolutionPhotoEnabled = true
         if CameraService.cameraPosition && CameraService.flash {
             if (currentCamera?.hasTorch)!{
@@ -126,7 +126,7 @@ class CameraService: NSObject {
             photoOutput?.capturePhoto(with: settings, delegate: self)
         }
     }
-    func frontOrBackCamera() {
+    func changeCameraPosition() {
         captureSession.beginConfiguration()
         let currentInput:AVCaptureInput = captureSession.inputs[0]
         captureSession.removeInput(currentInput)
@@ -212,16 +212,14 @@ class CameraService: NSObject {
         }
         currentCamera?.unlockForConfiguration()
     }
-    func cameraFocusing(focusPoint: CGPoint) {
+    func touchFocusAction(focusPoint: CGPoint) {
         if let device = currentCamera {
             do {
-                //선택한 포인트의 초점조절
                 try device.lockForConfiguration()
                 if device.isFocusPointOfInterestSupported {
                     device.focusPointOfInterest = focusPoint
                     device.focusMode = AVCaptureDevice.FocusMode.autoFocus
                 }
-                //선택한 포인트의 밝기조절
                 if device.isExposurePointOfInterestSupported {
                     device.exposurePointOfInterest = focusPoint
                     device.exposureMode = AVCaptureDevice.ExposureMode.autoExpose
@@ -233,10 +231,9 @@ class CameraService: NSObject {
             }
         }
     }
-    func cameraSetFocus(focusPoint: CGPoint) {
+    func focusFanGestureAction(focusPoint: CGPoint) {
         if let device = currentCamera {
             do {
-                //선택한 포인트의 초점조절
                 try device.lockForConfiguration()
                 if device.isFocusPointOfInterestSupported {
                     device.focusPointOfInterest = focusPoint
@@ -248,11 +245,10 @@ class CameraService: NSObject {
             }
         }
     }
-    func cameraSetBrightnessFocus(focusPoint: CGPoint) {
+    func brightenessFocusFanGestureAction(focusPoint: CGPoint) {
         if let device = currentCamera {
             do {
                 try device.lockForConfiguration()
-                //선택한 포인트의 밝기조절
                 if device.isExposurePointOfInterestSupported {
                     device.exposurePointOfInterest = focusPoint
                     device.exposureMode = AVCaptureDevice.ExposureMode.autoExpose
@@ -263,7 +259,7 @@ class CameraService: NSObject {
             }
         }
     }
-    func cameraZoom(pinch: UIPinchGestureRecognizer) -> Double {
+    func cameraZoomPinchAction(pinch: UIPinchGestureRecognizer) -> Double {
         func minMaxZoom(factor: CGFloat) -> CGFloat {
             return min(min(max(factor, minimumZoom), maximumZoom), (currentCamera?.activeFormat.videoMaxZoomFactor)!)
         }

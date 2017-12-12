@@ -12,13 +12,9 @@ import UIKit
 
 final class SettingViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
-    // MARK: - Properties
-    
-    // MARK: - Initializing
-    
     // MARK: - Actions
     
-    func saveToUserDefaultViewRunTimes() {
+    private func saveToUserDefaultViewRunTimes() {
         let runs = countViewRunTimes() + 1
         UserDefaults.standard.setValue(runs, forKey: "runTimes")
         UserDefaults.standard.synchronize()
@@ -28,7 +24,7 @@ final class SettingViewController: UIViewController, MFMailComposeViewController
             }
         }
     }
-    func countViewRunTimes() -> Int {
+    private func countViewRunTimes() -> Int {
         let savedRunTimes = UserDefaults.standard.value(forKey: "runTimes")
         var runTimes = 0
         if savedRunTimes != nil {

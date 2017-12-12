@@ -12,10 +12,10 @@ class IntroPopUpViewController: UIView {
     
     // MARK: - Properties
     
-    var viewPage: Int?
-    var device: UIDevice?
-    let titleText: String = "더 좋은 찰칵 소리를 내는 팁."
-    let text : String =
+    private var viewPage: Int?
+    private var device: UIDevice?
+    private let titleText: String = "더 좋은 찰칵 소리를 내는 팁."
+    private let text : String =
         """
         👆
         화면을 터치한 후, 초점을 드래그해서 원하는 위치의 밝기와 초점을 각각 설정해보세요.

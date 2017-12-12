@@ -15,10 +15,9 @@ final class CameraViewController: UIViewController {
     // MARK: - Properties
     
     private var cameraService = CameraService()
-    var currentIndexPath: IndexPath?
-    var imagePickerSelectedImage: UIImage?
-    var wholeBlackView: UIView?
-    private let tintColor = UIColor(red: 245.0 / 255.0, green: 166.0 / 255.0, blue: 35.0 / 255.0, alpha: 1.0)
+    private var imagePickerSelectedImage: UIImage? //배포전에 지우고 배포하기.
+    private var blackViewWhenTakePicture: UIView?
+    private let appTintColor = UIColor(red: 245.0 / 255.0, green: 166.0 / 255.0, blue: 35.0 / 255.0, alpha: 1.0)
     static var viewSize: CGPoint?
     private var lensPositionObserving: NSKeyValueObservation?
     private var temperatureObserving: NSKeyValueObservation?
@@ -39,32 +38,36 @@ final class CameraViewController: UIViewController {
     }
     private func checkCameraPermission() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .denied: break
-        case .restricted: break
+        case .denied: break /////// alert 띄우기. // ok 누르면 설정으로 넘기기
+        case .restricted: break ///// alert 띄우기. // ok 누르면 설정으로 넘기기
         case .authorized:
             self.readyToUseCamera()
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
                 if granted {
                     self.readyToUseCamera()
+                } else {
+                    ///// alert 띄우기. // ok 누르면 설정으로 넘기기
                 }
             })
         }
     }
     private func checkPhotoLibraryPermission() {
         switch PHPhotoLibrary.authorizationStatus() {
+        case .denied: break /////// alert 띄우기. // ok 누르면 설정으로 넘기기
+        case .restricted: break /////// alert 띄우기. // ok 누르면 설정으로 넘기기
+        case .authorized:
+            AlbumService.loadPhotos()
+            self.albumButtonPreviewAtCameraView()
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization({ (status) in
                 if status == .authorized {
                     AlbumService.loadPhotos()
                     self.albumButtonPreviewAtCameraView()
+                } else {
+                    ///// alert 띄우기. // ok 누르면 설정으로 넘기기
                 }
             })
-        case .restricted: break
-        case .denied: break
-        case .authorized:
-            AlbumService.loadPhotos()
-            self.albumButtonPreviewAtCameraView()
         }
     }
     private func readyToUseCamera() {
@@ -74,16 +77,15 @@ final class CameraViewController: UIViewController {
         self.cameraService.setUpInputOutput()
         self.cameraService.setUpPreviewLayer(view: self.cameraView)
         self.cameraService.startRunningCaputureSession()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(self.takePhotoButtonAction), name: Notification.Name(rawValue: "volumeChanged"), object: nil)
         let volView = MPVolumeView(frame: CGRect(x: 0, y: -100, width: 0, height: 0))
         self.view.addSubview(volView)
         isoSliderOutlet.minimumValue = cameraService.currentCamera?.activeFormat.minISO ?? 1.0
         isoSliderOutlet.maximumValue = cameraService.currentCamera?.activeFormat.maxISO ?? 0.0
-        self.wholeBlackView = UIView(frame: self.cameraView.bounds)
-        self.wholeBlackView?.backgroundColor = .black
-        self.wholeBlackView?.isHidden = true
-        self.cameraView.addSubview(wholeBlackView!)
+        self.blackViewWhenTakePicture = UIView(frame: self.cameraView.bounds)
+        self.blackViewWhenTakePicture?.backgroundColor = .black
+        self.blackViewWhenTakePicture?.isHidden = true
+        self.cameraView.addSubview(blackViewWhenTakePicture!)
     }
     func albumButtonPreviewAtCameraView() {
         let photoAsset = AlbumService.fetchResult.object(at: 0)
@@ -132,7 +134,7 @@ final class CameraViewController: UIViewController {
         temperatureObserving = nil
         isoObserving = nil
     }
-    func timerPhotoLabelControl() {
+    private func timerPhotoLabelControl() {
         self.timerButtonOutlet.isEnabled = false
         timerLabel.text = "\(CameraService.timer)"
         timerLabel.isHidden = false
@@ -140,7 +142,7 @@ final class CameraViewController: UIViewController {
             CameraService.delay(delay: Double(i), closure: {
                 if i == CameraService.timer {
                     self.timerLabel.isHidden = true
-                    self.cameraService.takePhoto()
+                    self.cameraService.checkFlashModeAndTakePhoto()
                     self.timerButtonOutlet.isEnabled = true
                 } else {
                     self.timerLabel.text = "\(CameraService.timer - i)"
@@ -148,7 +150,7 @@ final class CameraViewController: UIViewController {
             })
         }
     }
-    func setFocusLabelFrame() {
+    func setFocusMarkViewLabelFrame() {
         if brightnessFocusMark.isHidden == false && focusMark.isHidden == false {
             brightnessFocusMarkLabel.frame = CGRect(x: brightnessFocusMark.frame.origin.x + 12, y: brightnessFocusMark.frame.origin.y + 81 , width: 57, height: 13)
             focusMarkLabel.frame = CGRect(x: focusMark.frame.origin.x + 12, y: focusMark.frame.origin.y - 13, width: 57, height: 13)
@@ -159,11 +161,11 @@ final class CameraViewController: UIViewController {
     @objc func takePhotoButtonAction() {
         switch CameraService.timer {
         case CameraService.TimerCase.defalt.rawValue :
-            self.wholeBlackView?.isHidden = false
+            self.blackViewWhenTakePicture?.isHidden = false
             CameraService.delay(delay: 0.14, closure: {
-                self.wholeBlackView?.isHidden = true
+                self.blackViewWhenTakePicture?.isHidden = true
             })
-            cameraService.takePhoto()
+            cameraService.checkFlashModeAndTakePhoto()
         case CameraService.TimerCase.threeSeconds.rawValue :
             timerPhotoLabelControl()
         case CameraService.TimerCase.fiveSeconds.rawValue :
@@ -188,13 +190,13 @@ final class CameraViewController: UIViewController {
                 touch.location(in: self.cameraView).x > 0 &&
                 touch.location(in: self.cameraView).y <= self.cameraView.frame.height &&
                 touch.location(in: self.cameraView).y > 0 {
-                cameraService.cameraFocusing(focusPoint: foucusPoint)
+                cameraService.touchFocusAction(focusPoint: foucusPoint)
                 //focus marker 뜨게
                 self.brightnessFocusMark.frame = CGRect(x: touch.location(in: self.view).x - 25, y: touch.location(in: self.view).y - 78.5, width: 81, height: 81) //touchPoint
                 self.focusMark.frame = CGRect(x: touch.location(in: self.view).x - 25, y: touch.location(in: self.view).y - 78.5, width: 81, height: 81) //touchPoint
                 self.brightnessFocusMark.isHidden = false
                 self.focusMark.isHidden = false
-                self.setFocusLabelFrame()
+                self.setFocusMarkViewLabelFrame()
             }
         }
     }
@@ -202,18 +204,18 @@ final class CameraViewController: UIViewController {
         let translation = sender.translation(in: self.focusMark) // = touchPoint
         sender.view?.center = CGPoint(x: (sender.view?.center.x)! + translation.x, y: (sender.view?.center.y)! + translation.y)
         sender.setTranslation(CGPoint.zero, in: self.focusMark)
-        cameraService.cameraSetFocus(focusPoint: (sender.view?.center)!)
-        self.setFocusLabelFrame()
+        cameraService.focusFanGestureAction(focusPoint: (sender.view?.center)!)
+        self.setFocusMarkViewLabelFrame()
     }
     @IBAction func brightnessFocusPanGesture(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.brightnessFocusMark) // = touchPoint
         sender.view?.center = CGPoint(x: (sender.view?.center.x)! + translation.x, y: (sender.view?.center.y)! + translation.y)
         sender.setTranslation(CGPoint.zero, in: self.brightnessFocusMark)
-        cameraService.cameraSetBrightnessFocus(focusPoint: (sender.view?.center)!)
-        self.setFocusLabelFrame()
+        cameraService.brightenessFocusFanGestureAction(focusPoint: (sender.view?.center)!)
+        self.setFocusMarkViewLabelFrame()
     }
     @IBAction func cameraZoomGesture(_ sender: UIPinchGestureRecognizer) {
-        zoonLabel.text = "\(cameraService.cameraZoom(pinch: sender))x"
+        zoonLabel.text = "\(cameraService.cameraZoomPinchAction(pinch: sender))x"
     }
     
     // MARK: - UI
@@ -248,7 +250,7 @@ final class CameraViewController: UIViewController {
             verticalGrid1.isHidden = false
             verticalGrid2.isHidden = false
             CameraService.grid = true
-            sender.imageView?.tintColor = tintColor
+            sender.imageView?.tintColor = appTintColor
         }
     }
     @IBOutlet weak var timerButtonOutlet: UIButton!
@@ -256,7 +258,7 @@ final class CameraViewController: UIViewController {
     @IBAction func timerButton(_ sender: UIButton) {
         cameraService.timerSetting()
         if CameraService.timer != 0 {
-            sender.tintColor = tintColor
+            sender.tintColor = appTintColor
             timerButtonSecondLabel.isHidden = false
         } else {
             sender.tintColor = .white
@@ -300,7 +302,7 @@ final class CameraViewController: UIViewController {
             }
             CameraService.isAutoISO = true
             sender.setTitle("Auto", for: .normal)
-            sender.setTitleColor(tintColor, for: .normal)
+            sender.setTitleColor(appTintColor, for: .normal)
             isoSliderOutlet.isEnabled = false
         }
     }
@@ -327,7 +329,7 @@ final class CameraViewController: UIViewController {
             }
             CameraService.isAutoTemperature = true
             sender.setTitle("Auto", for: .normal)
-            sender.setTitleColor(tintColor, for: .normal)
+            sender.setTitleColor(appTintColor, for: .normal)
             temperatureSliderOutlet.isEnabled = false
         }
     }
@@ -355,7 +357,7 @@ final class CameraViewController: UIViewController {
             }
             CameraService.isAutoLensPosition = true
             sender.setTitle("Auto", for: .normal)
-            sender.setTitleColor(tintColor, for: .normal)
+            sender.setTitleColor(appTintColor, for: .normal)
             lensPositionSliderOutlet.isEnabled = false
         }
     }
@@ -368,7 +370,7 @@ final class CameraViewController: UIViewController {
         takePhotoButtonAction()
     }
     @IBAction func frontOrBackCameraButton(_ sender: UIButton) {
-        cameraService.frontOrBackCamera()
+        cameraService.changeCameraPosition()
     }
     @IBOutlet weak var verticalGrid1: UIView!
     @IBOutlet weak var verticalGrid2: UIView!
