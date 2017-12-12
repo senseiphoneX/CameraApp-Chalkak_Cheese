@@ -13,6 +13,7 @@ class IntroPopUpViewController: UIView {
     // MARK: - Properties
     
     var viewPage: Int?
+    var device: UIDevice?
     let titleText: String = "더 좋은 찰칵 소리를 내는 팁."
     let text : String =
         """
@@ -24,15 +25,11 @@ class IntroPopUpViewController: UIView {
 
         👨‍🍳👩‍⚕️👮👩‍🌾
         모두와 함께 찰칵의 즐거움을 나누어보세요.
-        
-
-        자, 이제 당신의 찰칵을 들려주세요! 📸
         """
-    
-    // MARK: - Actions
-    
+
     // MARK: - UI
     
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var button: UIButton!
@@ -40,16 +37,47 @@ class IntroPopUpViewController: UIView {
         if let page = self.viewPage {
             switch page {
             case 0:
-                print(page)
-                //image page 1
+                imageView.isHidden = false
+                titleLabel.isHidden = true
+                textView.isHidden = true
+                if DeviceType.iPhone678 {
+                    imageView.image = #imageLiteral(resourceName: "intro_iPhone8")
+                }else if DeviceType.iPhone678p {
+                    imageView.image = #imageLiteral(resourceName: "intro_iPhone8Plus")
+                } else if DeviceType.iPhoneX {
+                    imageView.image = #imageLiteral(resourceName: "intro_iPhoneX")
+                } else {
+                    imageView.image = #imageLiteral(resourceName: "intro_iPhoneSE")
+                }
                 self.viewPage! += 1
             case 1:
-                print(page)
-                //image page 2
+                if DeviceType.iPhone678 {
+                    imageView.image = #imageLiteral(resourceName: "intro2_iPhone8")
+                }else if DeviceType.iPhone678p {
+                    imageView.image = #imageLiteral(resourceName: "intro2_iPhone8Plus")
+                } else if DeviceType.iPhoneX {
+                    imageView.image = #imageLiteral(resourceName: "intro2_iPhoneX")
+                } else {
+                    imageView.image = #imageLiteral(resourceName: "intro2_iPhoneSE")
+                }
                 self.viewPage! += 1
             case 2:
-                print(page)
-                //image page 3 // 총 이미지 4장.
+                if DeviceType.iPhone678 {
+                    imageView.image = #imageLiteral(resourceName: "intro3_iPhone8")
+                }else if DeviceType.iPhone678p {
+                    imageView.image = #imageLiteral(resourceName: "intro3_iPhone8Plus")
+                } else if DeviceType.iPhoneX {
+                    imageView.image = #imageLiteral(resourceName: "intro3_iPhoneX")
+                } else {
+                    imageView.image = #imageLiteral(resourceName: "intro3_iPhoneSE")
+                }
+                self.viewPage! += 1
+            case 3:
+                imageView.isHidden = true
+                titleLabel.text = "자, 이제 당신의 찰칵을 들려주세요! 📸"
+                titleLabel.isHidden = false
+                self.viewPage! += 1
+            case 4:
                 self.removeFromSuperview()
             default:
                 break
@@ -63,7 +91,21 @@ class IntroPopUpViewController: UIView {
         super.awakeFromNib()
         titleLabel.text = titleText
         textView.text = text
-        //image page 0
         self.viewPage = 0
     }
+}
+
+struct ScreenSize {
+    static let width = UIScreen.main.bounds.size.width
+    static let height = UIScreen.main.bounds.size.height
+    static let maxLength = max(ScreenSize.width, ScreenSize.height)
+    static let minLength = min(ScreenSize.width, ScreenSize.height)
+    static let frame = CGRect(x: 0, y: 0, width: ScreenSize.width, height: ScreenSize.height)
+}
+
+struct DeviceType {
+    static let iPhone5orSE = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxLength == 568.0
+    static let iPhone678 = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxLength == 667.0
+    static let iPhone678p = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxLength == 736.0
+    static let iPhoneX = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.maxLength == 812.0
 }
