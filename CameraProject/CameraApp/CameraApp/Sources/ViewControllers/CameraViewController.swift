@@ -31,7 +31,7 @@ final class CameraViewController: UIViewController {
     private func checkFirstLaunch() {
         let isFirstLaunched = UserDefaults.standard.string(forKey: "isFirstLaunched")
         if isFirstLaunched == nil {
-            UserDefaults.standard.set("true", forKey: "isFirstLaunched😀")
+            UserDefaults.standard.set("true", forKey: "isFirstLaunched")
             let popUpView: IntroPopUpViewController = UINib(nibName: "IntroPopUpViewController", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! IntroPopUpViewController
             popUpView.frame = self.view.frame
             self.view.addSubview(popUpView)
@@ -159,6 +159,10 @@ final class CameraViewController: UIViewController {
     @objc func takePhotoButtonAction() {
         switch CameraService.timer {
         case CameraService.TimerCase.defalt.rawValue :
+            self.wholeBlackView?.isHidden = false
+            CameraService.delay(delay: 0.14, closure: {
+                self.wholeBlackView?.isHidden = true
+            })
             cameraService.takePhoto()
         case CameraService.TimerCase.threeSeconds.rawValue :
             timerPhotoLabelControl()
@@ -362,10 +366,6 @@ final class CameraViewController: UIViewController {
     @IBOutlet weak var albumButtonOutlet: UIButton!
     @IBAction func takePhotoButton(_ sender: UIButton) {
         takePhotoButtonAction()
-        self.wholeBlackView?.isHidden = false
-        CameraService.delay(delay: 0.14) {
-            self.wholeBlackView?.isHidden = true
-        }
     }
     @IBAction func frontOrBackCameraButton(_ sender: UIButton) {
         cameraService.frontOrBackCamera()
